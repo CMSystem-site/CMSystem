@@ -28,10 +28,11 @@ public class RegistController {
         String password = request.getParameter("password");
         String rname = request.getParameter("rname");
         String phone = request.getParameter("phone");
+        String usertype = request.getParameter("usertype");
         User user;
         if(userName == null) return "regist";
         else{
-            user = new User(userName,password,rname,phone);
+            user = new User(userName,password,rname,phone,usertype);
             Integer flag = userService.addUser(user);
             if(flag!=1) return "regist";
             return "login";

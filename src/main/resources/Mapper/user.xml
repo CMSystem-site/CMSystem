@@ -13,7 +13,7 @@
     </select>
 
     <insert id="addUser" parameterType="User">
-        insert into reader(user_name,pass_wd,rname,phone) values (#{user.userName},#{user.passWd},#{user.rname},#{user.phone});
+        insert into reader(user_name,pass_wd,rname,phone,usertype) values (#{user.userName},#{user.passWd},#{user.rname},#{user.phone},#{user.usertype});
     </insert>
 
 </mapper>

@@ -9,18 +9,19 @@ public class User {
     private String passWd;
     private String rname;
     private String phone;
-    private String email;
+    private String usertype;
 
     public User(String userName, String passWd) {
         this.userName = userName;
         this.passWd = passWd;
     }
 
-    public User(String userName, String passWd, String rname, String phone) {
+    public User(String userName, String passWd, String rname, String phone,String usertype) {
         this.userName = userName;
         this.passWd = passWd;
         this.rname = rname;
         this.phone = phone;
+        this.usertype = usertype;
     }
 
     public User() {}
@@ -33,7 +34,7 @@ public class User {
                 ", passWd='" + passWd + '\'' +
                 ", rname='" + rname + '\'' +
                 ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
+                ", usertype='" + usertype + '\'' +
                 '}';
     }
 }
