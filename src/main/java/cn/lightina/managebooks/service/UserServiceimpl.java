@@ -19,4 +19,10 @@ public class UserServiceimpl implements UserService {
     public User checkManager(User user) {
         return userMapper.checkManager(user);
     }
+
+    @Override
+    public Integer addUser(User user) {
+        System.out.println(user.toString());
+        return userMapper.addUser(user);
+    }
 }

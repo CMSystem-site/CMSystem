@@ -62,4 +62,9 @@ public class LoginController {
         return "detail_admin";
     }
 
+    @GetMapping(value = "/regist")
+    public String regist() {
+        return "regist";
+    }
+
 }

@@ -16,5 +16,24 @@ public class User {
         this.passWd = passWd;
     }
 
+    public User(String userName, String passWd, String rname, String phone) {
+        this.userName = userName;
+        this.passWd = passWd;
+        this.rname = rname;
+        this.phone = phone;
+    }
+
     public User() {}
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", passWd='" + passWd + '\'' +
+                ", rname='" + rname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

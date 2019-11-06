@@ -7,4 +7,6 @@ public interface UserService {
     User checkUser(User user);
 
     User checkManager(User user);
+
+    Integer addUser(User user);
 }
