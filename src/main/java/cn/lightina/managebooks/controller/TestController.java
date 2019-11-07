@@ -1,6 +1,8 @@
 package cn.lightina.managebooks.controller;
 
+import cn.lightina.managebooks.pojo.CourseList;
 import cn.lightina.managebooks.pojo.User;
+import cn.lightina.managebooks.service.CourseService;
 import cn.lightina.managebooks.service.UserService;
 import jdk.nashorn.internal.objects.annotations.Getter;
 import org.junit.validator.PublicClassValidator;
@@ -10,11 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class TestController {
     @Autowired
     UserService userService;
+    @Autowired
+    CourseService courseService;
 
     @GetMapping(value = "/index")
     public String index(){
@@ -41,7 +46,10 @@ public class TestController {
 
         user = new User(userName,password);
         User u = userService.checkUser(user);
-        if(u==null) return "login_new";
+        if(u==null){
+            model.addAttribute("msg","账号/密码错误！");
+            return "login_new";
+        }
         model.addAttribute("user", u);
         request.getSession().setAttribute("user", u);
         return "index";
@@ -57,12 +65,12 @@ public class TestController {
     public String regist_check(Model model,HttpServletRequest request) {
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
-        String rname = request.getParameter("rname");
         String phone = request.getParameter("phone");
         String usertype = request.getParameter("usertype");
 
-        User user = new User(userName,password,rname,phone,usertype);
+        User user = new User(userName,password,phone,usertype);
         Integer flag = userService.addUser(user);
+        model.addAttribute("user", user);
 
         if(flag!=1){
             model.addAttribute("msg","此用户名已被注册！");
@@ -73,16 +81,55 @@ public class TestController {
         return "register_new";
     }
 
-
+    //修改密码
     @GetMapping(value = "/resetPsd")
-    public String resetPsd(){
-        return "resetPsd_new";
+    public String resetPsd(Model model,HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user", user);
+        request.getSession().setAttribute("user", user);
+        request.getSession().setAttribute("username", user.getUserName());
+        return "resetPsd";
     }
 
-
-    //通过手机号找回密码
     @GetMapping(value = "/resetPsd_check")
     public String resetPsd_check(Model model, HttpServletRequest request){
+
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+
+        String userName = (String) request.getSession().getAttribute("username");
+        String pwd1 = request.getParameter("pwd1");
+        String pwd2 = request.getParameter("pwd2");
+        String pwd3 = request.getParameter("pwd3");
+
+        if(user.getUserPwd().equals(pwd1)){
+
+            if(pwd2.equals(pwd3)){
+                //两次新密码输入一致
+                user.setUserPwd(pwd2);
+
+                userService.updatePwd(user);
+                model.addAttribute("user",user);
+                model.addAttribute("msg","密码修改成功!");
+                request.getSession().setAttribute("user",user);
+                return "userinfo";
+            }else{
+                model.addAttribute("msg","两次新密码输入不一致！");
+                return "resetPsd";
+            }
+        }else{
+            model.addAttribute("msg","旧密码输入错误!");
+            return "resetPsd";
+        }
+    }
+
+    @GetMapping(value = "/findPsd")
+    public String findPsd(){
+        return "findPsd";
+    }
+    //通过手机号找回密码
+    @GetMapping(value = "/findPsd_check")
+    public String findPsd_check(Model model, HttpServletRequest request){
         model.addAttribute("msg","未查找到用户信息");
         String phone = request.getParameter("phone");
 
@@ -91,6 +138,15 @@ public class TestController {
             model.addAttribute("msg","查找成功!您的密码为："+pwd);
 
         return "resetPsd_new";
+    }
+
+    //个人信息
+    @GetMapping(value = "/userinfo")
+    public String userinfo(Model model, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+        request.getSession().setAttribute("user", user);
+        return "userinfo";
     }
 
 
