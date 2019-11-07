@@ -17,5 +17,10 @@ public interface CourseMapper {
     //获取指定用户的课程
     List<CourseList> getlist(@Param("userID")Integer userID);
 
+    //通过courseID查找
+    List<CourseList> findcourseByID(@Param("courseID")Integer courseID);
+
+    //通过courseName查找
+    List<CourseList> findcourseByName(@Param("courseName")String courseName);
 
 }

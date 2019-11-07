@@ -5,14 +5,14 @@ import lombok.Data;
 @Data
 public class CourseList {
     private int courseID;
-    private int teacherID;
     private String courseName;
+    private int teacherID;
     private String teacherName;
 
-    public CourseList(int courseID, int teacherID, String courseName,String teacherName) {
+    public CourseList(int courseID, String courseName, int teacherID,String teacherName) {
         this.courseID = courseID;
-        this.teacherID = teacherID;
         this.courseName = courseName;
+        this.teacherID = teacherID;
         this.teacherName = teacherName;
     }
 

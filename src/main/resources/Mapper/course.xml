@@ -5,14 +5,26 @@
 
 <mapper namespace="cn.lightina.managebooks.dao.CourseMapper">
     <select id="getlist_all" resultType="CourseList">
-        select courselist.courseID,courselist.courseName, user.userName
+        select courselist.*, user.userName
         from courselist,user
         where courselist.teacherID = user.userID
     </select>
 
     <select id="getlist" resultType="CourseList" parameterType="int">
-        select courselist.courseID,courselist.courseName, user.userName
+        select courselist.*, user.userName
         from courselist,user
         where courselist.teacherID = user.userID and user.userID = #{userID}
+    </select>
+
+    <select id="findcourseByID" resultType="CourseList" parameterType="int">
+        select courselist.* , user.userName
+        from courselist,user
+        where courselist.teacherID = user.userID and courselist.courseID = #{courseID}
+    </select>
+
+    <select id="findcourseByName" resultType="CourseList" parameterType="java.lang.String">
+        select courselist.* , user.userName
+        from courselist,user
+        where courselist.teacherID = user.userID and courselist.courseName like CONCAT('%','${courseName}','%')
     </select>
 </mapper>

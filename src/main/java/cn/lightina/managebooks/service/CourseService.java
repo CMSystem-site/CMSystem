@@ -12,5 +12,10 @@ public interface CourseService {
     //获取全部课程
     List<CourseList> getlist_all();
 
+    //通过courseID查找课程
+    List<CourseList> findcourseByID(Integer courseID);
+
+    //通过courseName查找
+    List<CourseList> findcourseByName(String courseName);
 
 }

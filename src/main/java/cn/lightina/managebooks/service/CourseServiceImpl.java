@@ -22,4 +22,13 @@ public class CourseServiceImpl implements CourseService {
     public List<CourseList> getlist_all() {
         return courseMapper.getlist_all();
     }
+
+    @Override
+    public List<CourseList> findcourseByID(Integer courseID) {
+        return courseMapper.findcourseByID(courseID);
+    }
+
+    public List<CourseList> findcourseByName(String courseName){
+        return courseMapper.findcourseByName(courseName);
+    }
 }
