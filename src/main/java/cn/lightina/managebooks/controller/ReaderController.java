@@ -59,9 +59,9 @@ public class ReaderController {
         String pwd2 = request.getParameter("password2");
         System.out.println(userName+" "+pwd1+" "+pwd2);
 
-        if(user.getPassWd().equals(pwd1)){
+        if(user.getUserPwd().equals(pwd1)){
             //改密码
-            user.setPassWd(pwd2);
+            user.setUserPwd(pwd2);
             System.out.println(user);
 
             userService.updatePwd(user);
@@ -177,7 +177,7 @@ public class ReaderController {
                                  @RequestBody BookList bookList) {
         User user = (User) request.getSession().getAttribute("user");
         ProcessResult ar;
-        bookList.setOperator(user.getUserId());
+        bookList.setOperator(user.getUserID());
         bookService.addBookList(bookList,0);
         ar = new ProcessResult(true);
         return ar;
@@ -202,7 +202,7 @@ public class ReaderController {
             @PathVariable(value = "reservationId") Integer reservationId) {
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user", user);
-        bookService.insertBorrow(reservationId,user.getUserId());
+        bookService.insertBorrow(reservationId,user.getUserID());
         List<ReservationDetail> list = bookService.getResList();
         model.addAttribute("list", list);
         return "admin_processreservation";
