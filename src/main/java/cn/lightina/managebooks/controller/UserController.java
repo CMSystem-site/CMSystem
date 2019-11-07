@@ -64,12 +64,17 @@ public class UserController {
 
         // 成功之后更新model中的user信息
         model.addAttribute("user",u);
-        if(u.getUserType() == "学生")
+        if(u.getUserType().equals("学生"))
             return "index_stu";
-        else if(u.getUserType() == "教师")
+        else if(u.getUserType().equals("教师"))
             return "index_tea";
-        else if(u.getUserType() == "管理员")
+        else if(u.getUserType().equals("管理员"))
             return "index_admin";
+        else{
+            model.addAttribute("msg","用户身份非法");
+            return "login";
+        }
+
     }
 
     @GetMapping(value = "/register")
@@ -113,10 +118,7 @@ public class UserController {
             return "register";
         }
 
-
         Integer flag = userService.addUser(user);
-        System.out.println(user.toString());
-
 
         if(flag!=1){
             model.addAttribute("msg","此用户名已被注册！");
