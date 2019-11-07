@@ -1,48 +1,86 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Login Form</title>
-  
-  
-  
-      <link rel="stylesheet" href="/static/lib/css/style.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  
+    <title>Nixon : Widget</title>
+	
+	<!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon--> 
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon--> 
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+	
+	<!-- Styles -->
+    <link href="/static/lib/fontAwesome/css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="/static/lib/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="/static/lib/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/lib/css/lib/nixon.css" rel="stylesheet">
+    <link href="/static/lib/css/style.css" rel="stylesheet">
 </head>
-
-<body>
-
-  <body>
-	<div class="login">
-		<div class="login-screen">
-			<div class="app-title">
-				<h1>Login</h1>
-			</div>
-			<form action="/managebooks/detail">
-				<div class="login-form">
-					<div class="control-group">
-						<input type="text" class="login-field" value="" placeholder="username" name="username" id="username">
-						<label class="login-field-icon fui-user" for="username"></label>
+<script th:inline="javascript">
+	var message = [[${msg}]];
+	var user = [[${user}]];
+	console.log("message:" + message);
+	console.log(user);
+	if(message)
+		alert(message);
+</script>
+<body class="bg-primary">
+	<div class="Nixon-login">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-3">
+					<div class="login-content">
+						<div class="login-logo">
+							<a href="index_stu.html"><span>Foodmin</span></a>
+						</div>
+						<div class="login-form">
+							<h4>用 户 登 录</h4>
+							<form action="/login_check">
+								<div class="form-group">
+									<label>账号</label>&nbsp;
+									<input type="text" id="username" name="username" class="form-control" placeholder="请输入账号" th:value="${user.userName}">
+								</div>
+								<div class="form-group">
+									<label>密码</label>
+									<input type="password" id="password" name="password" class="form-control" placeholder="请输入密码" th:value="${user.userPwd}">
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox"> Remember Me
+									</label>
+									<label class="pull-right">
+										<a href="/findPsd">忘记密码？</a>
+									</label>
+									
+								</div>
+								<button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">登录</button>
+								<!--<div class="social-login-content">-->
+									<!--<div class="social-button">-->
+										<!--<button type="button" class="btn btn-primary bg-facebook btn-flat btn-addon m-b-10"><i class="ti-facebook"></i>Sign in with facebook</button>-->
+										<!--<button type="button" class="btn btn-primary bg-twitter btn-flat btn-addon m-t-10"><i class="ti-twitter"></i>Sign in with twitter</button>-->
+									<!--</div>-->
+								<!--</div>-->
+								<div class="register-link m-t-15 text-center">
+									<p>还没有账号 ? <a href="/register"> 立即注册</a></p>
+								</div>
+							</form>
+						</div>
 					</div>
-
-					<div class="control-group">
-						<input type="password" class="login-field" value="" placeholder="password" name="password" id="password">
-						<label class="login-field-icon fui-lock" for="password"></label>
-					</div>
-
-					<button class="btn btn-primary btn-large btn-block" type="submit">登录</button>
-					<a class="login-link" href="/managebooks/regist">注册</a>
-					<a class="login-link" href="/managebooks/forgetPwd">忘记密码</a>
 				</div>
-			</form>
-
+			</div>
 		</div>
 	</div>
-</body>
-  
-  
 
 </body>
 

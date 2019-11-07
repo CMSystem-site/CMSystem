@@ -1,33 +1,25 @@
 package cn.lightina.managebooks.controller;
 
-import cn.lightina.managebooks.pojo.CourseList;
 import cn.lightina.managebooks.pojo.User;
 import cn.lightina.managebooks.service.CourseService;
 import cn.lightina.managebooks.service.UserService;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import org.apache.ibatis.jdbc.Null;
-import org.junit.validator.PublicClassValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.nio.file.spi.FileSystemProvider;
-import java.util.List;
 
 @Controller
-public class TestController {
+public class UserController {
     @Autowired
     UserService userService;
     @Autowired
     CourseService courseService;
 
-    @GetMapping(value = "/index")
+    @GetMapping(value = "/index_stu")
     public String index(){
-        return "index";
+        return "index_stu";
     }
 
     @GetMapping(value = "/table")
@@ -41,7 +33,7 @@ public class TestController {
         String password = "";
         User user = new User(userName,password);
         model.addAttribute("user", user);
-        return "login_new";
+        return "login";
     }
 
     //登陆验证
@@ -57,22 +49,27 @@ public class TestController {
         // 判断用户名和密码
         if(userName == null) {
             model.addAttribute("msg","账号不能为空！");
-            return "login_new";
+            return "login";
         }
         else if(userName == null){
             model.addAttribute("msg","密码不能为空！");
-            return "login_new";
+            return "login";
         }
 
         User u = userService.checkUser(user);
         if(u==null){
             model.addAttribute("msg","账号/密码错误！");
-            return "login_new";
+            return "login";
         }
 
         // 成功之后更新model中的user信息
         model.addAttribute("user",u);
-        return "index";
+        if(u.getUserType() == "学生")
+            return "index_stu";
+        else if(u.getUserType() == "教师")
+            return "index_tea";
+        else if(u.getUserType() == "管理员")
+            return "index_admin";
     }
 
     @GetMapping(value = "/register")
@@ -84,7 +81,7 @@ public class TestController {
         User user = new User(userName,password,phone,usertype);
         model.addAttribute("user", user);
 
-        return "register_new";
+        return "register";
     }
 
     //用户注册
@@ -101,19 +98,19 @@ public class TestController {
         // 后端对表单内容进行校验,若检验未通过，返回
         if(userName.equals("")){
             model.addAttribute("msg","用户名不能为空！");
-            return "register_new";
+            return "register";
         }
         else if(password.equals("")){
             model.addAttribute("msg","密码不能为空！");
-            return "register_new";
+            return "register";
         }
         else if(phone.equals("")){
             model.addAttribute("msg","电话号码不能为空！");
-            return "register_new";
+            return "register";
         }
         else if(usertype.equals("null")){
             model.addAttribute("msg","用户类型不能为空");
-            return "register_new";
+            return "register";
         }
 
 
@@ -123,10 +120,10 @@ public class TestController {
 
         if(flag!=1){
             model.addAttribute("msg","此用户名已被注册！");
-            return "register_new";
+            return "register";
         }else{
             model.addAttribute("msg","注册成功！");
-            return "login_new";
+            return "login";
         }
 
 
