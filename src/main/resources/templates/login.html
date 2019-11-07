@@ -1,29 +1,49 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>图书管理系统</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/lib/css/signin.css">
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div th:include="../static/common/headbar::headbar"></div>
-<div class="container">
-    <form class="form-signin" action="/managebooks/detail">
-        <h2 class="form-signin-heading">登录界面</h2>
-        <label for="username" class="sr-only">用户名</label>
-        <input type="text" class="form-control" placeholder="请输入用户名" required autofocus name="username" id="username">
-        <label for="password" class="sr-only">密码</label>
-        <input type="password" name="password" class="form-control" placeholder="请输入密码" id="password">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        还没有账号？
-        <a href="/managebooks/regist">立即注册</a>
-        <a href="/managebooks/forgetPwd">忘记密码</a>
-    </form>
-</div>
+<!DOCTYPE html>
+<html lang="en" >
 
+<head>
+  <meta charset="UTF-8">
+  <title>Login Form</title>
+  
+  
+  
+      <link rel="stylesheet" href="/static/lib/css/style.css">
+
+  
+</head>
+
+<body>
+
+  <body>
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Login</h1>
+			</div>
+			<form action="/managebooks/detail">
+				<div class="login-form">
+					<div class="control-group">
+						<input type="text" class="login-field" value="" placeholder="username" name="username" id="username">
+						<label class="login-field-icon fui-user" for="username"></label>
+					</div>
+
+					<div class="control-group">
+						<input type="password" class="login-field" value="" placeholder="password" name="password" id="password">
+						<label class="login-field-icon fui-lock" for="password"></label>
+					</div>
+
+					<button class="btn btn-primary btn-large btn-block" type="submit">登录</button>
+					<a class="login-link" href="/managebooks/regist">注册</a>
+					<a class="login-link" href="/managebooks/forgetPwd">忘记密码</a>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</body>
+  
+  
 
 </body>
+
 </html>
