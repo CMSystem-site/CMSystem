@@ -27,7 +27,14 @@
     <link href="/static/lib/css/lib/nixon.css" rel="stylesheet">
     <link href="/static/lib/css/style.css" rel="stylesheet">
 </head>
-
+<script th:inline="javascript">
+	var message = [[${msg}]];
+	var user = [[${user}]];
+	console.log("message:" + message);
+	console.log(user);
+	if(message)
+		alert(message);
+</script>
 <body class="bg-primary">
 	<div class="Nixon-login">
 		<div class="container">
@@ -41,12 +48,12 @@
 							<h4>用 户 登 录</h4>
 							<form action="/login_check">
 								<div class="form-group">
-									<label>账号</label>&nbsp;<h8 style="color:red;" th:text="  ${msg}" ></h8>
-									<input type="text" id="username" name="username" class="form-control" placeholder="请输入账号">
+									<label>账号</label>&nbsp;
+									<input type="text" id="username" name="username" class="form-control" placeholder="请输入账号" th:value="${user.userName}">
 								</div>
 								<div class="form-group">
 									<label>密码</label>
-									<input type="password" id="password" name="password" class="form-control" placeholder="请输入密码">
+									<input type="password" id="password" name="password" class="form-control" placeholder="请输入密码" th:value="${user.userPwd}">
 								</div>
 								<div class="checkbox">
 									<label>

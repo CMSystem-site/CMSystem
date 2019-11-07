@@ -27,7 +27,14 @@
     <link href="/static/lib/lib/lobipanel/css/lobipanel.min.css" rel="stylesheet">
     <link href="/static/lib/css/style.css" rel="stylesheet">
 </head>
-
+<script th:inline="javascript">
+    var message = [[${msg}]];
+    var user = [[${user}]];
+    console.log("message:" + message);
+    console.log(user);
+    if(message)
+        alert(message);
+</script>
 <body>
     <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
         <div class="nano">
