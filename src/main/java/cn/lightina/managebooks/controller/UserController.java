@@ -19,6 +19,7 @@ public class UserController {
 
     @GetMapping(value = "/index_stu")
     public String index(){
+
         return "index_stu";
     }
 
@@ -64,6 +65,7 @@ public class UserController {
 
         // 成功之后更新model中的user信息
         model.addAttribute("user",u);
+        request.getSession().setAttribute("user", u);
         if(u.getUserType().equals("学生"))
             return "index_stu";
         else if(u.getUserType().equals("教师"))

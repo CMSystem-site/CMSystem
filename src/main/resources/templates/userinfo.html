@@ -619,7 +619,14 @@
 <!-- // Datamap -->
 <script src="/static/lib/js/scripts.js"></script>
 <!-- scripit init-->
-<script>
+<script th:inline="javascript">
+    var message = [[${msg}]];
+    var user = [[${user}]];
+    console.log("message:" + message);
+    console.log(user);
+    if(message)
+        alert(message);
+
     $(document).ready(function() {
         $('#lobipanel-custom-control').lobiPanel({
             reload: false,
