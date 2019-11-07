@@ -45,6 +45,7 @@ public class LoginController {
             model.addAttribute("user", u);
             request.getSession().setAttribute("user", u);
             return "detail_user";
+            //return "detail_admin";
         }
     }
 

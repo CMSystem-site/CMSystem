@@ -32,7 +32,7 @@ public class RegistController {
         User user;
         if(userName == null) return "regist";
         else{
-            user = new User(userName,password,rname,phone,usertype);
+            user = new User(userName,password,phone,usertype);
             Integer flag = userService.addUser(user);
             if(flag!=1) return "regist";
             return "login";
