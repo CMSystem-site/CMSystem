@@ -22,6 +22,8 @@ public class LoginController {
         return "login";
     }
 
+
+
     @GetMapping(value = "/detail")
     public String detail(Model model,
                          HttpServletRequest request) {
