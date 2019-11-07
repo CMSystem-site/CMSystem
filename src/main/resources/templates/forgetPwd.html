@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <title>找回密码</title>
+
+    <link rel="stylesheet" href="/static/lib/css/style.css">
+
+
+</head>
+
+<body>
+
+<body>
+<div class="login">
+    <div class="login-screen">
+        <div class="app-title">
+            <h1>找回密码</h1>
+        </div>
+        <form action="/managebooks/forgetPwd_check">
+            <div class="login-form">
+                <div class="control-group">
+                    <input type="text" class="login-field" value="" placeholder="请输入您的手机号码" name="phone" id="phone">
+                    <label class="login-field-icon fui-user" for="phone"></label>
+                </div>
+
+                <button class="btn btn-primary btn-large btn-block" type="submit">开始查找</button>
+                <br><h4 style="color:red;" th:text="${msg}" ></h4>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+
+
+
+</body>
+
+</html>

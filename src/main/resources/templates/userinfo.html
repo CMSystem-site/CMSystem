@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+</head>
+<body>
+
+
+<table class="layui-table" style="margin:80px 400px; width:450px;">
+<colgroup>
+    <col width="200">
+    <col width="250">
+</colgroup>
+<tbody>
+<tr style="height:40px;">
+    <td>账号</td>
+    <td th:text="${user.userName}"></td>
+</tr>
+<tr>
+    <td>姓名</td>
+    <td th:text="${user.rname}"></td>
+</tr>
+<tr>
+    <td>手机号</td>
+    <td th:text="${user.phone}"></td>
+</tr>
+<tr>
+    <td>当前密码</td>
+    <td th:text="${user.passWd}"></td>
+</tr>
+
+</tbody>
+</table>
+<button class="layui-btn layui-btn-danger  layui-btn-lg" onclick="change()" style="margin:0 550px;">
+    修改密码
+</button>
+
+<script>
+    function change() {
+//        window.open('updatePwd','newwindow','height=100,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no, status=no') ;
+        window.location.href="updatePwd";
+    }
+</script>
+
+
+</body>
+</html>
