@@ -67,4 +67,24 @@ public class LoginController {
         return "regist";
     }
 
+    @GetMapping(value = "/forgetPwd")
+    public String forgetPwd(){
+        return "forgetPwd";
+    }
+
+
+    //忘记密码--待完善
+    @GetMapping(value = "/forgetPwd_check")
+    public String detail4(Model model, HttpServletRequest request) {
+        model.addAttribute("msg","未查找到您的账户信息");
+        String phone = request.getParameter("phone");
+
+        String pwd = userService.findPwd(phone);
+        if(pwd!=null)
+            model.addAttribute("msg","查找成功!您的密码为："+pwd);
+
+        return "forgetPwd";
+    }
+
+
 }

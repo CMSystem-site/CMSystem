@@ -2,11 +2,16 @@ package cn.lightina.managebooks.controller;
 
 import cn.lightina.managebooks.pojo.*;
 import cn.lightina.managebooks.service.BookService;
+import cn.lightina.managebooks.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpServerErrorException;
+import sun.awt.SunHints;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
@@ -17,6 +22,60 @@ import java.util.List;
 public class ReaderController {
     @Autowired
     BookService bookService;
+    @Autowired
+    UserService userService;
+
+    //个人信息
+    @GetMapping(value = "/userinfo")
+    public String userinfo(Model model, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+        request.getSession().setAttribute("user", user);
+        return "userinfo";
+    }
+    //修改密码
+    @GetMapping(value = "/updatePwd")
+    public String updatePwd(Model model,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+        request.getSession().setAttribute("user",user);
+
+        request.getSession().setAttribute("username",user.getUserName());
+
+        return "updatePwd";
+    }
+
+    //修改密码检验
+    @GetMapping(value = "/detail3")
+    public String detail3(Model model, HttpServletRequest request){
+
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+        request.getSession().setAttribute("user",user);
+
+
+        String userName = (String) request.getSession().getAttribute("username");
+        String pwd1 = request.getParameter("password1");
+        String pwd2 = request.getParameter("password2");
+        System.out.println(userName+" "+pwd1+" "+pwd2);
+
+        if(user.getPassWd().equals(pwd1)){
+            //改密码
+            user.setPassWd(pwd2);
+            System.out.println(user);
+
+            userService.updatePwd(user);
+            System.out.println("密码修改成功");
+            model.addAttribute("user",user);
+            request.getSession().setAttribute("user",user);
+            return "userinfo";
+
+        }else{
+            System.out.println("旧密码输入错误");
+            return "updatePwd";
+        }
+    }
+
 
     @GetMapping(value = "/booklist")
     public String listBookList(Model model, HttpServletRequest request) {

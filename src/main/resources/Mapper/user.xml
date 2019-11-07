@@ -16,4 +16,14 @@
         insert into reader(user_name,pass_wd,rname,phone,usertype) values (#{user.userName},#{user.passWd},#{user.rname},#{user.phone},#{user.usertype});
     </insert>
 
+    <update id="updatePwd" parameterType="User">
+        update reader
+        set pass_wd = #{user.passWd}
+        where user_name = #{user.userName};
+    </update>
+
+    <select id="findPwd" resultType="java.lang.String" parameterType="java.lang.String">
+        select pass_wd from reader where phone=#{phone};
+    </select>
+
 </mapper>

@@ -8,4 +8,6 @@ public interface UserMapper {
     User checkUser(@Param("user") User user);
     User checkManager(@Param("user") User user);
     Integer addUser(@Param("user") User user);
+    Integer updatePwd(@Param("user")User user);
+    String findPwd(@Param("phone")String phone);
 }

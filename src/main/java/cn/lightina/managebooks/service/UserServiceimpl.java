@@ -22,7 +22,17 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public Integer addUser(User user) {
-        System.out.println(user.toString());
         return userMapper.addUser(user);
+    }
+
+    @Override
+    public Integer updatePwd(User user) {
+        return userMapper.updatePwd(user);
+    }
+
+    @Override
+    public String findPwd(String phone) {
+        System.out.println("start to find Pwd...");
+        return userMapper.findPwd(phone);
     }
 }

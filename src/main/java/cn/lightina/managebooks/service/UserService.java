@@ -9,4 +9,8 @@ public interface UserService {
     User checkManager(User user);
 
     Integer addUser(User user);
+
+    Integer updatePwd(User user);
+
+    String findPwd(String phone);
 }
