@@ -21,7 +21,14 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
+    public User findByUserName(User user) {
+        return userMapper.findByUserName(user);
+    }
+
+    @Override
     public Integer addUser(User user) {
+        if(userMapper.findByUserName(user)!=null)
+            return 0;
         return userMapper.addUser(user);
     }
 
@@ -35,4 +42,5 @@ public class UserServiceimpl implements UserService {
         System.out.println("start to find Pwd...");
         return userMapper.findPwd(phone);
     }
+
 }

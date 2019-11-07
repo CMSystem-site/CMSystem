@@ -10,4 +10,5 @@ public interface UserMapper {
     Integer addUser(@Param("user") User user);
     Integer updatePwd(@Param("user")User user);
     String findPwd(@Param("phone")String phone);
+    User findByUserName(@Param("user")User user);
 }

@@ -8,6 +8,10 @@
         select * from reader where user_name=#{user.userName} and pass_wd=#{user.passWd}
     </select>
 
+    <select id="findByUserName" resultType="User">
+        select * from reader where user_name=#{user.userName}
+    </select>
+
     <select id="checkManager" resultType="User">
         select manager_id as user_id, pass_wd, mname as user_name from manager where mname=#{user.userName} and pass_wd=#{user.passWd};
     </select>
