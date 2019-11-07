@@ -4,42 +4,47 @@ import lombok.Data;
 
 @Data
 public class User {
-    private int userId;
+    private int userID;
     private String userName;
-    private String passWd;
-    private String rname;
+    private String userPwd;
     private String phone;
-    private String usertype;
+    private String userType;
 
-    public User(String userName, String passWd) {
+    public User(String userName, String userPwd) {
         this.userName = userName;
-        this.passWd = passWd;
+        this.userPwd = userPwd;
     }
 
-    public User(String userName, String passWd, String rname, String phone,String usertype) {
+    public User(String userName, String userPwd, String phone, String userType) {
+
         this.userName = userName;
-        this.passWd = passWd;
-        this.rname = rname;
+        this.userPwd = userPwd;
         this.phone = phone;
-        this.usertype = usertype;
+        this.userType = userType;
     }
 
-    public User() {}
-
-    public int getUserId() {
-        return userId;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
-    public String getRname() {
-        return rname;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setRname(String rname) {
-        this.rname = rname;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPwd() {
+        return userPwd;
+    }
+
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
     public String getPhone() {
@@ -50,40 +55,14 @@ public class User {
         this.phone = phone;
     }
 
-    public String getUsertype() {
-        return usertype;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setUsertype(String usertype) {
-        this.usertype = usertype;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
-    public String getUserName() {
-        return userName;
+    public User() {}
 
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassWd() {
-        return passWd;
-    }
-
-    public void setPassWd(String passWd) {
-        this.passWd = passWd;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", passWd='" + passWd + '\'' +
-                ", rname='" + rname + '\'' +
-                ", phone='" + phone + '\'' +
-                ", usertype='" + usertype + '\'' +
-                '}';
-    }
 }

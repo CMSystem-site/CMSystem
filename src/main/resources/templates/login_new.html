@@ -38,26 +38,26 @@
 							<a href="index.html"><span>Foodmin</span></a>
 						</div>
 						<div class="login-form">
-							<h4>Administratior Login</h4>
+							<h4>用 户 登 录</h4>
 							<form action="/login_check">
 								<div class="form-group">
-									<label>User Name</label>
-									<input type="text" id="username" name="username" class="form-control" placeholder="User Name">
+									<label>账号</label>&nbsp;<h8 style="color:red;" th:text="  ${msg}" ></h8>
+									<input type="text" id="username" name="username" class="form-control" placeholder="请输入账号">
 								</div>
 								<div class="form-group">
-									<label>Password</label>
-									<input type="password" id="password" name="password" class="form-control" placeholder="Password">
+									<label>密码</label>
+									<input type="password" id="password" name="password" class="form-control" placeholder="请输入密码">
 								</div>
 								<div class="checkbox">
 									<label>
 										<input type="checkbox"> Remember Me
 									</label>
 									<label class="pull-right">
-										<a href="/resetPsd">Forgotten Password?</a>
+										<a href="/findPsd">忘记密码？</a>
 									</label>
 									
 								</div>
-								<button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+								<button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">登录</button>
 								<!--<div class="social-login-content">-->
 									<!--<div class="social-button">-->
 										<!--<button type="button" class="btn btn-primary bg-facebook btn-flat btn-addon m-b-10"><i class="ti-facebook"></i>Sign in with facebook</button>-->
@@ -65,7 +65,7 @@
 									<!--</div>-->
 								<!--</div>-->
 								<div class="register-link m-t-15 text-center">
-									<p>Don't have account ? <a href="/register"> Sign Up Here</a></p>
+									<p>还没有账号 ? <a href="/register"> 立即注册</a></p>
 								</div>
 							</form>
 						</div>

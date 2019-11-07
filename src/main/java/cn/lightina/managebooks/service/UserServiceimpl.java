@@ -39,7 +39,6 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public String findPwd(String phone) {
-        System.out.println("start to find Pwd...");
         return userMapper.findPwd(phone);
     }
 

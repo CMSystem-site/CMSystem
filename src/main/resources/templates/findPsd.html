@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Nixon : Widget</title>
+    <title>找回密码</title>
 	
 	<!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -39,16 +39,16 @@
 							<a href="index.html"><span>Foodmin</span></a>
 						</div>
 						<div class="login-form">
-							<h4>Reset Password</h4>
-							<form action="resetPsd_check">
+							<h4>找 回 密 码</h4>
+							<form action="findPsd_check">
 								<div class="form-group">
-									<label>Phone Number</label>
-									<input type="number" id="phone" name="phone" class="form-control" placeholder="Phone">
+									<label>手机号码</label>
+									<input type="number" id="phone" name="phone" class="form-control" placeholder="请输入您的手机号码">
 								</div>
 								<br><h4 style="color:red;" th:text="${msg}" ></h4>
-								<button type="submit" class="btn btn-primary btn-flat m-b-15">Submit</button>
+								<button type="submit" class="btn btn-primary btn-flat m-b-15">查找</button>
 								<div class="register-link text-center">
-									<p>Back to <a href="/login"> Home</a></p>
+									<p>返 回<a href="/login"> 登 录</a></p>
 								</div>
 							</form>
 						</div>

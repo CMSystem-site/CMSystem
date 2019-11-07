@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.lightina.managebooks.dao.CourseMapper">
+    <select id="getlist_all" resultType="CourseList">
+        select courselist.courseID,courselist.courseName, user.userName
+        from courselist,user
+        where courselist.teacherID = user.userID
+    </select>
+
+    <select id="getlist" resultType="CourseList" parameterType="int">
+        select courselist.courseID,courselist.courseName, user.userName
+        from courselist,user
+        where courselist.teacherID = user.userID and user.userID = #{userID}
+    </select>
+</mapper>

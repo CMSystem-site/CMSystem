@@ -42,8 +42,8 @@
                     </li>
 
 
-                    <li><a href="app-profile.html"><i class="ti-user"></i> Profile</a></li>
-                    <li><a href="app-widget-card.html"><i class="ti-layout-grid2-alt"></i> Widget</a></li>
+                    <li><a href="/userinfo"><i class="ti-user"></i>个人信息</a></li>
+                    <li><a href="/allCourses"><i class="ti-layout-grid2-alt"></i>课程列表</a></li>
                     <li>
                         <a class="sidebar-sub-toggle"><i class="ti-layout"></i> UI Elements <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
@@ -247,7 +247,7 @@
                 </li>
                 <li class="header-icon dib chat-sidebar-icon"><i class="ti-comments"></i></li>
                 <li class="header-icon dib">
-                    <img class="avatar-img" src="/static/lib/images/avatar/1.jpg" alt="" /> <span class="user-avatar">Jane <i class="ti-angle-down f-s-10"></i></span>
+                    <img class="avatar-img" src="/static/lib/images/avatar/1.jpg" alt="" /> <span class="user-avatar" th:text="${user.userName}"> <i class="ti-angle-down f-s-10"></i></span>
                     <div class="drop-down dropdown-profile">
                         <div class="dropdown-content-heading">
                             <span class="text-left">Upgrade Now</span>
@@ -255,7 +255,7 @@
                         </div>
                         <div class="dropdown-content-body">
                             <ul>
-                                <li><a href="#"><i class="ti-user"></i> <span>Profile</span></a></li>
+                                <li><a href="/userinfo"><i class="ti-user"></i> <span>Profile</span></a></li>
                                 <li><a href="#"><i class="ti-wallet"></i> <span>My Balance</span></a></li>
                                 <li><a href="#"><i class="ti-write"></i> <span>My Task</span></a></li>
                                 <li><a href="#"><i class="ti-calendar"></i> <span>My Calender</span></a></li>
