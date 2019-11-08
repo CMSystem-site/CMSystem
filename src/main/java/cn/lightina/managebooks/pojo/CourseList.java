@@ -9,7 +9,13 @@ public class CourseList {
     private int teacherID;
     private String teacherName;
 
-    public CourseList(int courseID, String courseName, int teacherID,String teacherName) {
+    public CourseList(String courseName, int teacherID, String teacherName) {
+        this.courseName = courseName;
+        this.teacherID = teacherID;
+        this.teacherName = teacherName;
+    }
+
+    public CourseList(int courseID, String courseName, int teacherID, String teacherName) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.teacherID = teacherID;
@@ -52,8 +58,9 @@ public class CourseList {
     public String toString() {
         return "CourseList{" +
                 "courseID=" + courseID +
-                ", teacherID=" + teacherID +
                 ", courseName='" + courseName + '\'' +
+                ", teacherID=" + teacherID +
+                ", teacherName='" + teacherName + '\'' +
                 '}';
     }
 }

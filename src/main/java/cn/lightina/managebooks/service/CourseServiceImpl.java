@@ -14,8 +14,8 @@ public class CourseServiceImpl implements CourseService {
     CourseMapper courseMapper;
 
     @Override
-    public List<CourseList> getlist(Integer userID) {
-        return courseMapper.getlist(userID);
+    public Integer addCourse(CourseList courselist) {
+        return courseMapper.addCourse(courselist);
     }
 
     @Override
@@ -30,5 +30,10 @@ public class CourseServiceImpl implements CourseService {
 
     public List<CourseList> findcourseByName(String courseName){
         return courseMapper.findcourseByName(courseName);
+    }
+
+    @Override
+    public List<CourseList> findcourseByUserid(Integer userID) {
+        return courseMapper.findcourseByUserid(userID);
     }
 }

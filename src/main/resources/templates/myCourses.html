@@ -30,6 +30,15 @@
     <link href="/static/lib/css/style.css" rel="stylesheet">
 </head>
 
+<script th:inline="javascript">
+    var message = [[${msg}]];
+    var user = [[${user}]];
+    console.log("message:" + message);
+    console.log(user);
+    if(message)
+        alert(message);
+</script>
+
 <body>
 
 <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
@@ -439,7 +448,7 @@
                     <div class="col-lg-12">
                         <div class="card alert">
                             <div class="card-header">
-                                <h4>全部课程 </h4>
+                                <h4>我的课程 </h4>
                                 <div class="card-header-right-icon">
                                     <ul>
                                         <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>
@@ -471,9 +480,7 @@
                                         <td th:text="${courselist.courseID}"></td>
                                         <td th:text="${courselist.courseName}"></td>
                                         <td th:text="${courselist.teacherName}"></td>
-                                        <td><a th:href="'/'+${courselist.courseID}+'/booklist'">
-                                            <button type="button" class="btn btn-info">选课</button>
-                                        </a></td>
+                                        <td th:text="占位"></td>
                                         <!--
                                         <td><a th:href="'/managebooks/'+${booklist.isbn}+'/booklist'">
                                             <button type="button" class="btn btn-info">预约</button>
@@ -486,45 +493,6 @@
                         </div>
                     </div><!-- /# column -->
                 </div><!-- /# row -->
-            </div>
-            <div class="main-content">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card alert">
-                            <div class="card-header">
-                                <h4>查询课程信息</h4>
-                                    <div class="booking-system-item">
-                                        <form method="post" action="/findCourse">
-                                            <div class="row">
-                                                <div class="col-lg-4">
-                                                    <div class="form-group">
-                                                        <label>请输入课程编号</label>
-                                                        <input type="text" name="courseid" id="courseid" class="form-control" placeholder="课程编号" >
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <div class="form-group">
-                                                        <label>请输入课程名称</label>
-                                                        <input type="text" name="coursename" id="coursename" class="form-control" placeholder="课程名称" >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <button type="submit"
-                                                                class="btn btn-primary btn-rounded  m-l-5">
-                                                            搜索
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div><!-- /# container-fluid -->
     </div><!-- /# main -->
