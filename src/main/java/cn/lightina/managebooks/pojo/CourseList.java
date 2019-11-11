@@ -8,6 +8,7 @@ public class CourseList {
     private String courseName;
     private int teacherID;
     private String teacherName;
+    private int isChosen;
 
     public CourseList(String courseName, int teacherID, String teacherName) {
         this.courseName = courseName;
@@ -52,6 +53,14 @@ public class CourseList {
 
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
+    }
+
+    public int getIsChosen() {
+        return isChosen;
+    }
+
+    public void setIsChosen(int isChosen) {
+        this.isChosen = isChosen;
     }
 
     @Override

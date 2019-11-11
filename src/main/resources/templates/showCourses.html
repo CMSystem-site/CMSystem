@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:c="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="utf-8">
@@ -29,6 +29,36 @@
     <link href="/static/lib/css/lib/nixon.css" rel="stylesheet">
     <link href="/static/lib/css/style.css" rel="stylesheet">
 </head>
+
+
+<script th:inline="javascript">
+
+    var message = [[${msg}]];
+    var user = [[${user}]];
+    console.log("message:" + message);
+    console.log(user);
+    if(message)
+        alert(message);
+
+    function info_func(e) {
+//        alert(e);
+        window.location.href = "/courseinfo/"+e;
+    }
+
+    function select_func(e) {
+       var r = confirm("确认选择这门课程?");
+       if(r==true){
+           window.location.href="/chooseCourse/"+e;
+       }
+    }
+
+    function drop_func(e) {
+        var r = confirm("确认退选这门课程?");
+        if(r==true){
+            window.location.href="/dropCourse/"+e;
+        }
+    }
+</script>
 
 <body>
 
@@ -418,7 +448,7 @@
                 <div class="col-lg-8 p-0">
                     <div class="page-header">
                         <div class="page-title">
-                            <h1>Dashboard 1</h1>
+                            <h1>全部课程</h1>
                         </div>
                     </div>
                 </div><!-- /# column -->
@@ -468,18 +498,15 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="courselist: ${list}">
-                                        <td th:text="${courselist.courseID}"></td>
-                                        <td th:text="${courselist.courseName}"></td>
-                                        <td th:text="${courselist.teacherName}"></td>
-                                        <td><a th:href="'/'+${courselist.courseID}+'/booklist'">
-                                            <button type="button" class="btn btn-info">选课</button>
-                                        </a></td>
-                                        <!--
-                                        <td><a th:href="'/managebooks/'+${booklist.isbn}+'/booklist'">
-                                            <button type="button" class="btn btn-info">预约</button>
-                                        </a></td>
-                                        -->
-                                    </tr>
+                                            <td th:text="${courselist.courseID}" th:onclick="'info_func('+${courselist.courseID}+');'"></td>
+                                            <td th:text="${courselist.courseName}" th:onclick="'info_func('+${courselist.courseID}+');'"></td>
+                                            <td th:text="${courselist.teacherName}"></td>
+                                            <td th:if="${courselist.isChosen==0}">
+                                                <a th:onclick="'select_func('+${courselist.courseID}+');'" class="btn btn-info">选课</a></td>
+                                            <td th:if="${courselist.isChosen==1}">
+                                                <a th:onclick="'drop_func('+${courselist.courseID}+');'" class="btn btn-danger">退课</a>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -543,9 +570,6 @@
 <script src="/static/lib/js/lib/mmc-common.js"></script>
 <script src="/static/lib/js/lib/mmc-chat.js"></script>
 <script src="/static/lib/js/scripts.js"></script><!-- scripit init-->
-
-
-
 
 
 </body>

@@ -3,18 +3,26 @@ package cn.lightina.managebooks.pojo;
 import lombok.Data;
 
 @Data
-public class Course {
+public class CourseSelection {
     private int courseID;
+    private String courseName;
     private int teacherID;
     private int studentID;
-    private String courseName;
     private int absence;
 
-    public Course(int courseID, int teacherID, int studentID, String courseName) {
+    public CourseSelection(int courseID, String courseName, int teacherID, int studentID,int absence) {
         this.courseID = courseID;
+        this.courseName = courseName;
         this.teacherID = teacherID;
         this.studentID = studentID;
+        this.absence = absence;
+    }
+
+    public CourseSelection(int courseID, String courseName, int teacherID, int studentID) {
+        this.courseID = courseID;
         this.courseName = courseName;
+        this.teacherID = teacherID;
+        this.studentID = studentID;
     }
 
     public int getCourseID() {

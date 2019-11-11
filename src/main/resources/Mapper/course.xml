@@ -6,8 +6,16 @@
 <mapper namespace="cn.lightina.managebooks.dao.CourseMapper">
     <!--创建课程-->
     <insert id="addCourse" parameterType="CourseList">
-        insert into courselist(courseName,teacherID) values (#{courselist.courseName},#{courselist.teacherID});
+        insert into courselist(courseName,teacherID)
+        values (#{courselist.courseName},#{courselist.teacherID});
     </insert>
+
+    <!--删除课程-->
+    <delete id="deleteCourse" parameterType="int">
+        delete from courselist
+        where courselist.courseID = #{courseID}
+    </delete>
+
 
     <!--查找全部课程-->
     <select id="getlist_all" resultType="CourseList">
@@ -36,10 +44,33 @@
         from courselist,user
         where courselist.teacherID = user.userID and courselist.teacherID = #{userID}
         UNION
-        select course.courseID,course.courseName,course.teacherID,user.userName
-        from course,user
-        where course.teacherID = user.userID and course.studentID = #{userID}
+        select courseselection.courseID,courseselection.courseName,courseselection.teacherID,user.userName
+        from courseselection,user
+        where courseselection.teacherID = user.userID and courseselection.studentID = #{userID}
     </select>
 
+    <!--判断userID是否选择courseID-->
+    <select id="checkChosen" resultType="CourseSelection" parameterType="int" >
+        select * from courseselection
+        where courseselection.studentID = #{userID} and courseselection.courseID = #{courseID}
+    </select>
 
+    <!--查找teacherID-->
+    <select id="findteacherID" resultType="int" parameterType="int">
+        select courselist.teacherID
+        from courselist
+        where courselist.courseID = #{courseID}
+    </select>
+
+    <!--选课-->
+    <insert id="addCourseSelection" parameterType="CourseSelection">
+        insert into courseselection(courseID,courseName,teacherID,studentID)
+        values (#{courseSelection.courseID},#{courseSelection.courseName},#{courseSelection.teacherID},#{courseSelection.studentID});
+    </insert>
+
+    <!--退课-->
+    <delete id="deleteCourseSelection" parameterType="int">
+        delete from courseselection
+        where courseselection.courseID = #{courseID} and courseselection.studentID = #{studentID}
+    </delete>
 </mapper>
