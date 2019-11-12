@@ -493,7 +493,7 @@
                                         <th>课程编号</th>
                                         <th>课程名称</th>
                                         <th>教师姓名</th>
-                                        <th> 操  作</th>
+                                        <th th:if="${user.userType.equals('学生')}">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -501,7 +501,7 @@
                                             <td th:text="${courselist.courseID}" th:onclick="'info_func('+${courselist.courseID}+');'"></td>
                                             <td th:text="${courselist.courseName}" th:onclick="'info_func('+${courselist.courseID}+');'"></td>
                                             <td th:text="${courselist.teacherName}"></td>
-                                            <td th:if="${courselist.isChosen==0}">
+                                            <td th:if="${courselist.isChosen==0&&user.userType.equals('学生')}">
                                                 <a th:onclick="'select_func('+${courselist.courseID}+');'" class="btn btn-info">选课</a></td>
                                             <td th:if="${courselist.isChosen==1}">
                                                 <a th:onclick="'drop_func('+${courselist.courseID}+');'" class="btn btn-danger">退课</a>
