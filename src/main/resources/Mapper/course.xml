@@ -73,4 +73,26 @@
         delete from courseselection
         where courseselection.courseID = #{courseID} and courseselection.studentID = #{studentID}
     </delete>
+
+
+    <!--选课名单-->
+    <select id="getSelectList" parameterType="int" resultType="CourseSelection">
+        select courseselection.*,user.userName
+        from courseselection,user
+        where courseselection.courseID = #{courseID} and courseselection.studentID = user.userID
+    </select>
+
+    <!--缺勤-->
+    <update id="setAbsence" parameterType="int">
+        update courseselection
+        set absence = absence + 1
+        where courseID = #{courseID} and studentID = #{studentID}
+    </update>
+
+    <!--撤销缺勤-->
+    <update id="undoAbsence" parameterType="int">
+        update courseselection
+        set absence = absence - 1
+        where courseID = #{courseID} and studentID = #{studentID} and absence > 0
+    </update>
 </mapper>

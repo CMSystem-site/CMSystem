@@ -5,6 +5,7 @@ import cn.lightina.managebooks.dao.CourseMapper;
 import cn.lightina.managebooks.pojo.CourseSelection;
 import cn.lightina.managebooks.pojo.CourseList;
 import cn.lightina.managebooks.pojo.CourseSelection;
+import cn.lightina.managebooks.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +64,21 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Integer deleteCourseSelection(Integer courseID, Integer studentID) {
         return courseMapper.deleteCourseSelection(courseID,studentID);
+    }
+
+    @Override
+    public List<CourseSelection> getSelectList(Integer courseID) {
+        return courseMapper.getSelectList(courseID);
+    }
+
+    @Override
+    public Integer setAbsence(Integer courseID, Integer studentID) {
+        return courseMapper.setAbsence(courseID,studentID);
+    }
+
+    @Override
+    public Integer undoAbsence(Integer courseID, Integer studentID) {
+        return courseMapper.undoAbsence(courseID,studentID);
     }
 
 

@@ -231,6 +231,58 @@ public class CourseController {
     }
 
 
+    //选课学生名单
+    @RequestMapping("/studentlist/{courseID}")
+    public String studentlist(@PathVariable(value = "courseID")Integer courseID,Model model,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        request.setAttribute("user",user);
+        request.setAttribute("courseID",courseID);
+
+        //选课学生名单
+        List<CourseSelection> selectlist = courseService.getSelectList(courseID);
+        model.addAttribute("selectlist",selectlist);
+
+        return "studentlist";
+    }
+
+    //手动考勤
+    @RequestMapping("/absence/{courseID}/{studentID}")
+    public String absence(@PathVariable(value = "courseID")Integer courseID,@PathVariable(value = "studentID")Integer studentID,Model model,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+        model.addAttribute("courseID",courseID);
+
+        //设置缺勤
+        int flag = courseService.setAbsence(courseID,studentID);
+        if(flag != 1){
+            model.addAttribute("msg","操作失败，请重试！");
+        }
+
+        //选课学生名单
+        List<CourseSelection> selectlist = courseService.getSelectList(courseID);
+        model.addAttribute("selectlist",selectlist);
+
+        return "studentlist";
+    }
+
+    @RequestMapping("/undo_absence/{courseID}/{studentID}")
+    public String undo_absense(@PathVariable(value = "courseID")Integer courseID,@PathVariable(value = "studentID")Integer studentID,Model model,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+        model.addAttribute("courseID",courseID);
+
+        //撤销缺勤
+        int flag = courseService.undoAbsence(courseID,studentID);
+        if(flag != 1){
+            model.addAttribute("msg","操作失败，请重试！");
+        }
+
+        //选课学生名单
+        List<CourseSelection> selectlist = courseService.getSelectList(courseID);
+        model.addAttribute("selectlist",selectlist);
+
+        return "studentlist";
+    }
 
     boolean isInt(String str){
         try {

@@ -8,14 +8,16 @@ public class CourseSelection {
     private String courseName;
     private int teacherID;
     private int studentID;
+    private String studentName;
     private int absence;
 
-    public CourseSelection(int courseID, String courseName, int teacherID, int studentID,int absence) {
+    public CourseSelection(int courseID, String courseName, int teacherID, int studentID,int absence,String studentName) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.teacherID = teacherID;
         this.studentID = studentID;
         this.absence = absence;
+        this.studentName = studentName;
     }
 
     public CourseSelection(int courseID, String courseName, int teacherID, int studentID) {
@@ -23,6 +25,14 @@ public class CourseSelection {
         this.courseName = courseName;
         this.teacherID = teacherID;
         this.studentID = studentID;
+    }
+
+    public CourseSelection(int courseID, String courseName, int teacherID, int studentID, int absence) {
+        this.courseID = courseID;
+        this.courseName = courseName;
+        this.teacherID = teacherID;
+        this.studentID = studentID;
+        this.absence = absence;
     }
 
     public int getCourseID() {
@@ -49,6 +59,14 @@ public class CourseSelection {
         this.studentID = studentID;
     }
 
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
     public String getCourseName() {
         return courseName;
     }
@@ -64,4 +82,5 @@ public class CourseSelection {
     public void setAbsence(int absence) {
         this.absence = absence;
     }
+
 }

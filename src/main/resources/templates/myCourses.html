@@ -64,6 +64,11 @@
             window.location.href="/deleteCourse/"+e;
         }
     }
+
+    function stulist_func(e) {
+        window.location.href="/studentlist/"+e;
+//        window.open("/studentlist/"+e,"_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400");
+    }
 </script>
 
 
@@ -512,6 +517,7 @@
                                             <a th:onclick="'drop_func('+${courselist.courseID}+');'" class="btn btn-danger">退课</a>
                                         </td>
                                         <td th:if="${user.userType.equals('教师')}">
+                                            <a th:onclick="'stulist_func('+${courselist.courseID}+');'" class="btn btn-info">考勤</a>
                                             <a th:onclick="'delete_func('+${courselist.courseID}+');'" class="btn btn-danger">删除</a>
                                         </td>
                                     </tr>

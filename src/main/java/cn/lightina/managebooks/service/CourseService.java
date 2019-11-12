@@ -3,6 +3,8 @@ package cn.lightina.managebooks.service;
 import cn.lightina.managebooks.pojo.CourseSelection;
 import cn.lightina.managebooks.pojo.CourseList;
 import cn.lightina.managebooks.pojo.CourseSelection;
+import cn.lightina.managebooks.pojo.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -37,4 +39,14 @@ public interface CourseService {
 
     //退课
     Integer deleteCourseSelection(Integer courseID,Integer studentID);
+
+    //选课名单
+    List<CourseSelection> getSelectList(Integer courseID);
+
+    //缺勤
+    Integer setAbsence(Integer courseID,Integer studentID);
+
+    //撤销缺勤
+    Integer undoAbsence(Integer courseID,Integer studentID);
+
 }

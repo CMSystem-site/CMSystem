@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生列表</title>
+</head>
+
+<script th:inline="javascript">
+
+    var message = [[${msg}]];
+    var user = [[${user}]];
+    console.log("message:" + message);
+    console.log(user);
+    if(message)
+        alert(message);
+
+    function absence_func(c,s) {
+        window.location.href="/absence/"+c+"/"+s;
+    }
+    function undo_func(c,s) {
+        window.location.href="/undo_absence/"+c+"/"+s;
+    }
+</script>
+
+<body>
+<div>
+    <table class="layui-table" style="width:400px; margin:25px 480px 25px;">
+        <thead>
+        <tr>
+            <th>学生学号</th>
+            <th>学生姓名</th>
+            <th>缺勤次数</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="select: ${selectlist}">
+            <td th:text="${select.studentID}"></td>
+            <td th:text="${select.studentName}"></td>
+            <td th:text="${select.absence}"></td>
+            <td >
+                <button th:onclick="'absence_func('+${select.courseID}+','+${select.studentID}+');'" class="btn btn-danger">缺勤</button>
+                <button th:onclick="'undo_func('+${select.courseID}+','+${select.studentID}+');'" class="btn btn-danger">撤销</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

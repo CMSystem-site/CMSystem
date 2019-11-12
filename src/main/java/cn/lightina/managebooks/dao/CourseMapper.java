@@ -3,6 +3,7 @@ package cn.lightina.managebooks.dao;
 import cn.lightina.managebooks.pojo.CourseSelection;
 import cn.lightina.managebooks.pojo.CourseList;
 import cn.lightina.managebooks.pojo.CourseSelection;
+import cn.lightina.managebooks.pojo.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,4 +38,13 @@ public interface CourseMapper {
     Integer addCourseSelection(@Param("courseSelection")CourseSelection courseSelection);
     //退课
     Integer deleteCourseSelection(@Param("courseID")Integer courseID,@Param("studentID")Integer studentID);
+
+    //选课名单
+    List<CourseSelection> getSelectList(@Param("courseID")Integer courseID);
+
+    //缺勤
+    Integer setAbsence(@Param("courseID")Integer courseID,@Param("studentID")Integer studentID);
+
+    //撤销缺勤
+    Integer undoAbsence(@Param("courseID")Integer courseID,@Param("studentID")Integer studentID);
 }
