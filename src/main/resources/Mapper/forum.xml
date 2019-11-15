@@ -15,4 +15,38 @@
         select id,text from topic
     </select>
 
+    <!--查询单个讨论主题的内容-->
+    <select id="getTopicByID" resultType="Topic">
+        select Topic.* from topic
+        where topic.topicID = #{topic.topicID}
+    </select>
+
+    <!--在某个主题下面添加评论-->
+    <insert id="addComment" parameterType="Comment">
+        insert into comment(userID,topicID,date,text,reCommentCount,email,website)
+        values (#{comment.userID},#{comment.topicID},#{comment.date},#{comment.text},#{comment.reCommentCount},#{comment.email},#{comment.website})
+    </insert>
+
+    <!--查询某个主题下面的所有评论-->
+    <select id="getComment_allByTopicID" resultType="Comment">
+        select Comment.*
+        from comment,topic
+        where topic.topicID = comment.topicID
+    </select>
+
+    <!--在某个评论下添加回复-->
+    <insert id="addReComment" parameterType="ReComment">
+        insert into topic(text) values(#{topic.text})
+        insert into recomment(commentID,userID,text,date,email,website)
+        values (#{recomment.commentID},#{recomment.userID},#{recomment.text},#{recomment.date},#{recomment.email},#{recomment.website})
+    </insert>
+
+
+    <!--获取某个评论下的所有回复-->
+    <select id="getReComment_allByCommentID" resultType="ReComment">
+        select ReComment.*
+        from recomment,comment
+        where recomment.commentID = comment.commentID
+    </select>
+
 </mapper>

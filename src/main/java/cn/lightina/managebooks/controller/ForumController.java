@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ForumController {
@@ -23,7 +24,9 @@ public class ForumController {
     }
 
     @GetMapping("/forum/single")
-    public String forumSingle(){
+    public String forumSingle(Model model,HttpServletRequest request){
+        List<Topic> topiclist = forumService.getTopic_all();
+        model.addAttribute("topic", topiclist.get(0));
         return "forumSingle";
     }
 
@@ -55,8 +58,11 @@ public class ForumController {
     }
 
     @GetMapping("/forum/showMarkdown")
-    public String showForumMarkdown(){
+    public String showForumMarkdown(Model model,HttpServletRequest request){
 
+
+        List<Topic> topiclist = forumService.getTopic_all();
+        model.addAttribute("topic", topiclist.get(0));
         return "forumShowMarkdown";
     }
 
