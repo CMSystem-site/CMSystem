@@ -23,15 +23,15 @@ public class ForumServiceimpl implements ForumService{
 
     //获取全部讨论主题
     @Override
-    public List<Topic> getTopic_all(){
-        return forumMapper.getTopic_all();
+    public List<Topic> getTopicByCourseID(Integer courseID){
+        return forumMapper.getTopicByCourseID(courseID);
     }
 
 
     //获取单个讨论主题的内容
     @Override
-    public Topic getTopicByID(Integer topicID){
-        return forumMapper.getTopicByID(topicID);
+    public Topic getTopicByTopicID(Integer topicID){
+        return forumMapper.getTopicByTopicID(topicID);
     }
 
     //在某个主题下面添加评论

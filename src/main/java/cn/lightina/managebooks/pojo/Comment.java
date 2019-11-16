@@ -19,7 +19,7 @@ public class Comment {
 
     //该条评论下有哪些评论
     //一对多
-    private List<Recomment> reComments;
+    private List<ReComment> reComments;
 
     public Comment(Integer userID, Integer topicID,String text, String email,String website){
         this.userID = userID;

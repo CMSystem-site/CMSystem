@@ -1,6 +1,7 @@
 package cn.lightina.managebooks.controller;
 
 import cn.lightina.managebooks.pojo.Topic;
+import cn.lightina.managebooks.pojo.User;
 import cn.lightina.managebooks.service.ForumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,8 @@ public class ForumController {
 
     @GetMapping("/forum/single")
     public String forumSingle(Model model,HttpServletRequest request){
-        List<Topic> topiclist = forumService.getTopic_all();
+        Integer courseID = 1;
+        List<Topic> topiclist = forumService.getTopicByCourseID(courseID);
         model.addAttribute("topic", topiclist.get(0));
         return "forumSingle";
     }
@@ -35,51 +37,105 @@ public class ForumController {
         return "forumaddtemp";
     }
 
-    @RequestMapping("/forum/editMarkdown")
-    public String editForumMarkdown(){
-        return "forumEditMarkdown";
-    }
+
 
     @GetMapping("/forum/addMarkdown")
     public String addForumMarkdown(Model model,HttpServletRequest request){
 
         String text = request.getParameter("text");
-        System.out.println(text);
-        Topic topic = new Topic(text);
-        System.out.println(topic.toString());
-        int flag = forumService.addTopic(topic);
-        if(flag!=1){
-            model.addAttribute("msg","创建话题失败！");
-        }else{
-            model.addAttribute("msg","创建话题成功！");
-        }
-        System.out.println(topic.toString());
+
+        // Topic topic = new Topic(text);
+//        Topic topic = new Topic();
+//
+//        int flag = forumService.addTopic(topic);
+//        if(flag!=1){
+//            model.addAttribute("msg","创建话题失败！");
+//        }else{
+//            model.addAttribute("msg","创建话题成功！");
+//        }
+//        System.out.println(topic.toString());
         return "forumEditMarkdown";
     }
 
     @GetMapping("/forum/showMarkdown")
     public String showForumMarkdown(Model model,HttpServletRequest request){
-
-
-        List<Topic> topiclist = forumService.getTopic_all();
+        Integer courseID = 1;
+        List<Topic> topiclist = forumService.getTopicByCourseID(courseID);
         model.addAttribute("topic", topiclist.get(0));
         return "forumShowMarkdown";
     }
 
 
-    // 点击课程进入该课程的讨论区
+    // 点击课程进入该课程的讨论区，显示所有帖子
     @RequestMapping("/forum/{courseID}")
-    public String forumIndex(@PathVariable(value = "courseID")Integer courseID,
+    public String forum(@PathVariable(value = "courseID")Integer courseID,
                              Model model, HttpServletRequest request){
-        return "showForumIndex";
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user", user);
+
+        model.addAttribute("courseID",courseID);
+        List<Topic> topicList = forumService.getTopicByCourseID(courseID);
+        model.addAttribute("topicList",topicList);
+        return "forum";
     }
 
-    // 点击某讨论区的帖子
-    @RequestMapping("/forum/{courseID}/{topicID}")
+    // 查看某课程讨论区的帖子
+    @RequestMapping("/forum/{courseID}/topic/{topicID}")
     public String showForumTopic(@PathVariable(value = "courseID")Integer courseID,
                              @PathVariable(value = "topicID")Integer topicID,
                              Model model,HttpServletRequest request){
-        return "showForumTopics";
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user", user);
+
+        Topic topic = forumService.getTopicByTopicID(topicID);
+        model.addAttribute("topic",topic);
+        return "forumShowTopic";
+    }
+
+    //添加编辑某课程讨论区的帖子
+    @RequestMapping("/forum/{courseID}/editTopic")
+    public String editForumTopic(@PathVariable(value = "courseID")Integer courseID, Model model,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user", user);
+        model.addAttribute("courseID",courseID);
+
+        return "forumEditTopic";
+    }
+
+    //添加某课程讨论区的帖子
+    @RequestMapping("/forum/{courseID}/addTopic")
+    public String addForumTopic(@PathVariable(value = "courseID")Integer courseID,
+                                Model model,HttpServletRequest request){
+
+        System.out.println("debug");
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user", user);
+
+        Integer userID = user.getUserID();
+        System.out.println(userID);
+        String tag = request.getParameter("tag");
+        System.out.println(tag);
+        String title = request.getParameter("title");
+        String abstracts = request.getParameter("abstracts");
+        String text = request.getParameter("text");
+
+
+
+        Topic newtopic = new Topic(userID,tag,title,abstracts,text,courseID);
+        System.out.println(newtopic);
+
+        int flag = forumService.addTopic(newtopic);
+        if(flag!=1){
+            model.addAttribute("msg","创建话题失败！");
+        }else{
+            model.addAttribute("msg","创建话题成功！");
+        }
+        System.out.println(newtopic.toString());
+
+        model.addAttribute("courseID",courseID);
+        List<Topic> topicList = forumService.getTopicByCourseID(courseID);
+        model.addAttribute("topicList",topicList);
+        return "forum";
     }
 
 

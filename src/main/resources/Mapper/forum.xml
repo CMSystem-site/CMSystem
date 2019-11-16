@@ -7,18 +7,20 @@
 
     <!--创建Topic-->
     <insert id="addTopic" parameterType="Topic">
-        insert into topic(text) values(#{topic.text})
+        insert into topic(userID,date,tag,commentCount,title,abstracts,text,courseID)
+        values(#{topic.userID},#{topic.date},#{topic.tag},#{topic.commentCount},#{topic.title},#{topic.abstracts},#{topic.text},#{topic.courseID})
     </insert>
 
     <!--查询Topic-->
-    <select id="getTopic_all" resultType="Topic">
-        select id,text from topic
+    <select id="getTopicByCourseID" resultType="Topic">
+        select topic.* from topic
+        where topic.courseID = #{courseID}
     </select>
 
     <!--查询单个讨论主题的内容-->
-    <select id="getTopicByID" resultType="Topic">
-        select Topic.* from topic
-        where topic.topicID = #{topic.topicID}
+    <select id="getTopicByTopicID" resultType="Topic">
+        select topic.* from topic
+        where topic.topicID = #{topicID}
     </select>
 
     <!--在某个主题下面添加评论-->
@@ -29,7 +31,7 @@
 
     <!--查询某个主题下面的所有评论-->
     <select id="getComment_allByTopicID" resultType="Comment">
-        select Comment.*
+        select comment.*
         from comment,topic
         where topic.topicID = comment.topicID
     </select>
@@ -44,7 +46,7 @@
 
     <!--获取某个评论下的所有回复-->
     <select id="getReComment_allByCommentID" resultType="ReComment">
-        select ReComment.*
+        select recomment.*
         from recomment,comment
         where recomment.commentID = comment.commentID
     </select>
