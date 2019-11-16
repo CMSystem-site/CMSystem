@@ -7,8 +7,8 @@
 
     <!--创建Topic-->
     <insert id="addTopic" parameterType="Topic">
-        insert into topic(userID,date,tag,commentCount,title,abstracts,text,courseID)
-        values(#{topic.userID},#{topic.date},#{topic.tag},#{topic.commentCount},#{topic.title},#{topic.abstracts},#{topic.text},#{topic.courseID})
+        insert into topic(userID,date,tag,commentCount,title,abstracts,text,courseID,userName,userType)
+        values(#{topic.userID},#{topic.date},#{topic.tag},#{topic.commentCount},#{topic.title},#{topic.abstracts},#{topic.text},#{topic.courseID},#{topic.userName},#{topic.userType})
     </insert>
 
     <!--查询Topic-->
@@ -23,32 +23,46 @@
         where topic.topicID = #{topicID}
     </select>
 
+    <update id="updateTopic" parameterType="Topic">
+        update topic
+        set CommentCount = #{CommentCount}
+        where topicID = #{topicID}
+    </update>
+
     <!--在某个主题下面添加评论-->
     <insert id="addComment" parameterType="Comment">
-        insert into comment(userID,topicID,date,text,reCommentCount,email,website)
-        values (#{comment.userID},#{comment.topicID},#{comment.date},#{comment.text},#{comment.reCommentCount},#{comment.email},#{comment.website})
+        insert into comment(userID,topicID,date,text,reCommentCount,email,website,userName,userType)
+        values (#{comment.userID},#{comment.topicID},#{comment.date},#{comment.text},#{comment.reCommentCount},#{comment.email},#{comment.website},#{comment.userName},#{comment.userType})
     </insert>
 
     <!--查询某个主题下面的所有评论-->
-    <select id="getComment_allByTopicID" resultType="Comment">
+    <select id="getCommentByTopicID" resultType="Comment">
         select comment.*
-        from comment,topic
-        where topic.topicID = comment.topicID
+        from comment
+        where comment.topicID = #{topicID}
     </select>
 
     <!--在某个评论下添加回复-->
     <insert id="addReComment" parameterType="ReComment">
-        insert into topic(text) values(#{topic.text})
-        insert into recomment(commentID,userID,text,date,email,website)
-        values (#{recomment.commentID},#{recomment.userID},#{recomment.text},#{recomment.date},#{recomment.email},#{recomment.website})
+        insert into recomment(commentID,userID,text,date,email,website,userName,userType)
+        values (#{reComment.commentID},#{reComment.userID},#{reComment.text},#{reComment.date},#{reComment.email},#{reComment.website},#{reComment.userName},#{reComment.userType})
     </insert>
 
 
     <!--获取某个评论下的所有回复-->
-    <select id="getReComment_allByCommentID" resultType="ReComment">
+    <select id="getReCommentByCommentID" resultType="ReComment">
         select recomment.*
-        from recomment,comment
-        where recomment.commentID = comment.commentID
+        from recomment
+        where recomment.commentID = #{commentID}
     </select>
+
+
+    <select id="getUserByUserID" resultType="User">
+        select user.*
+        from user
+        where user.userID = #{userID}
+    </select>
+
+
 
 </mapper>

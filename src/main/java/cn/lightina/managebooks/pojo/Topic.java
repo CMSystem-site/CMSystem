@@ -18,8 +18,10 @@ public class Topic {
     private String abstracts;
     private String text;
     private Integer courseID;
+    private String userName;
+    private String userType;
 
-    public Topic(Integer topicID, Integer userID, Timestamp date, String tag, Integer commentCount, String title, String abstracts, String text, Integer courseID){
+    public Topic(Integer topicID, Integer userID, Timestamp date, String tag, Integer commentCount, String title, String abstracts, String text, Integer courseID,String userName,String userType){
         this.topicID = topicID;
         this.userID = userID;
 
@@ -32,9 +34,11 @@ public class Topic {
         this.abstracts = abstracts;
         this.text = text;
         this.courseID = courseID;
+        this.userName = userName;
+        this.userType = userType;
     }
 
-    public Topic(Integer userID,String tag, String title, String abstracts, String text, Integer courseID){
+    public Topic(Integer userID,String tag, String title, String abstracts, String text, Integer courseID,String userName,String userType){
         this.topicID = topicID;
         this.userID = userID;
         this.tag = tag;
@@ -42,10 +46,15 @@ public class Topic {
         this.abstracts = abstracts;
         this.text = text;
         this.courseID = courseID;
+        this.userName = userName;
+        this.userType = userType;
 
         this.commentCount = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.date = sdf.format(new Date());
+    }
+    public int getCommentCount(){
+        return commentCount;
     }
 
 }

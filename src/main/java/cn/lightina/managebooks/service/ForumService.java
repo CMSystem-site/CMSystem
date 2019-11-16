@@ -3,6 +3,7 @@ package cn.lightina.managebooks.service;
 import cn.lightina.managebooks.pojo.Comment;
 import cn.lightina.managebooks.pojo.ReComment;
 import cn.lightina.managebooks.pojo.Topic;
+import cn.lightina.managebooks.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -22,11 +23,15 @@ public interface ForumService {
     Integer addComment(Comment comment);
 
     //获取某个主题下面的所有评论
-    List<Comment> getComment_allByTopicID(Integer TopicID);
+    List<Comment> getCommentByTopicID(Integer TopicID);
 
     //在某个评论下添加回复
     Integer addReComment(ReComment recomment);
 
     //获取某个评论下的所有回复
-    List<ReComment> getReComment_allByCommentID(Integer CommentID);
+    List<ReComment> getReCommentByCommentID(Integer CommentID);
+
+    User getUserByUserID(Integer userID);
+
+    Integer updateTopic(Integer TopicID,Integer CommentCount);
 }

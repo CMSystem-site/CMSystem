@@ -59,7 +59,7 @@
                                         <div class="logo-container">
                                                 <!-- Website Logo -->
                                                 <a href="index-2.html"  title="Knowledge Base Theme">
-                                                        <img src="images/logo.png" alt="Knowledge Base Theme">
+                                                        <img src="/static/lib/images/logo.png" alt="Knowledge Base Theme">
                                                 </a>
                                                 <span class="tag-line">Premium WordPress Theme</span>
                                         </div>
@@ -131,11 +131,15 @@
                                                                         <h3 class="post-title">
                                                                                 <a th:onclick="'topicInfo_func('+${topic.courseID}+','+${topic.topicID}+');'" th:text="${topic.title}"></a>
                                                                         </h3>
+<!--                                                                        <h4 class="name">-->
+<!--                                                                                <a th:text="${user.userName}}+'  '+${user.userType}"></a>-->
+<!--                                                                        </h4>-->
 
                                                                         <div class="post-meta clearfix">
                                                                                 <span class="date" th:text="${topic.date}"></span>
                                                                                 <span class="category" th:text="${topic.tag}"></span>
-                                                                                <span class="comments" th:text="${topic.commentCount}"> Comments</span>
+                                                                                <span class="comments" th:text="${topic.commentCount} + ' Comments'"></span>
+                                                                                <span class="c" th:text="${topic.commentCount} + ' Comments'"></span>
                                                                         </div><!-- end of post meta -->
 
                                                                 </header>
@@ -146,13 +150,13 @@
 
                                                 </tr>
 
-                                                <div id="pagination">
-                                                        <a href="#" class="btn active">1</a>
-                                                        <a href="#" class="btn">2</a>
-                                                        <a href="#" class="btn">3</a>
-                                                        <a href="#" class="btn">Next »</a>
-                                                        <a href="#" class="btn">Last »</a>
-                                                </div>
+<!--                                                <div id="pagination">-->
+<!--                                                        <a href="#" class="btn active">1</a>-->
+<!--                                                        <a href="#" class="btn">2</a>-->
+<!--                                                        <a href="#" class="btn">3</a>-->
+<!--                                                        <a href="#" class="btn">Next »</a>-->
+<!--                                                        <a href="#" class="btn">Last »</a>-->
+<!--                                                </div>-->
 
                                         </div>
                                         <!-- end of page content -->
