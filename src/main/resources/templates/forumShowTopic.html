@@ -44,6 +44,10 @@
     var cid = [[${topic.courseID}]];
     var tid = [[${topic.topicID}]];
 
+    function searchTopic_func() {
+        var title = document.getElementById("s").value;
+        window.location.href="/forum/"+cid+"/searchTopic/"+title;
+    }
     function editReComment_func(courseID,topicID,commentID) {
         window.location.href = "/forum/"+courseID+"/topic/"+topicID+"/comment/"+commentID+"/editReComment";
     }
@@ -120,9 +124,9 @@
         <h3 class="search-header">Have a Question?</h3>
         <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
 
-        <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off">
+        <form id="search-form" class="search-form clearfix" method="get" autocomplete="off">
             <input class="search-term required" type="text" id="s" name="s" placeholder="Type your search terms here" title="* Please enter a search term!" />
-            <input class="search-btn" type="submit" value="Search" />
+            <input class="search-btn" type="button" value="Search" th:onclick="'searchTopic_func();'" />
             <div id="search-error-container"></div>
         </form>
     </div>
