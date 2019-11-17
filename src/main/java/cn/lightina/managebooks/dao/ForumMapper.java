@@ -25,4 +25,6 @@ public interface ForumMapper {
     User getUserByUserID(@Param("userID") Integer userID);
     Integer updateTopic(@Param("topicID")Integer TopicID,@Param("CommentCount")Integer CommentCount);
 
+    Integer deleteTopic(@Param("topicID")Integer topicID);
+    Integer deleteComment(@Param("commentID")Integer commentID);
 }

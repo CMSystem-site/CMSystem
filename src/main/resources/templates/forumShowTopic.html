@@ -41,8 +41,25 @@
     if(message)
         alert(message);
 
+    var cid = [[${topic.courseID}]];
+    var tid = [[${topic.topicID}]];
+
     function editReComment_func(courseID,topicID,commentID) {
         window.location.href = "/forum/"+courseID+"/topic/"+topicID+"/comment/"+commentID+"/editReComment";
+    }
+
+    function deleteTopic_func() {
+        var r = confirm("确认删除此话题（不可恢复）？");
+        if(r==true){
+            window.location.href="/forum/"+cid+"/deleteTopic/"+tid;
+        }
+    }
+
+    function deleteComment_func(commentID) {
+        var r = confirm("确认删除此回复?");
+        if(r==true){
+            window.location.href="/forum/"+cid+"/topic/"+tid+"/comment/"+commentID+"/deleteComment";
+        }
     }
 </script>
 <body>
@@ -121,7 +138,12 @@
             <div class="span8 page-content">
 
                 <h2><a th:text="${topic.title}"></a></h2>
-                <h4><a th:text="'作者： ' + ${topic.userName}"></a></h4>
+                <h4><a th:text="'作者： ' + ${topic.userName}"></a>
+                    <h6 align="right">
+                        <a th:if="${topic.userID==user.userID}"
+                           th:onclick="'deleteTopic_func();'">删除话题</a>
+                    </h6></h4>
+
 
                 <article class=" type-post format-standard hentry clearfix">
                     <div  id="test-editormd-view">
@@ -149,8 +171,14 @@
                                     <img alt="" src="http://1.gravatar.com/avatar/50a7625001317a58444a20ece817aeca?s=60&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G" class="avatar avatar-60 photo" height="60" width="60">
                                 </a>
                                             <div class="comment-meta">
-                                                <h5 class="author"><cite class="fn"><a rel="external nofollow" class="url" th:text="${comment.userName}" ></a></cite>
-                                                    - <a class="comment-reply-link" th:href="@{'/forum/'+${topic.courseID}+'/topic/'+${topic.topicID}+'/comment/'+${comment.commentID}+'/editReComment'}">Reply</a>
+                                                <h5 class="author"><cite class="fn">
+                                                    <a rel="external nofollow" class="url" th:text="${comment.userName}" ></a></cite>
+                                                    - <a class="comment-reply-link"
+                                                         th:href="@{'/forum/'+${topic.courseID}+'/topic/'+${topic.topicID}+'/comment/'+${comment.commentID}+'/editReComment'}">回复</a>
+                                                    <h6 align="right">
+                                                        <a th:if="${user.userID==topic.userID || user.userID==comment.userID}"
+                                                           th:onclick="'deleteComment_func('+${comment.commentID}+');'">删除回复</a></h6>
+
 <!--                                        - <a herf="'editReComment_func(topic.CourseID,topic.topicID,comment.commentID);'">回复</a>-->
 <!--                                        <a th:action="'editReComment'" class="btn btn-primary">回复</a>-->
                                                 </h5>

@@ -7,6 +7,7 @@ import cn.lightina.managebooks.pojo.User;
 import cn.lightina.managebooks.service.ForumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -154,7 +155,28 @@ public class ForumController {
         model.addAttribute("topicList",topicList);
         return "forum";
     }
+    //删除某课程讨论区的帖子
+    @RequestMapping("/forum/{courseID}/deleteTopic/{topicID}")
+    public String deleteForumTopic(@PathVariable(value = "courseID")Integer courseID,
+                                    @PathVariable(value = "topicID")Integer topicID,
+                                   Model model, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
 
+        int flag = forumService.deleteTopic(topicID);
+        if(flag!=1){
+            model.addAttribute("msg","删除话题失败！");
+        }else{
+            model.addAttribute("msg","删除话题成功！");
+        }
+
+        model.addAttribute("courseID",courseID);
+        List<Topic> topicList = forumService.getTopicByCourseID(courseID);
+        model.addAttribute("topicList",topicList);
+        return "forum";
+    }
+
+    //评论
     @RequestMapping("/forum/{courseID}/topic/{topicID}/addComment")
     public String addForumComment(@PathVariable(value = "courseID")Integer courseID,
                                   @PathVariable(value = "topicID")Integer topicID,
@@ -189,6 +211,41 @@ public class ForumController {
             Comment tempComment = commentList.get(i);
             Integer commentID = tempComment.getCommentID();
             List<ReComment> tempReCommentList = forumService.getReCommentByCommentID(commentID);
+            reCommentListList.add(tempReCommentList);
+        }
+        model.addAttribute("commentList",commentList);
+        model.addAttribute("reCommentListList",reCommentListList);
+
+        return "forumShowTopic";
+
+    }
+    //删除评论
+    @RequestMapping("/forum/{courseID}/topic/{topicID}/comment/{commentID}/deleteComment")
+    public String deleteForumComment(@PathVariable(value = "courseID")Integer courseID,
+                                     @PathVariable(value = "topicID")Integer topicID,
+                                     @PathVariable(value = "commentID")Integer commentID,
+                                     Model model,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+
+        int flag = forumService.deleteComment(commentID);
+        if(flag!=1){
+            model.addAttribute("msg","删除评论失败！");
+        }else{
+            model.addAttribute("msg","删除评论成功！");
+        }
+
+        Topic temptopic = forumService.getTopicByTopicID(topicID);
+        forumService.updateTopic(topicID,temptopic.getCommentCount()-1);
+
+        Topic topic = forumService.getTopicByTopicID(topicID);
+        model.addAttribute("topic",topic);
+        List<Comment> commentList = forumService.getCommentByTopicID(topicID);
+        List<List<ReComment>> reCommentListList = new ArrayList<List<ReComment>>();
+        for(int i = 0;i < commentList.size();i++){
+            Comment tempComment = commentList.get(i);
+            Integer commentid = tempComment.getCommentID();
+            List<ReComment> tempReCommentList = forumService.getReCommentByCommentID(commentid);
             reCommentListList.add(tempReCommentList);
         }
         model.addAttribute("commentList",commentList);

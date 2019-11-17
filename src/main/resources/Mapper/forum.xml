@@ -11,12 +11,12 @@
         values(#{topic.userID},#{topic.date},#{topic.tag},#{topic.commentCount},#{topic.title},#{topic.abstracts},#{topic.text},#{topic.courseID},#{topic.userName},#{topic.userType})
     </insert>
 
-    <!--查询Topic1-->
+    <!--查询Topic-->
     <select id="getTopicByCourseID" resultType="Topic">
         select topic.* from topic
         where topic.courseID = #{courseID}
     </select>
-    <!--查询Topic2-->
+    <!--查询Topic-->
     <select id="getTopicByTitle" resultType="Topic" >
         select topic.* from topic
         where topic.courseID = #{courseID} and topic.title like CONCAT('%','${title}','%')
@@ -41,6 +41,12 @@
         values (#{comment.userID},#{comment.topicID},#{comment.date},#{comment.text},#{comment.reCommentCount},#{comment.email},#{comment.website},#{comment.userName},#{comment.userType})
     </insert>
 
+    <!--在某个主题下面删除评论-->
+    <delete id="deleteComment" parameterType="int">
+        delete from comment
+        where comment.commentID = #{commentID}
+    </delete>
+
     <!--查询某个主题下面的所有评论-->
     <select id="getCommentByTopicID" resultType="Comment">
         select comment.*
@@ -55,6 +61,7 @@
     </insert>
 
 
+
     <!--获取某个评论下的所有回复-->
     <select id="getReCommentByCommentID" resultType="ReComment">
         select recomment.*
@@ -63,7 +70,11 @@
     </select>
 
 
-
+    <!--删除话题-->
+    <delete id="deleteTopic" parameterType="int">
+        delete from topic
+        where topic.topicID = #{topicID}
+    </delete>
     <select id="getUserByUserID" resultType="User">
         select user.*
         from user

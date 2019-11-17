@@ -73,4 +73,14 @@ public class ForumServiceimpl implements ForumService{
     public Integer updateTopic(Integer TopicID,Integer CommentCount){
         return forumMapper.updateTopic(TopicID,CommentCount);
     }
+
+    @Override
+    public Integer deleteTopic(Integer topicID) {
+        return forumMapper.deleteTopic(topicID);
+    }
+
+    @Override
+    public Integer deleteComment(Integer commentID) {
+        return forumMapper.deleteComment(commentID);
+    }
 }

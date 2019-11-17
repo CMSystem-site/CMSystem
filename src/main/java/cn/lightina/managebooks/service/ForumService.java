@@ -35,4 +35,9 @@ public interface ForumService {
     User getUserByUserID(Integer userID);
 
     Integer updateTopic(Integer TopicID,Integer CommentCount);
+
+    //删除话题
+    Integer deleteTopic(Integer topicID);
+    //删除评论
+    Integer deleteComment(Integer commentID);
 }
