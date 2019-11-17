@@ -8,8 +8,10 @@ spring:
   datasource:
         name: library
         url: jdbc:mysql://139.9.127.88:3306/cmsystem?useUnicode=true&characterEncoding=utf8
+#        url: jdbc:mysql://localhost:3306/cmsystem?useUnicode=true&characterEncoding=utf8
         username: root
         password: nuaamuyun99
+#        password: 123123
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
@@ -31,3 +33,5 @@ mybatis:
 mail:
   fromMail:
     addr: managebooks@163.com
+server:
+  port: 8080
