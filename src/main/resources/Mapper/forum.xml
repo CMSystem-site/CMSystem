@@ -11,11 +11,17 @@
         values(#{topic.userID},#{topic.date},#{topic.tag},#{topic.commentCount},#{topic.title},#{topic.abstracts},#{topic.text},#{topic.courseID},#{topic.userName},#{topic.userType})
     </insert>
 
-    <!--查询Topic-->
+    <!--查询Topic1-->
     <select id="getTopicByCourseID" resultType="Topic">
         select topic.* from topic
         where topic.courseID = #{courseID}
     </select>
+    <!--查询Topic2-->
+    <select id="getTopicByTitle" resultType="Topic" >
+        select topic.* from topic
+        where topic.courseID = #{courseID} and topic.title like CONCAT('%','${title}','%')
+    </select>
+
 
     <!--查询单个讨论主题的内容-->
     <select id="getTopicByTopicID" resultType="Topic">
@@ -55,6 +61,7 @@
         from recomment
         where recomment.commentID = #{commentID}
     </select>
+
 
 
     <select id="getUserByUserID" resultType="User">

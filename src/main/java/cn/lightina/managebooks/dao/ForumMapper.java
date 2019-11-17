@@ -12,7 +12,9 @@ public interface ForumMapper {
 
     Integer addTopic(@Param("topic") Topic topic);
     List<Topic> getTopicByCourseID(@Param("courseID") Integer CourseID);
+    List<Topic> getTopicByTitle(@Param("courseID")Integer CourseID,@Param("title")String title);
     Topic getTopicByTopicID(@Param("topicID") Integer TopicID);
+
 
     Integer addComment(@Param("comment") Comment comment);
     List<Comment> getCommentByTopicID(@Param("topicID") Integer TopicID);

@@ -259,4 +259,16 @@ public class ForumController {
 
         return "forumShowTopic";
     }
+
+    //查找某课程讨论区的帖子
+    @RequestMapping("/forum/{courseID}/searchTopic/{title}")
+    public String searchTopic(@PathVariable(value = "courseID")Integer courseID,@PathVariable(value = "title")String title, Model model, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+        model.addAttribute("courseID",courseID);
+
+        List<Topic> topicList = forumService.getTopicByTitle(courseID,title);
+        model.addAttribute("topicList",topicList);
+        return "forum";
+    }
 }

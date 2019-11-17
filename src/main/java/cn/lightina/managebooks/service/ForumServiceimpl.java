@@ -28,6 +28,11 @@ public class ForumServiceimpl implements ForumService{
         return forumMapper.getTopicByCourseID(courseID);
     }
 
+    @Override
+    public List<Topic> getTopicByTitle(Integer courseID, String title) {
+        return forumMapper.getTopicByTitle(courseID,title);
+    }
+
 
     //获取单个讨论主题的内容
     @Override

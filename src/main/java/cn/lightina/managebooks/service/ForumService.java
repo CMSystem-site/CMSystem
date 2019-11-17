@@ -15,6 +15,7 @@ public interface ForumService {
 
     //获取某课程下的全部讨论主题
     List<Topic> getTopicByCourseID(Integer CourseID);
+    List<Topic> getTopicByTitle(Integer courseID,String title);
 
     //获取单个讨论主题的内容
     Topic getTopicByTopicID(Integer TopicID);
