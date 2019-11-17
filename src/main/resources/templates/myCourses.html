@@ -67,7 +67,12 @@
 
     function stulist_func(e) {
         window.location.href="/studentlist/"+e;
-//        window.open("/studentlist/"+e,"_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400");
+    }
+    
+    function auto_func(e) {
+        console.log("courseid:"+e);
+//        window.location.href="/auto_absence/"+e;
+        window.open('/auto_absence/'+e,'考勤码设置','height=600,width=300,top=0,left=0,toolbar=no,menubar=no,scrollbar=yes,resizable=yes, location=no, status=no');
     }
 </script>
 
@@ -517,7 +522,8 @@
                                             <a th:onclick="'drop_func('+${courselist.courseID}+');'" class="btn btn-danger">退课</a>
                                         </td>
                                         <td th:if="${user.userType.equals('教师')}">
-                                            <a th:onclick="'stulist_func('+${courselist.courseID}+');'" class="btn btn-info">考勤</a>
+                                            <a th:onclick="'stulist_func('+${courselist.courseID}+');'" class="btn btn-info">手动考勤</a>
+                                            <a th:onclick = "'auto_func('+${courselist.courseID}+');'" class="btn btn-success">自动考勤</a>
                                             <a th:onclick="'delete_func('+${courselist.courseID}+');'" class="btn btn-danger">删除</a>
                                         </td>
                                     </tr>
@@ -546,8 +552,44 @@
 <script src="/static/lib/js/lib/mmc-chat.js"></script>
 <script src="/static/lib/js/scripts.js"></script><!-- scripit init-->
 
+<!--自动考勤验证码-->
+<div id="auto" class="modal fade">
+    <div class="modal-dialog" style="width: 50%">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h1 class="text-center">自动考勤</h1>
+            </div>
+            <div class="modal-body">
+                <form id="auto_absence" action="test">
+                    <input id="cid" name="cid" type="hidden" value="">
+                    <div class="form-group has-feedback">
+                        <label for="code">考勤码</label>&nbsp;<h6 th:text="${msg}"></h6>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
+                            <input type="text" id="code" name="code" class="form-control" placeholder="请输入自定义考勤码" maxlength="20">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="text-right">
+                        <button class="btn btn-primary" onclick="auto_absence()" id="btn-add">创建</button>
+                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
+</div>
 
 
 </body>
