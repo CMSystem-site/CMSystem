@@ -72,6 +72,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<CourseSelection> getSelectListRandomly(Integer courseID, Integer cnt) {
+        return courseMapper.getSelectListRandomly(courseID,cnt);
+    }
+
+    @Override
     public Integer setAbsence(Integer courseID, Integer studentID) {
         return courseMapper.setAbsence(courseID,studentID);
     }

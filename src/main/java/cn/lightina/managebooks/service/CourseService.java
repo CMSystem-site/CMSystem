@@ -42,7 +42,8 @@ public interface CourseService {
 
     //选课名单
     List<CourseSelection> getSelectList(Integer courseID);
-
+    //随机点名
+    List<CourseSelection> getSelectListRandomly(Integer courseID,Integer cnt);
     //缺勤
     Integer setAbsence(Integer courseID,Integer studentID);
 

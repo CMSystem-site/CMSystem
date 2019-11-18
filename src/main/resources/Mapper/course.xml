@@ -82,6 +82,13 @@
         where courseselection.courseID = #{courseID} and courseselection.studentID = user.userID
         order by courseselection.studentID
     </select>
+    <!--随机点名名单-->
+    <select id="getSelectListRandomly" parameterType="int" resultType="CourseSelection">
+        select courseselection.*,user.userName
+        from courseselection,user
+        where courseselection.courseID = #{courseID} and courseselection.studentID = user.userID
+        order by rand() limit #{cnt}
+    </select>
 
     <!--缺勤-->
     <update id="setAbsence" parameterType="int">

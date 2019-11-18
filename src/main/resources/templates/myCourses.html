@@ -66,12 +66,20 @@
     }
 
     function stulist_func(e) {
+//        var courseID = document.getElementById("cid").value;
         window.location.href="/studentlist/"+e;
-//        window.open("/studentlist/"+e,"_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400");
     }
+
     function forum_func(e) {
         window.location.href="/forum/"+e;
     }
+
+    $("#attendance").modal("hide");
+    function values_func(e) {
+        console.log(e);
+        $("#cid").val(e);
+    }
+
 </script>
 
 
@@ -517,10 +525,13 @@
                                         <td th:text="${courselist.courseName}"></td>
                                         <td th:text="${courselist.teacherName}"></td>
                                         <td th:if="${user.userType.equals('学生')}">
+                                            <a th:onclick="'forum_func('+${courselist.courseID}+');'" class="btn btn-primary">讨论区</a>
                                             <a th:onclick="'drop_func('+${courselist.courseID}+');'" class="btn btn-danger">退课</a>
                                         </td>
                                         <td th:if="${user.userType.equals('教师')}">
+                                            <a th:onclick="'forum_func('+${courselist.courseID}+');'" class="btn btn-primary">讨论区</a>
                                             <a th:onclick="'stulist_func('+${courselist.courseID}+');'" class="btn btn-info">考勤</a>
+                                            <!--<a data-toggle="modal" data-target="#attendance" th:onclick="'values_func('+${courselist.courseID}+');'" class="btn btn-info">考勤</a>-->
                                             <a th:onclick="'delete_func('+${courselist.courseID}+');'" class="btn btn-danger">删除</a>
                                         </td>
                                     </tr>
@@ -538,6 +549,34 @@
 
 
 
+<!--考勤窗口-->
+<div id="attendance" class="modal fade">
+    <div class="modal-dialog" style="width: 50%">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h1 class="text-center">考勤方式</h1>
+                <input id="cid" type="hidden">
+            </div>
+            <div class="modal-body">
+                <form id="form-attendance">
+                    <div class="text-center">
+                        <button class="btn btn-success" onclick ="stulist_func()" type="button">手动考勤</button>
+                        <button class="btn btn-primary" onclick="rand_func()" type="button">随机考勤</button>
+                        <button class="btn btn-danger" type="button">验证码考勤</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
 
 
 

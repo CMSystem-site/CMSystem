@@ -5,11 +5,13 @@ import cn.lightina.managebooks.pojo.CourseSelection;
 import cn.lightina.managebooks.pojo.ProcessResult;
 import cn.lightina.managebooks.pojo.User;
 import cn.lightina.managebooks.service.CourseService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -265,6 +267,7 @@ public class CourseController {
         return "studentlist";
     }
 
+    //撤销缺勤
     @RequestMapping("/undo_absence/{courseID}/{studentID}")
     public String undo_absense(@PathVariable(value = "courseID")Integer courseID,@PathVariable(value = "studentID")Integer studentID,Model model,HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
@@ -283,6 +286,37 @@ public class CourseController {
 
         return "studentlist";
     }
+
+    //随机考勤
+    @RequestMapping("/random_absence/{courseID}/{cnt}")
+    public String random_absence(@PathVariable(value = "courseID")Integer courseID,
+                                 @PathVariable(value = "cnt")Integer cnt,
+                                 Model model,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        request.setAttribute("user",user);
+        request.setAttribute("courseID",courseID);
+
+        //选课学生名单
+        List<CourseSelection> selectlist = courseService.getSelectListRandomly(courseID,cnt);
+
+
+
+        model.addAttribute("selectlist",selectlist);
+        return "studentlist";
+    }
+
+    //自动考勤P1 (+1)
+    @RequestMapping("/auto_absence/{courseID}")
+    public String auto_absence(@PathVariable(value = "courseID")Integer courseID,@PathVariable(value = "code")String code,Model model,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+
+        model.addAttribute("courseID",courseID);
+        return "auto_absence";
+    }
+
+
+
 
     boolean isInt(String str){
         try {
