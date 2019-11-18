@@ -24,53 +24,6 @@ public class ForumController {
     @Autowired
     ForumService forumService;
 
-    @GetMapping("/forum")
-    public String forum(){
-        return "forum";
-    }
-
-    @GetMapping("/forum/single")
-    public String forumSingle(Model model,HttpServletRequest request){
-        Integer courseID = 1;
-        List<Topic> topiclist = forumService.getTopicByCourseID(courseID);
-        model.addAttribute("topic", topiclist.get(0));
-        return "forumSingle";
-    }
-
-    @GetMapping("/forum/page")
-    public String forumPage(){
-        return "forumaddtemp";
-    }
-
-    @GetMapping("/forum/addMarkdown")
-    public String addForumMarkdown(Model model,HttpServletRequest request){
-
-        String text = request.getParameter("text");
-
-        // Topic topic = new Topic(text);
-//        Topic topic = new Topic();
-//
-//        int flag = forumService.addTopic(topic);
-//        if(flag!=1){
-//            model.addAttribute("msg","创建话题失败！");
-//        }else{
-//            model.addAttribute("msg","创建话题成功！");
-//        }
-//        System.out.println(topic.toString());
-        return "forumEditMarkdown";
-    }
-
-    @GetMapping("/forum/showMarkdown")
-    public String showForumMarkdown(Model model,HttpServletRequest request){
-        Integer courseID = 1;
-        List<Topic> topiclist = forumService.getTopicByCourseID(courseID);
-        model.addAttribute("topic", topiclist.get(0));
-        return "forumShowMarkdown";
-    }
-
-
-
-
     // 点击课程进入该课程的讨论区，显示所有帖子
     @RequestMapping("/forum/{courseID}")
     public String forum(@PathVariable(value = "courseID")Integer courseID,
@@ -185,6 +138,9 @@ public class ForumController {
 
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user", user);
+        Topic topic = forumService.getTopicByTopicID(topicID);
+        model.addAttribute("topic",topic);
+
         Integer userID = user.getUserID();
         String email = request.getParameter("email");
         String website = request.getParameter("website");
@@ -203,8 +159,6 @@ public class ForumController {
             forumService.updateTopic(topicID,temptopic.getCommentCount()+1);
         }
 
-        Topic topic = forumService.getTopicByTopicID(topicID);
-        model.addAttribute("topic",topic);
         List<Comment> commentList = forumService.getCommentByTopicID(topicID);
         List<List<ReComment>> reCommentListList = new ArrayList<List<ReComment>>();
         for(int i = 0;i < commentList.size();i++){
