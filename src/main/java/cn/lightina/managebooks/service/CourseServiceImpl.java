@@ -72,8 +72,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseSelection> getSelectListRandomly(Integer courseID, Integer cnt) {
-        return courseMapper.getSelectListRandomly(courseID,cnt);
+    public List<CourseSelection> getSelectListRandomly(Integer courseID) {
+        return courseMapper.getSelectListRandomly(courseID);
     }
 
     @Override

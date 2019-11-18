@@ -42,7 +42,7 @@ public interface CourseMapper {
     //选课名单
     List<CourseSelection> getSelectList(@Param("courseID")Integer courseID);
     //随机点名名单
-    List<CourseSelection> getSelectListRandomly(@Param("courseID")Integer courseID,@Param("cnt")Integer cnt);
+    List<CourseSelection> getSelectListRandomly(@Param("courseID")Integer courseID);
 
     //缺勤
     Integer setAbsence(@Param("courseID")Integer courseID,@Param("studentID")Integer studentID);

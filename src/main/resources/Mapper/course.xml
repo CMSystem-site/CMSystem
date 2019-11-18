@@ -87,7 +87,7 @@
         select courseselection.*,user.userName
         from courseselection,user
         where courseselection.courseID = #{courseID} and courseselection.studentID = user.userID
-        order by rand() limit #{cnt}
+        order by rand() limit 1
     </select>
 
     <!--缺勤-->

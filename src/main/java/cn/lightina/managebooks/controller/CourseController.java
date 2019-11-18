@@ -288,18 +288,15 @@ public class CourseController {
     }
 
     //随机考勤
-    @RequestMapping("/random_absence/{courseID}/{cnt}")
+    @RequestMapping("/random_absence/{courseID}")
     public String random_absence(@PathVariable(value = "courseID")Integer courseID,
-                                 @PathVariable(value = "cnt")Integer cnt,
                                  Model model,HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
         request.setAttribute("user",user);
         request.setAttribute("courseID",courseID);
 
         //选课学生名单
-        List<CourseSelection> selectlist = courseService.getSelectListRandomly(courseID,cnt);
-
-
+        List<CourseSelection> selectlist = courseService.getSelectListRandomly(courseID);
 
         model.addAttribute("selectlist",selectlist);
         return "studentlist";
