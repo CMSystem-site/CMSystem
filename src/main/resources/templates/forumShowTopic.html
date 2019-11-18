@@ -59,6 +59,11 @@
         }
     }
 
+    function addComment_func(){
+        window.location.href = "/forum/"+cid+"/topic/"+tid+"/addComment/";
+    }
+
+
     function deleteComment_func(commentID) {
         var r = confirm("确认删除此回复?");
         if(r==true){
@@ -202,6 +207,8 @@
                                                 <div class="comment-meta" >
                                                     <h5 class="author">
                                                         <cite class="fn" th:text="${reComment.userName}"></cite>
+                                                        <h6 align="right" ><a th:if="${user.userID==topic.userID || user.userID==reComment.userID}"
+                                                               th:onclick="'deleteComment_func('+${comment.commentID}+');'">删除回复</a></h6>
                                                     </h5>
                                                     <p class="date">
                                                         <a href="#">
@@ -251,7 +258,7 @@
                             </div>
 
                             <div>
-                                <input class="btn" name="submit" type="submit" id="submit"  value="添加评论">
+                                <input class="btn" name="addComment" type="submit" id="addComment" onclick="addComment_func()" value="添加评论">
                             </div>
 
                         </form>

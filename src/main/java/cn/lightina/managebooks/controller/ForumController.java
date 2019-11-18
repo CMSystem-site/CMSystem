@@ -198,10 +198,10 @@ public class ForumController {
             model.addAttribute("msg","添加评论失败！");
         }else{
             model.addAttribute("msg","添加评论成功！");
-        }
 
-        Topic temptopic = forumService.getTopicByTopicID(topicID);
-        forumService.updateTopic(topicID,temptopic.getCommentCount()+1);
+            Topic temptopic = forumService.getTopicByTopicID(topicID);
+            forumService.updateTopic(topicID,temptopic.getCommentCount()+1);
+        }
 
         Topic topic = forumService.getTopicByTopicID(topicID);
         model.addAttribute("topic",topic);
@@ -233,10 +233,10 @@ public class ForumController {
             model.addAttribute("msg","删除评论失败！");
         }else{
             model.addAttribute("msg","删除评论成功！");
+            Topic temptopic = forumService.getTopicByTopicID(topicID);
+            forumService.updateTopic(topicID,temptopic.getCommentCount()-1);
         }
 
-        Topic temptopic = forumService.getTopicByTopicID(topicID);
-        forumService.updateTopic(topicID,temptopic.getCommentCount()-1);
 
         Topic topic = forumService.getTopicByTopicID(topicID);
         model.addAttribute("topic",topic);
