@@ -239,7 +239,7 @@
                         </div>
 
 
-                        <form name="form_addcomment" th:action="${topic.topicID} + '/addComment'">
+                        <form name="form_addcomment" th:action="'/forum/' + ${topic.courseID} + '/topic/' + ${topic.topicID} + '/addComment'">
                             <p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
                             <div>
                                 <label for="email">邮箱 *</label>
