@@ -40,80 +40,20 @@
         <div class="nano">
             <div class="nano-content">
                 <ul>
-                    <li class="active">
-                        <a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="index_stu.html">Dashboard 1</a></li>
-
-                        </ul>
-                    </li>
+                    <li><a></a></li>
+                    <li><a href="/index"><i class="ti-home"></i> 主  页 </a></li>
 
 
-                    <li><a href="/userinfo"><i class="ti-user"></i>个人信息</a></li>
-                    <li>
-                        <a class="sidebar-sub-toggle"><i class="ti-layout"></i>  课   程<span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="/allCourses">课程列表</a></li>
-                            <li><a href="/myCourses">我的课程</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="sidebar-sub-toggle"><i class="ti-panel"></i> Components <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="uc-calendar.html">Calendar</a></li>
-                            <li><a href="uc-carousel.html">Carousel</a></li>
+                    <li><a href="/userinfo"><i class="ti-user"></i> 个人信息 </a></li>
+                    <!--<li><a href="/allCourses"><i class="ti-layout-grid2-alt"></i>课程</a></li>-->
 
-                            <li><a href="uc-datamap.html">Datamap</a></li>
-                            <li><a href="uc-todo-list.html">To do</a></li>
-                            <li><a href="uc-scrollable.html">Scrollable</a></li>
-                            <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="uc-toastr.html">Toastr</a></li>
-                            <li><a href="uc-range-slider-basic.html">Basic Range Slider</a></li>
-                            <li><a href="uc-range-slider-advance.html">Advance Range Slider</a></li>
-                            <li><a href="uc-nestable.html">Nestable</a></li>
-                            <li><a href="uc-portlets.html">Portlets</a></li>
+                    <li><a href="/allCourses"><i class="ti-layout"></i> 课程列表 </a></li>
 
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i>  Charts  <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="chart-flot.html">Flot</a></li>
+                    <li><a href="/myCourses"><i class="ti-heart"></i> 我的课程 </a></li>
 
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="table-basic.html">Basic</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="sidebar-sub-toggle"><i class="ti-heart"></i> Icons <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="font-themify.html">Themify</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                    </li>
-                    <li><a href="form-basic.html"><i class="ti-view-list-alt"></i> Basic Form </a></li>
-                    <li>
-                        <a class="sidebar-sub-toggle"><i class="ti-files"></i> Invoice <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="invoice.html">Basic</a></li>
-                            <li><a href="invoice-editable.html">Editable</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="sidebar-sub-toggle"><i class="ti-target"></i> Pages <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="page-login.html">Login</a></li>
-                            <li><a href="page-register.html">Register</a></li>
-                            <li><a href="page-reset-password.html">Forgot password</a></li>
-                        </ul>
-                    </li>
-                    <li><a target="_blank" href="#"><i class="ti-file"></i> Documentation</a></li>
-                    <li><a><i class="ti-close"></i> Logout</a></li>
+                    <li th:if="${user.userType.equals('教师')}"><a data-toggle="modal" data-target="#add"><i class="ti-view-list-alt"></i> 创建课程 </a></li>
+
+                    <li><a href="/login"><i class="ti-close"></i> 登 出 </a></li>
                 </ul>
             </div>
         </div>
@@ -133,121 +73,6 @@
         <div class="pull-right p-r-15">
             <ul>
                 <li class="header-icon dib">
-                    <i class="ti-bell"></i>
-                    <div class="note-count">2</div>
-                    <div class="drop-down">
-                        <div class="dropdown-content-heading">
-                            <span class="text-left">Recent Notifications</span>
-                        </div>
-                        <div class="dropdown-content-body">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <img class="pull-left m-r-10 avatar-img" src="/static/lib/images/avatar/3.jpg" alt="" />
-                                        <div class="notification-content">
-                                            <small class="notification-timestamp pull-right">02:34 PM</small>
-                                            <div class="notification-heading">Mr. Jane</div>
-                                            <div class="notification-text">5 members joined today </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img class="pull-left m-r-10 avatar-img" src="/static/lib/images/avatar/3.jpg" alt="" />
-                                        <div class="notification-content">
-                                            <small class="notification-timestamp pull-right">02:34 PM</small>
-                                            <div class="notification-heading">Mariam</div>
-                                            <div class="notification-text">likes a photo of you</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img class="pull-left m-r-10 avatar-img" src="/static/lib/images/avatar/3.jpg" alt="" />
-                                        <div class="notification-content">
-                                            <small class="notification-timestamp pull-right">02:34 PM</small>
-                                            <div class="notification-heading">Tasnim</div>
-                                            <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img class="pull-left m-r-10 avatar-img" src="/static/lib/images/avatar/3.jpg" alt="" />
-                                        <div class="notification-content">
-                                            <small class="notification-timestamp pull-right">02:34 PM</small>
-                                            <div class="notification-heading">Jane Roe</div>
-                                            <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="text-center">
-                                    <a href="#" class="more-link">See All</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >建站模板</a></div>
-                <li class="header-icon dib">
-                    <i class="ti-email"></i>
-                    <div class="note-count">21</div>
-                    <div class="drop-down">
-                        <div class="dropdown-content-heading">
-                            <span class="text-left">2 New Messages</span>
-                            <a href="app-email.html"><i class="ti-pencil-alt pull-right"></i></a>
-                        </div>
-                        <div class="dropdown-content-body">
-                            <ul>
-                                <li class="notification-unread">
-                                    <a href="#">
-                                        <img class="pull-left m-r-10 avatar-img" src="/static/lib/images/avatar/1.jpg" alt="" />
-                                        <div class="notification-content">
-                                            <small class="notification-timestamp pull-right">02:34 PM</small>
-                                            <div class="notification-heading">Jane Doe</div>
-                                            <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-unread">
-                                    <a href="#">
-                                        <img class="pull-left m-r-10 avatar-img" src="/static/lib/images/avatar/2.jpg" alt="" />
-                                        <div class="notification-content">
-                                            <small class="notification-timestamp pull-right">02:34 PM</small>
-                                            <div class="notification-heading">Jane Roe</div>
-                                            <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img class="pull-left m-r-10 avatar-img" src="/static/lib/images/avatar/3.jpg" alt="" />
-                                        <div class="notification-content">
-                                            <small class="notification-timestamp pull-right">02:34 PM</small>
-                                            <div class="notification-heading">Jane Doe</div>
-                                            <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img class="pull-left m-r-10 avatar-img" src="/static/lib/images/avatar/2.jpg" alt="" />
-                                        <div class="notification-content">
-                                            <small class="notification-timestamp pull-right">02:34 PM</small>
-                                            <div class="notification-heading">Jane Roe</div>
-                                            <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="text-center">
-                                    <a href="#" class="more-link">See All</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="header-icon dib chat-sidebar-icon"><i class="ti-comments"></i></li>
-                <li class="header-icon dib">
                     <img class="avatar-img" src="/static/lib/images/avatar/1.jpg" alt="" /> <span class="user-avatar" th:text="${user.userName}"> <i class="ti-angle-down f-s-10"></i></span>
                     <div class="drop-down dropdown-profile">
                         <div class="dropdown-content-heading">
@@ -256,15 +81,10 @@
                         </div>
                         <div class="dropdown-content-body">
                             <ul>
-                                <li><a href="/userinfo"><i class="ti-user"></i> <span>Profile</span></a></li>
-                                <li><a href="#"><i class="ti-wallet"></i> <span>My Balance</span></a></li>
-                                <li><a href="#"><i class="ti-write"></i> <span>My Task</span></a></li>
-                                <li><a href="#"><i class="ti-calendar"></i> <span>My Calender</span></a></li>
-                                <li><a href="#"><i class="ti-email"></i> <span>Inbox</span></a></li>
-                                <li><a href="#"><i class="ti-settings"></i> <span>Setting</span></a></li>
-                                <li><a href="#"><i class="ti-help-alt"></i> <span>Help</span></a></li>
-                                <li><a href="#"><i class="ti-lock"></i> <span>Lock Screen</span></a></li>
-                                <li><a href="#"><i class="ti-power-off"></i> <span>Logout</span></a></li>
+                                <li><a href="/userinfo"><i class="ti-user"></i> <span>个人信息</span></a></li>
+                                <li><a href="/myCourses"><i class="ti-write"></i> <span>我的课程</span></a></li>
+                                <li><a href="/resetPsd"><i class="ti-settings"></i> <span>修改密码</span></a></li>
+                                <li><a href="/login"><i class="ti-power-off"></i> <span> 登 出 </span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -409,8 +229,6 @@
                         <div class="page-header">
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
-                                    <li><a href="#">Dashboard</a></li>
-                                    <li class="active">Home</li>
                                 </ol>
                             </div>
                         </div>

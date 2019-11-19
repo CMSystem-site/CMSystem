@@ -6,6 +6,7 @@ import cn.lightina.managebooks.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,16 @@ public class UserController {
 
     @GetMapping(value = "/index_stu")
     public String index(){
+
+        return "index_stu";
+    }
+
+    @GetMapping(value = "/index")
+    public String index1(Model model, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+        if(user.getUserType().equals("教师"))
+            return "index_tea";
 
         return "index_stu";
     }
