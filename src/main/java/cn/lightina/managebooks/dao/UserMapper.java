@@ -20,4 +20,7 @@ public interface UserMapper {
 
     //通过姓名查找用户
     User findByUserName(@Param("user")User user);
+
+    //通过手机号码查找用户
+    User checkPhone(@Param("phone")String phone);
 }

@@ -131,16 +131,20 @@ public class UserController {
             return "register";
         }
 
-        Integer flag = userService.addUser(user);
-
-        if(flag!=1){
-            model.addAttribute("msg","此用户名已被注册！");
-            return "register";
+        User u = userService.checkPhone(phone);
+        if(u==null){
+            Integer flag = userService.addUser(user);
+            if(flag!=1){
+                model.addAttribute("msg","注册失败，请刷新重试！");
+                return "register";
+            }else{
+                model.addAttribute("msg","注册成功！");
+                return "login";
+            }
         }else{
-            model.addAttribute("msg","注册成功！");
-            return "login";
+            model.addAttribute("msg","此手机号码已被注册！");
+            return "register";
         }
-
 
     }
 
@@ -200,7 +204,7 @@ public class UserController {
         if(pwd!=null)
             model.addAttribute("msg","查找成功!您的密码为："+pwd);
 
-        return "resetPsd_new";
+        return "findPsd";
     }
 
     //个人信息

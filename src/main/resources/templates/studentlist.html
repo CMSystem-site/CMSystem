@@ -56,6 +56,69 @@
 </script>
 
 <body>
+
+<div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+    <div class="nano">
+        <div class="nano-content">
+            <ul>
+                <li><a></a></li>
+                <li><a href="/index_tea"><i class="ti-home"></i> 主  页 </a></li>
+
+
+                <li><a href="/userinfo"><i class="ti-user"></i> 个人信息 </a></li>
+                <!--<li><a href="/allCourses"><i class="ti-layout-grid2-alt"></i>课程</a></li>-->
+
+                <li><a href="/allCourses"><i class="ti-layout"></i> 课程列表 </a></li>
+
+                <li><a href="/myCourses"><i class="ti-heart"></i> 我的课程 </a></li>
+
+                <li th:if="${user.userType.equals('教师')}"><a data-toggle="modal" data-target="#add"><i class="ti-view-list-alt"></i> 创建课程 </a></li>
+
+                <li><a href="/login"><i class="ti-close"></i> 登 出 </a></li>
+            </ul>
+        </div>
+    </div>
+</div><!-- /# sidebar -->
+
+<div class="header">
+    <div class="pull-left">
+        <div class="logo">
+            <a href="/index">
+                <img id="logoImg"
+                     src="/static/logo/logo.png"
+                     data-logo_big="/static/logo/logo.png"
+                     data-logo_small="/static/logo/logoSmall.png"
+                     alt="Nixon" />
+            </a>
+        </div>
+        <div class="hamburger sidebar-toggle">
+            <span class="ti-menu"></span>
+        </div>
+    </div>
+
+    <div class="pull-right p-r-15">
+        <ul>
+            <!-- ！！！！！！！！！！！！！！！！！！！！-->
+            <li class="header-icon dib">
+                <img class="avatar-img" src="/static/lib/images/avatar/1.jpg" alt="" />
+                <span class="user-avatar" th:text="${user.userName}"><i class="ti-angle-down f-s-10"></i></span>
+                <div class="drop-down dropdown-profile">
+                    <div class="dropdown-content-heading">
+                        <span class="text-left">欢迎使用智慧课堂管理系统！ </span>
+                    </div>
+                    <div class="dropdown-content-body">
+                        <ul>
+                            <li><a href="/userinfo"><i class="ti-user"></i> <span>个人信息</span></a></li>
+                            <li><a href="/myCourses"><i class="ti-write"></i> <span>我的课程</span></a></li>
+                            <li><a href="/resetPsd"><i class="ti-settings"></i> <span>修改密码</span></a></li>
+                            <li><a href="/login"><i class="ti-power-off"></i> <span> 登 出 </span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
 <div>
     <table class="layui-table" style="width:400px; margin:25px 480px 25px;">
         <button onclick="random_func()" class="btn btn-info">随机点名</button>

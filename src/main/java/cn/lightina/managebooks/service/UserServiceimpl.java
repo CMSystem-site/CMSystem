@@ -42,4 +42,9 @@ public class UserServiceimpl implements UserService {
         return userMapper.findPwd(phone);
     }
 
+    @Override
+    public User checkPhone(String phone) {
+        return userMapper.checkPhone(phone);
+    }
+
 }

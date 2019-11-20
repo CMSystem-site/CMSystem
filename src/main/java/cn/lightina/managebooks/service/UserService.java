@@ -16,5 +16,5 @@ public interface UserService {
 
     String findPwd(String phone);
 
-
+    User checkPhone(String phone);
 }

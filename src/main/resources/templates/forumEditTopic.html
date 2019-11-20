@@ -52,7 +52,6 @@
     <header>
         <div class="container">
 
-
             <div class="logo-container">
                 <!-- Website Logo -->
                 <a href="/index">
@@ -67,33 +66,33 @@
 
 
             <!-- Start of Main Navigation -->
-            <nav class="main-nav">
-                <div class="menu-top-menu-container">
-                    <ul id="menu-top-menu" class="clearfix">
-                        <li><a href="index-2.html">Home</a></li>
-                        <li><a href="home-categories-description.html">Home 2</a></li>
-                        <li><a href="home-categories-articles.html">Home 3</a></li>
-                        <li><a href="articles-list.html">Articles List</a></li>
-                        <li><a href="faq.html">FAQs</a></li>
-                        <li><a href="#">Skins</a>
-                            <ul class="sub-menu">
-                                <li><a href="blue-skin.html">Blue Skin</a></li>
-                                <li><a href="green-skin.html">Green Skin</a></li>
-                                <li><a href="red-skin.html">Red Skin</a></li>
-                                <li><a href="index-2.html">Default Skin</a></li>
+            <!--<nav class="main-nav">
+                    <div class="menu-top-menu-container">
+                            <ul id="menu-top-menu" class="clearfix">
+                                    <li><a href="index-2.html">Home</a></li>
+                                    <li><a href="home-categories-description.html">Home 2</a></li>
+                                    <li><a href="home-categories-articles.html">Home 3</a></li>
+                                    <li  class="current-menu-item"><a href="articles-list.html">Articles List</a></li>
+                                    <li><a href="faq.html">FAQs</a></li>
+                                    <li><a href="#">Skins</a>
+                                            <ul class="sub-menu">
+                                                    <li><a href="blue-skin.html">Blue Skin</a></li>
+                                                    <li><a href="green-skin.html">Green Skin</a></li>
+                                                    <li><a href="red-skin.html">Red Skin</a></li>
+                                                    <li><a href="index-2.html">Default Skin</a></li>
+                                            </ul>
+                                    </li>
+                                    <li><a href="#">More</a>
+                                            <ul class="sub-menu">
+                                                    <li><a href="full-width.html">Full Width</a></li>
+                                                    <li><a href="elements.html">Elements</a></li>
+                                                    <li><a href="page.html">Sample Page</a></li>
+                                            </ul>
+                                    </li>
+                                    <li><a href="contact.html">Contact</a></li>
                             </ul>
-                        </li>
-                        <li><a href="#">More</a>
-                            <ul class="sub-menu">
-                                <li><a href="full-width.html">Full Width</a></li>
-                                <li><a href="elements.html">Elements</a></li>
-                                <li class="current-menu-item"><a href="page.html">Sample Page</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-            </nav>
+                    </div>
+            </nav>-->
             <!-- End of Main Navigation -->
 
         </div>
@@ -123,49 +122,53 @@
         <div class="row">
 
             <!-- start of page content -->
-            <div class="span8 main-listing">
-                <a th:onclick="'editTopic_func('+${courseID}+');'" class="btn btn-primary">添加话题</a>
-                <tr th:each="topic: ${topicList}">
-                    <article class="format-standard type-post hentry clearfix">
+            <div class="span8 page-content">
 
-                        <header class="clearfix">
+                <article class=" type-page  hentry clearfix">
+                    <h1 class="post-title"><a href="#">添加话题</a></h1>
+                    <hr>
+                </article>
 
-                            <h3 class="post-title">
-                                <a th:onclick="'topicInfo_func('+${topic.courseID}+','+${topic.topicID}+');'" th:text="${topic.title}"></a>
-                            </h3>
-                            <!--                                                                        <h4 class="name">-->
-                            <!--                                                                                <a th:text="${user.userName}}+'  '+${user.userType}"></a>-->
-                            <!--                                                                        </h4>-->
+                <div id="layout">
+                    <form name="form_addtopic" th:action="'addTopic'" >
+                        <div>
+                            <label for="title">标题 *</label>
+                            <input class="span4" type="text" name="title" id="title" value="" size="22">
+                        </div>
 
-                            <div class="post-meta clearfix">
-                                <span class="date" th:text="${topic.date}"></span>
-                                <span class="category" th:text="${topic.tag}"></span>
-                                <span class="comments" th:text="${topic.commentCount} + ' Comments'"></span>
-                                <!--<span class="c" th:text="${topic.commentCount} + ' Comments'"></span>-->
-                            </div><!-- end of post meta -->
+                        <div>
+                            <label for="abstracts">摘要 *</label>
+                            <input class="span4" type="text" name="abstracts" id="abstracts" value="" size="22" >
+                        </div>
 
-                        </header>
+                        <div>
+                            <label for="tag">标签 *</label>
+                            <input class="span4" type="text" name="tag" id="tag" value="" size="22" >
+                        </div>
 
-                        <p th:text="${topic.abstracts}"></p>
-
-                    </article>
-
-                </tr>
+                        <div id="test-editormd">
+                            <label for="text">内容 *</label>
+                            <textarea style="display:none;" name="text" id="text"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit">添加新话题</button>
+                        </div>
+                    </form>
+                </div>
             </div>
+            <!-- end of page content -->
+
+
+
         </div>
-        <!-- end of page content -->
-
-
-
     </div>
-</div>
 </div>
 <!-- End of Page Container -->
 
 
 <!-- Start of Footer -->
 <footer id="footer-wrapper">
-    <!--<div id="footer" class="container">
+   <!-- <div id="footer" class="container">
         <div class="row">
 
             <div class="span3">

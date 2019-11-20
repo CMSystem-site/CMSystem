@@ -8,6 +8,10 @@
         select * from user where userName=#{user.userName} and userPwd=#{user.userPwd}
     </select>
 
+    <select id="checkPhone" resultType="User">
+        select * from user where phone=#{phone}
+    </select>
+
     <select id="findByUserName" resultType="User">
         select * from user where userName=#{user.userName}
     </select>
