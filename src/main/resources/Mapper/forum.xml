@@ -7,20 +7,37 @@
 
     <!--创建Topic-->
     <insert id="addTopic" parameterType="Topic">
-        insert into topic(userID,date,tag,commentCount,title,abstracts,text,courseID,userName,userType)
-        values(#{topic.userID},#{topic.date},#{topic.tag},#{topic.commentCount},#{topic.title},#{topic.abstracts},#{topic.text},#{topic.courseID},#{topic.userName},#{topic.userType})
+        insert into topic(userID,date,tag,commentCount,title,abstracts,text,courseID,userName,userType,checkStatus)
+        values(#{topic.userID},#{topic.date},#{topic.tag},#{topic.commentCount},#{topic.title},#{topic.abstracts},#{topic.text},#{topic.courseID},#{topic.userName},#{topic.userType},#{topic.checkStatus})
     </insert>
 
     <!--查询Topic-->
     <select id="getTopicByCourseID" resultType="Topic">
         select topic.* from topic
-        where topic.courseID = #{courseID}
+        where topic.courseID = #{courseID} and topic.checkStatus = #{checkStatus}
     </select>
     <!--查询Topic-->
     <select id="getTopicByTitle" resultType="Topic" >
         select topic.* from topic
         where topic.courseID = #{courseID} and topic.title like CONCAT('%','${title}','%')
     </select>
+
+
+    <!--按照审核状态查询Topic-->
+    <select id="getTopicByCheckStatus" resultType="Topic" >
+        select topic.* from topic
+        where topic.checkStatus = #{checkStatus}
+    </select>
+
+
+
+
+    <!--改变话题的审核状态为“审核通过”-->
+    <update id="checkTopic" parameterType="int">
+        update topic
+        set checkStatus = "通过审核"
+        where topicID = #{topicID}
+    </update>
 
 
     <!--查询单个讨论主题的内容-->

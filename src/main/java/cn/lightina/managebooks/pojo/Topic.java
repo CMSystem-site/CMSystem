@@ -20,8 +20,9 @@ public class Topic {
     private Integer courseID;
     private String userName;
     private String userType;
+    private String checkStatus;//通过审核，未审核，未通过审核三种状态
 
-    public Topic(Integer topicID, Integer userID, Timestamp date, String tag, Integer commentCount, String title, String abstracts, String text, Integer courseID,String userName,String userType){
+    public Topic(Integer topicID, Integer userID, Timestamp date, String tag, Integer commentCount, String title, String abstracts, String text, Integer courseID,String userName,String userType,String checkStatus){
         this.topicID = topicID;
         this.userID = userID;
 
@@ -36,6 +37,7 @@ public class Topic {
         this.courseID = courseID;
         this.userName = userName;
         this.userType = userType;
+        this.checkStatus = checkStatus;
     }
 
     public Topic(Integer userID,String tag, String title, String abstracts, String text, Integer courseID,String userName,String userType){
@@ -52,6 +54,7 @@ public class Topic {
         this.commentCount = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.date = sdf.format(new Date());
+        this.checkStatus = "未审核";
     }
     public int getCommentCount(){
         return commentCount;
