@@ -34,11 +34,11 @@
 <script th:inline="javascript">
         var message = [[${msg}]];
         var user = [[${user}]];
-        var courseID = [[${courseID}]];
+        var cid = [[${courseID}]];
 
         console.log("message:" + message);
         console.log("user:"+user);
-        console.log("courseID:"+courseID);
+        console.log("courseID:"+cid);
 
         if(message)
                 alert(message);
@@ -52,6 +52,9 @@
         function searchTopic_func(courseID) {
                 var title = document.getElementById("s").value;
                 window.location.href="/forum/"+courseID+"/searchTopic/"+title;
+        }
+        function goIndex_func() {
+            window.location.href="/forum/"+cid;
         }
 </script>
 
@@ -114,7 +117,7 @@
                 <div class="search-area-wrapper">
                         <div class="search-area container">
                                 <!--<h3 class="search-header" th:text="${course.courseID}"></h3>-->
-                                <h3 class="search-header" th:text=" ${course.courseName} "></h3>
+                                <h3 class="search-header" th:text=" ${course.courseName} " onclick="goIndex_func();"></h3>
                                 <p class="search-tag-line">欢迎使用课程分区论坛功能，您可以进行提问或搜索已有话题！</p>
 
                                 <form id="search-form" class="search-form clearfix" method="get" autocomplete="off">
