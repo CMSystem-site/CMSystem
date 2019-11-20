@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Knowledge Base Theme</title>
+    <title th:text="'课程论坛 - '+${course.courseName}"></title>
 
     <link rel="shortcut icon" href="/static/lib/images/favicon.png" />
 
@@ -55,10 +55,14 @@
 
             <div class="logo-container">
                 <!-- Website Logo -->
-                <a href="index-2.html"  title="Knowledge Base Theme">
-                    <img src="/static/lib/images/logo.png" alt="Knowledge Base Theme">
+                <a href="/index">
+                    <img src="/static/lib/images/logo.png" alt="返回主页" href="/index">
                 </a>
-                <span class="tag-line">Premium WordPress Theme</span>
+                <span class="tag-line"></span>
+                <div class="dib pull-right">
+                    <img class="avatar-img" src="/static/lib/images/avatar/1.jpg" alt="" />
+                    <span class="user-avatar" th:text="${user.userName}"><i class="ti-angle-down f-s-10"></i></span>
+                </div>
             </div>
 
 
@@ -100,12 +104,13 @@
 <!-- Start of Search Wrapper -->
 <div class="search-area-wrapper">
     <div class="search-area container">
-        <h3 class="search-header">Have a Question?</h3>
-        <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
+        <!--<h3 class="search-header" th:text="${course.courseID}"></h3>-->
+        <h3 class="search-header" th:text=" ${course.courseName} "></h3>
+        <p class="search-tag-line">欢迎使用课程分区论坛功能，您可以进行提问或搜索已有话题！</p>
 
-        <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off">
-            <input class="search-term required" type="text" id="s" name="s" placeholder="Type your search terms here" title="* Please enter a search term!" />
-            <input class="search-btn" type="submit" value="Search" />
+        <form id="search-form" class="search-form clearfix" method="get" autocomplete="off">
+            <input class="search-term required" type="text" id="s" name="s" placeholder="请输入查询内容" title="* Please enter a search term!" />
+            <input class="search-btn" type="button" value="Search" th:onclick="'searchTopic_func('+${courseID}+');'"/>
             <div id="search-error-container"></div>
         </form>
     </div>
@@ -118,53 +123,49 @@
         <div class="row">
 
             <!-- start of page content -->
-            <div class="span8 page-content">
+            <div class="span8 main-listing">
+                <a th:onclick="'editTopic_func('+${courseID}+');'" class="btn btn-primary">添加话题</a>
+                <tr th:each="topic: ${topicList}">
+                    <article class="format-standard type-post hentry clearfix">
 
-                <article class=" type-page  hentry clearfix">
-                    <h1 class="post-title"><a href="#">添加话题</a></h1>
-                    <hr>
-                </article>
+                        <header class="clearfix">
 
-                <div id="layout">
-                    <form name="form_addtopic" th:action="'addTopic'" >
-                        <div>
-                            <label for="title">标题 *</label>
-                            <input class="span4" type="text" name="title" id="title" value="" size="22">
-                        </div>
+                            <h3 class="post-title">
+                                <a th:onclick="'topicInfo_func('+${topic.courseID}+','+${topic.topicID}+');'" th:text="${topic.title}"></a>
+                            </h3>
+                            <!--                                                                        <h4 class="name">-->
+                            <!--                                                                                <a th:text="${user.userName}}+'  '+${user.userType}"></a>-->
+                            <!--                                                                        </h4>-->
 
-                        <div>
-                            <label for="abstracts">摘要 *</label>
-                            <input class="span4" type="text" name="abstracts" id="abstracts" value="" size="22" >
-                        </div>
+                            <div class="post-meta clearfix">
+                                <span class="date" th:text="${topic.date}"></span>
+                                <span class="category" th:text="${topic.tag}"></span>
+                                <span class="comments" th:text="${topic.commentCount} + ' Comments'"></span>
+                                <!--<span class="c" th:text="${topic.commentCount} + ' Comments'"></span>-->
+                            </div><!-- end of post meta -->
 
-                        <div>
-                            <label for="tag">标签 *</label>
-                            <input class="span4" type="text" name="tag" id="tag" value="" size="22" >
-                        </div>
+                        </header>
 
-                        <div id="test-editormd">
-                            <label for="text">内容 *</label>
-                            <textarea style="display:none;" name="text" id="text"></textarea>
-                        </div>
-                        <div>
-                            <button type="submit">添加新话题</button>
-                        </div>
-                    </form>
-                </div>
+                        <p th:text="${topic.abstracts}"></p>
+
+                    </article>
+
+                </tr>
             </div>
-            <!-- end of page content -->
-
-
-
         </div>
+        <!-- end of page content -->
+
+
+
     </div>
+</div>
 </div>
 <!-- End of Page Container -->
 
 
 <!-- Start of Footer -->
 <footer id="footer-wrapper">
-    <div id="footer" class="container">
+    <!--<div id="footer" class="container">
         <div class="row">
 
             <div class="span3">
@@ -223,9 +224,9 @@
 
         </div>
     </div>
-    <!-- end of #footer -->
+    &lt;!&ndash; end of #footer &ndash;&gt;
 
-    <!-- Footer Bottom -->
+    &lt;!&ndash; Footer Bottom &ndash;&gt;
     <div id="footer-bottom-wrapper">
         <div id="footer-bottom" class="container">
             <div class="row">
@@ -235,7 +236,7 @@
                     </p>
                 </div>
                 <div class="span6">
-                    <!-- Social Navigation -->
+                    &lt;!&ndash; Social Navigation &ndash;&gt;
                     <ul class="social-nav clearfix">
                         <li class="linkedin"><a target="_blank" href="#"></a></li>
                         <li class="stumble"><a target="_blank" href="#"></a></li>
@@ -250,7 +251,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- End of Footer Bottom -->
 
 </footer>

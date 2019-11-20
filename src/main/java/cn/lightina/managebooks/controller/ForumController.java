@@ -1,9 +1,7 @@
 package cn.lightina.managebooks.controller;
 
-import cn.lightina.managebooks.pojo.Comment;
-import cn.lightina.managebooks.pojo.ReComment;
-import cn.lightina.managebooks.pojo.Topic;
-import cn.lightina.managebooks.pojo.User;
+import cn.lightina.managebooks.pojo.*;
+import cn.lightina.managebooks.service.CourseService;
 import cn.lightina.managebooks.service.ForumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +22,9 @@ public class ForumController {
     @Autowired
     ForumService forumService;
 
+    @Autowired
+    CourseService courseService;
+
     // 点击课程进入该课程的讨论区，显示所有帖子
     @RequestMapping("/forum/{courseID}")
     public String forum(@PathVariable(value = "courseID")Integer courseID,
@@ -31,6 +32,9 @@ public class ForumController {
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user", user);
         model.addAttribute("courseID",courseID);
+
+        CourseList course = courseService.findcourseByID(courseID);
+        model.addAttribute("course",course);
 
         List<Topic> topicList = forumService.getTopicByCourseID(courseID);
         model.addAttribute("topicList",topicList);
@@ -47,6 +51,9 @@ public class ForumController {
 
         Topic topic = forumService.getTopicByTopicID(topicID);
         model.addAttribute("topic",topic);
+
+        CourseList course = courseService.findcourseByID(courseID);
+        model.addAttribute("course",course);
 
         List<Comment> commentList = forumService.getCommentByTopicID(topicID);
         List<List<ReComment>> reCommentListList = new ArrayList<List<ReComment>>();
@@ -74,6 +81,8 @@ public class ForumController {
         model.addAttribute("user", user);
         model.addAttribute("courseID",courseID);
 
+        CourseList course = courseService.findcourseByID(courseID);
+        model.addAttribute("course",course);
         return "forumEditTopic";
     }
 
@@ -84,6 +93,9 @@ public class ForumController {
 
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user", user);
+
+        CourseList course = courseService.findcourseByID(courseID);
+        model.addAttribute("course",course);
 
         Integer userID = user.getUserID();
         String tag = request.getParameter("tag");
@@ -116,6 +128,9 @@ public class ForumController {
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user",user);
 
+        CourseList course = courseService.findcourseByID(courseID);
+        model.addAttribute("course",course);
+
         int flag = forumService.deleteTopic(topicID);
         if(flag!=1){
             model.addAttribute("msg","删除话题失败！");
@@ -140,6 +155,8 @@ public class ForumController {
         model.addAttribute("user", user);
         Topic topic = forumService.getTopicByTopicID(topicID);
         model.addAttribute("topic",topic);
+        CourseList course = courseService.findcourseByID(courseID);
+        model.addAttribute("course",course);
 
         Integer userID = user.getUserID();
         String email = request.getParameter("email");
@@ -181,6 +198,8 @@ public class ForumController {
                                      Model model,HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user",user);
+        CourseList course = courseService.findcourseByID(courseID);
+        model.addAttribute("course",course);
 
         int flag = forumService.deleteComment(commentID);
         if(flag!=1){
@@ -217,6 +236,8 @@ public class ForumController {
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user", user);
         model.addAttribute("courseID",courseID);
+        CourseList course = courseService.findcourseByID(courseID);
+        model.addAttribute("course",course);
 
         Topic topic = forumService.getTopicByTopicID(topicID);
         model.addAttribute("topic",topic);
@@ -236,6 +257,9 @@ public class ForumController {
 
         Topic topic = forumService.getTopicByTopicID(topicID);
         model.addAttribute("topic",topic);
+        CourseList course = courseService.findcourseByID(courseID);
+        model.addAttribute("course",course);
+
 
         Integer userID = user.getUserID();
         String email = request.getParameter("email");
@@ -277,6 +301,8 @@ public class ForumController {
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user",user);
         model.addAttribute("courseID",courseID);
+        CourseList course = courseService.findcourseByID(courseID);
+        model.addAttribute("course",course);
 
         List<Topic> topicList = forumService.getTopicByTitle(courseID,title);
         model.addAttribute("topicList",topicList);
