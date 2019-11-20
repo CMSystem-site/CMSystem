@@ -44,11 +44,10 @@
         window.location.href = "/courseinfo/"+e;
     }
 
-    function select_func(e) {
-        var r = confirm("确认选择这门课程?");
-        if(r==true){
-            window.location.href="/chooseCourse/"+e;
-        }
+    function select_func() {
+        var cid = document.getElementById("cid").value;
+        var code = document.getElementById("ccode").value;
+        window.location.href="/chooseCourse/"+cid+"/"+code;
     }
 
     function drop_func(e) {
@@ -56,6 +55,11 @@
         if(r==true){
             window.location.href="/dropCourse/"+e;
         }
+    }
+
+    function values_func(e) {
+        console.log(e);
+        $("#cid").val(e);
     }
 </script>
 
@@ -295,9 +299,10 @@
                                         <td th:if="${courselist.isChosen==1}">
                                             <button class="btn btn-danger" th:onclick="'drop_func('+${courselist.courseID}+');'">退课</button>
                                         </td>
-                                        <td th:if="${user.userType.equals('学生')&&courselist.isChosen==0}">
-                                            <button class="btn btn-info" th:onclick="'select_func('+${courselist.courseID}+');'">选课</button>
-                                        </td>
+                                        <!--<td th:if="${user.userType.equals('学生')&&courselist.isChosen==0}">-->
+                                            <a th:if="${courselist.isChosen==0&&user.userType.equals('学生')}" th:onclick="'values_func('+${courselist.courseID}+');'" data-toggle="modal" data-target="#choose" class="btn btn-info">选课</a>
+                                            <!--<button class="btn btn-info" th:onclick="'select_func('+${courselist.courseID}+');'">选课</button>-->
+                                        <!--</td>-->
                                     <!--</form>-->
                                 </div>
                             </div>
@@ -313,6 +318,110 @@
     <!-- /# main -->
 </div>
 <!-- /# content wrap -->
+
+
+<!--创建课程窗口-->
+<div id="add" class="modal fade">
+    <div class="modal-dialog" style="width: 50%">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h1 class="text-center">创建课程</h1>
+            </div>
+            <div class="modal-body">
+                <form id="form-login" action="/addCourse">
+                    <div class="form-group has-feedback">
+                        <label for="coursename">课程名称</label>&nbsp;<h6 th:text="${msg}"></h6>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
+                            <input id="coursename" name="coursename" class="form-control" placeholder="请输入课程名称" maxlength="20">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label for="coursecode">邀请码</label>&nbsp;<h6 th:text="${msg}"></h6>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-barcode"></span></span>
+                            <input id="coursecode" name="coursecode" class="form-control" placeholder="请输入课程邀请码(10位以内数字)" maxlength="20">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label for="ad-writer">教师</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                            <input id="ad-writer" class="form-control" th:value="${user.userName}" readonly="readonly" maxlength="10">
+                        </div>
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="text-right">
+                        <button class="btn btn-primary" type="submit" id="btn-add">创建</button>
+                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!--选课窗口-->
+<div id="choose" class="modal fade">
+    <div class="modal-dialog" style="width: 50%">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h1 class="text-center">邀请码验证</h1>
+                <input id="cid" type="hidden">
+            </div>
+            <div class="modal-body">
+                <form id="form-choose">
+                    <div class="form-group has-feedback">
+                        <label for="ccode">邀请码</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-barcode"></span></span>
+                            <input id="ccode" name="ccode" class="form-control" placeholder="请输入课程邀请码" maxlength="20">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="text-right">
+                        <button class="btn btn-primary" onclick="select_func();" type="button" id="btn-choose">验证</button>
+                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
 <script src="/static/lib/js/lib/jquery.min.js"></script>
 <!-- jquery vendor -->
 <script src="/static/lib/js/lib/jquery.nanoscroller.min.js"></script>

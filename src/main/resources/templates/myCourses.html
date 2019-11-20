@@ -379,7 +379,6 @@
 </div>
 
 
-
 <!--创建课程窗口-->
 <div id="add" class="modal fade">
     <div class="modal-dialog" style="width: 50%">
@@ -399,6 +398,18 @@
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
                             <input id="coursename" name="coursename" class="form-control" placeholder="请输入课程名称" maxlength="20">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label for="coursecode">邀请码</label>&nbsp;<h6 th:text="${msg}"></h6>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-barcode"></span></span>
+                            <input id="coursecode" name="coursecode" class="form-control" placeholder="请输入课程邀请码(10位以内数字)" maxlength="20">
                         </div>
 
                         <span style="color:red;display: none;" class="tips"></span>
@@ -429,6 +440,7 @@
 
 
 </div>
+
 <script src="/static/lib/js/lib/jquery.min.js"></script><!-- jquery vendor -->
 <script src="/static/lib/js/lib/jquery.nanoscroller.min.js"></script><!-- nano scroller -->
 <script src="/static/lib/js/lib/sidebar.js"></script><!-- sidebar -->

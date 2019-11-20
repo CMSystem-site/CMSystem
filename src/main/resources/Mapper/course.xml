@@ -6,8 +6,8 @@
 <mapper namespace="cn.lightina.managebooks.dao.CourseMapper">
     <!--创建课程-->
     <insert id="addCourse" parameterType="CourseList">
-        insert into courselist(courseName,teacherID)
-        values (#{courselist.courseName},#{courselist.teacherID});
+        insert into courselist(courseName,teacherID,code)
+        values (#{courselist.courseName},#{courselist.teacherID},#{courselist.code});
     </insert>
 
     <!--删除课程-->
@@ -16,24 +16,23 @@
         where courselist.courseID = #{courseID}
     </delete>
 
-
     <!--查找全部课程-->
     <select id="getlist_all" resultType="CourseList">
-        select courselist.*, user.userName
+        select courselist.courseID,courselist.courseName,courselist.teacherID,user.userName
         from courselist,user
         where courselist.teacherID = user.userID
     </select>
 
     <!--通过 课程ID 查找课程-->
     <select id="findcourseByID" resultType="CourseList" parameterType="int">
-        select courselist.* , user.userName
+        select courselist.courseID,courselist.courseName,courselist.teacherID , user.userName ,courselist.code
         from courselist,user
         where courselist.teacherID = user.userID and courselist.courseID = #{courseID}
     </select>
 
     <!--通过 课程名称 查找课程-->
     <select id="findcourseByName" resultType="CourseList" parameterType="java.lang.String">
-        select courselist.* , user.userName
+        select courselist.courseID,courselist.courseName,courselist.teacherID , user.userName
         from courselist,user
         where courselist.teacherID = user.userID and courselist.courseName like CONCAT('%','${courseName}','%')
     </select>
@@ -47,6 +46,12 @@
         select courseselection.courseID,courseselection.courseName,courseselection.teacherID,user.userName
         from courseselection,user
         where courseselection.teacherID = user.userID and courseselection.studentID = #{userID}
+    </select>
+
+    <!--检查课程邀请码-->
+    <select id="checkCourseCode" resultType="CourseList" parameterType="int">
+        select * from courselist
+        where courseID = #{courseID} and code = #{code}
     </select>
 
     <!--判断userID是否选择courseID-->
@@ -103,4 +108,6 @@
         set absence = absence - 1
         where courseID = #{courseID} and studentID = #{studentID} and absence > 0
     </update>
+
+
 </mapper>

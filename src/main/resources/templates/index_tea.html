@@ -34,6 +34,12 @@
     console.log(user);
     if(message)
         alert(message);
+
+    $("#attendance").modal("hide");
+    function values_func(e) {
+        console.log(e);
+        $("#cid").val(e);
+    }
 </script>
 <body>
     <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">

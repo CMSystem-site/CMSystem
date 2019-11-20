@@ -9,6 +9,14 @@ public class CourseList {
     private int teacherID;
     private String teacherName;
     private int isChosen;
+    private int code;
+
+    public CourseList(String courseName, int teacherID, String teacherName, int code) {
+        this.courseName = courseName;
+        this.teacherID = teacherID;
+        this.teacherName = teacherName;
+        this.code = code;
+    }
 
     public CourseList(String courseName, int teacherID, String teacherName) {
         this.courseName = courseName;
@@ -21,6 +29,14 @@ public class CourseList {
         this.courseName = courseName;
         this.teacherID = teacherID;
         this.teacherName = teacherName;
+    }
+
+    public CourseList(int courseID, String courseName, int teacherID, String teacherName, Integer code) {
+        this.courseID = courseID;
+        this.courseName = courseName;
+        this.teacherID = teacherID;
+        this.teacherName = teacherName;
+        this.code = code;
     }
 
     public int getCourseID() {
@@ -63,6 +79,14 @@ public class CourseList {
         this.isChosen = isChosen;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "CourseList{" +
@@ -70,6 +94,7 @@ public class CourseList {
                 ", courseName='" + courseName + '\'' +
                 ", teacherID=" + teacherID +
                 ", teacherName='" + teacherName + '\'' +
+                ", code='" + code + '\'' +
                 '}';
     }
 }

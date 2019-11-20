@@ -277,6 +277,69 @@
     <!-- /# main -->
 </div>
 <!-- /# content wrap -->
+
+<!--创建课程窗口-->
+<div id="add" class="modal fade">
+    <div class="modal-dialog" style="width: 50%">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h1 class="text-center">创建课程</h1>
+            </div>
+            <div class="modal-body">
+                <form id="form-login" action="/addCourse">
+                    <div class="form-group has-feedback">
+                        <label for="coursename">课程名称</label>&nbsp;<h6 th:text="${msg}"></h6>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
+                            <input id="coursename" name="coursename" class="form-control" placeholder="请输入课程名称" maxlength="20">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label for="coursecode">邀请码</label>&nbsp;<h6 th:text="${msg}"></h6>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-barcode"></span></span>
+                            <input id="coursecode" name="coursecode" class="form-control" placeholder="请输入课程邀请码(10位以内数字)" maxlength="20">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label for="ad-writer">教师</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                            <input id="ad-writer" class="form-control" th:value="${user.userName}" readonly="readonly" maxlength="10">
+                        </div>
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="text-right">
+                        <button class="btn btn-primary" type="submit" id="btn-add">创建</button>
+                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
 <script src="/static/lib/js/lib/jquery.min.js"></script>
 <!-- jquery vendor -->
 <script src="/static/lib/js/lib/jquery.nanoscroller.min.js"></script>
@@ -315,6 +378,12 @@
             editTitle: false
         });
     });
+
+    $("#attendance").modal("hide");
+    function values_func(e) {
+        console.log(e);
+        $("#cid").val(e);
+    }
 </script>
 </body>
 

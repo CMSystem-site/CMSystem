@@ -113,13 +113,16 @@ public class CourseController {
         model.addAttribute("user",user);
 
         String coursename= request.getParameter("coursename");
+        Integer coursecode = Integer.valueOf(request.getParameter("coursecode"));
         Integer teacherID = user.getUserID();
         String teacherName = user.getUserName();
 
         if(coursename.equals("")){
-            model.addAttribute("msg","创建课程失败！");
+            model.addAttribute("msg","请输入正确的课程名称！");
+        }else if(coursecode.equals("")){
+            model.addAttribute("msg","请输入正确的邀请码！");
         }else{
-            CourseList courselist = new CourseList(coursename,teacherID,teacherName);
+            CourseList courselist = new CourseList(coursename,teacherID,teacherName,coursecode);
             Integer flag = courseService.addCourse(courselist);
             if(flag!=1){
                 model.addAttribute("msg","创建课程失败！");
@@ -127,10 +130,6 @@ public class CourseController {
                 model.addAttribute("msg","创建成功！");
             }
         }
-
-
-
-
 
         List<CourseList> list = null;
         Integer userid = user.getUserID();
@@ -160,16 +159,23 @@ public class CourseController {
     }
 
     //选课
-    @RequestMapping("/chooseCourse/{courseID}")
+    @RequestMapping("/chooseCourse/{courseID}/{ccode}")
     public String chooseCourse(@PathVariable(value = "courseID")Integer courseID,
+                               @PathVariable(value = "ccode")Integer ccode,
                                Model model, HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user",user);
 
         CourseList course = courseService.findcourseByID(courseID);
+        if(course.getCode()!=ccode){
+            model.addAttribute("msg","验证码不匹配，选课失败！");
+            List<CourseList> list = getCourselist(user);
+            model.addAttribute("list",list);
+
+            return "showCourses";
+        }
+
         CourseSelection cs = new CourseSelection(courseID,course.getCourseName(),course.getTeacherID(),user.getUserID());
-
-
         int flag = courseService.addCourseSelection(cs);
         if(flag==1){
             model.addAttribute("msg","选课成功！");
