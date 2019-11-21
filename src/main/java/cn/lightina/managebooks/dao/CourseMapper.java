@@ -1,13 +1,12 @@
 package cn.lightina.managebooks.dao;
 
+import cn.lightina.managebooks.pojo.*;
 import cn.lightina.managebooks.pojo.CourseSelection;
-import cn.lightina.managebooks.pojo.CourseList;
-import cn.lightina.managebooks.pojo.CourseSelection;
-import cn.lightina.managebooks.pojo.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface CourseMapper {
@@ -49,4 +48,23 @@ public interface CourseMapper {
 
     //撤销缺勤
     Integer undoAbsence(@Param("courseID")Integer courseID,@Param("studentID")Integer studentID);
+
+    //全体缺勤+1
+    Integer setAbsenceAll(@Param("courseID")Integer courseID);
+
+    //插入考勤码
+    Integer setAutoCode(@Param("courseID")Integer courseID,@Param("code")Integer code);
+    //删除考勤码
+    Integer deleteAutoCode(@Param("courseID")Integer courseID);
+
+    //获取考勤码记录
+    Attendance checkAutoCode(@Param("code")Integer code);
+    Attendance getAttendance(@Param("courseID")Integer courseID);
+
+    //签到状态置0
+    Integer resetSignStatus(@Param("courseID")Integer courseID);
+    //获取签到状态
+    Integer getSignStatus(@Param("courseID")Integer courseID,@Param("studentID")Integer studentID);
+    //签到状态置1
+    Integer setSignStatus(@Param("courseID")Integer courseID,@Param("studentID")Integer studentID);
 }

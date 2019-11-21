@@ -1,15 +1,16 @@
-package cn.lightina.managebooks.pojo;
+package cn.lightina.managebooks.pojo.unuseful;
 
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class BorrowDetail {
+public class Borrow {
     private int borrowId;
-    private String bname;
-    private String userName;
+    private int bookId;
+    private int userId;
     private Date btime;
     private Date deadline;
     private Date rtime;
+    private int operator;
 }

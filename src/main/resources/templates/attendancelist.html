@@ -36,9 +36,11 @@
     var message = [[${msg}]];
     var user = [[${user}]];
     var cid = [[${courseID}]];
+    var time= [[${time}]]
     console.log("message:" + message);
     console.log(user);
     console.log("cid:"+cid);
+    console.log("time:"+time);
     if(message)
         alert(message);
 
@@ -60,9 +62,6 @@
     function auto_func() {
         var acode = document.getElementById("acode").value;
         window.location.href="/auto_absence/"+cid+"/"+acode;
-    }
-    function attendance_func() {
-        window.location.href="/attendance/"+cid;
     }
 </script>
 
@@ -138,7 +137,8 @@
                 <div class="col-lg-8 p-0">
                     <div class="page-header">
                         <div class="page-title">
-                            <h1>学生名单</h1>
+                            <h1>验证码考勤</h1>
+                            <span class="tag-line" th:text="'上次考勤时间:'+${time}"></span>
                         </div>
                     </div>
                 </div><!-- /# column -->
@@ -166,14 +166,13 @@
                                         <button onclick="random_func()" class="btn btn-info">随机点名</button>
                                         <button data-toggle="modal" data-target="#attendance" class="btn btn-success">验证码考勤</button>
                                         <button class="btn btn-primary" onclick="stulist_func();">全体学生列表</button>
-                                        <button class="btn btn-pink" onclick="attendance_func();">验证码考勤情况</button>
                                     </div>
                                     <thead>
                                     <tr>
                                         <th>学生学号</th>
                                         <th>学生姓名</th>
                                         <th>缺勤次数</th>
-                                        <th>操作</th>
+                                        <th>签到情况</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -182,8 +181,8 @@
                                         <td th:text="${select.studentName}"></td>
                                         <td th:text="${select.absence}"></td>
                                         <td >
-                                            <button th:onclick="'absence_func('+${select.studentID}+');'" class="btn btn-danger">缺勤</button>
-                                            <button th:onclick="'undo_func('+${select.studentID}+');'" class="btn btn-group">撤销</button>
+                                            <p th:if="${select.status}==1">已签到</p>
+                                            <p th:if="${select.status}==0" style="color: red;">未签到</p>
                                         </td>
                                     </tr>
                                     </tbody>

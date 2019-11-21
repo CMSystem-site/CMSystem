@@ -1,4 +1,4 @@
-package cn.lightina.managebooks.pojo;
+package cn.lightina.managebooks.pojo.unuseful;
 
 import lombok.Data;
 

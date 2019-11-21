@@ -1,12 +1,11 @@
 package cn.lightina.managebooks.service;
 
+import cn.lightina.managebooks.pojo.*;
 import cn.lightina.managebooks.pojo.CourseSelection;
-import cn.lightina.managebooks.pojo.CourseList;
-import cn.lightina.managebooks.pojo.CourseSelection;
-import cn.lightina.managebooks.pojo.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface CourseService {
@@ -50,4 +49,23 @@ public interface CourseService {
     //撤销缺勤
     Integer undoAbsence(Integer courseID,Integer studentID);
 
+    //全体缺勤+1
+    Integer setAbsenceAll(Integer courseID);
+
+    //插入考勤码
+    Integer setAutoCode(Integer courseID,Integer code);
+    //删除考勤码
+    Integer deleteAutoCode(Integer courseID);
+
+
+    //获取考勤码记录
+    Attendance checkAutoCode(Integer code);
+    Attendance getAttendance(Integer courseID);
+
+    //考勤状态置0
+    Integer resetSignStatus(Integer courseID);
+    //获取考勤状态
+    Integer getSignStatus(Integer courseID,Integer studentID);
+    //考勤状态置1
+    Integer setSignStatus(Integer courseID,Integer studentID);
 }

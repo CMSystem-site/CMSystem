@@ -1,19 +1,21 @@
 package cn.lightina.managebooks.controller;
 
+import cn.lightina.managebooks.pojo.Attendance;
 import cn.lightina.managebooks.pojo.CourseList;
 import cn.lightina.managebooks.pojo.CourseSelection;
-import cn.lightina.managebooks.pojo.ProcessResult;
 import cn.lightina.managebooks.pojo.User;
 import cn.lightina.managebooks.service.CourseService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -253,6 +255,27 @@ public class CourseController {
         return "studentlist";
     }
 
+    //考勤情况
+    @RequestMapping("/attendance/{courseID}")
+    public String attendance(@PathVariable(value = "courseID")Integer courseID,
+                                  Model model , HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        request.setAttribute("user",user);
+        request.setAttribute("courseID",courseID);
+
+        Attendance attendance = courseService.getAttendance(courseID);
+        Timestamp ts = attendance.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = df.format(ts);
+
+        request.setAttribute("time",time);
+        //选课学生名单
+        List<CourseSelection> selectlist = courseService.getSelectList(courseID);
+        model.addAttribute("selectlist",selectlist);
+
+        return "attendancelist";
+    }
+
     //手动考勤
     @RequestMapping("/absence/{courseID}/{studentID}")
     public String absence(@PathVariable(value = "courseID")Integer courseID,@PathVariable(value = "studentID")Integer studentID,Model model,HttpServletRequest request){
@@ -308,17 +331,96 @@ public class CourseController {
         return "studentlist";
     }
 
-    //自动考勤P1 (+1)
-    @RequestMapping("/auto_absence/{courseID}")
-    public String auto_absence(@PathVariable(value = "courseID")Integer courseID,@PathVariable(value = "code")String code,Model model,HttpServletRequest request){
+    //考勤码设置(教师)
+    @RequestMapping("/auto_absence/{courseID}/{code}")
+    public String auto_absence(@PathVariable(value = "courseID")Integer courseID,
+                               @PathVariable(value = "code")Integer code,
+                               Model model,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+        model.addAttribute("courseID",courseID);
+
+        //所有人缺勤次数+1
+        Integer flag = courseService.setAbsenceAll(courseID);
+        if(flag==0){
+            model.addAttribute("msg","考勤码设置失败，请重试！");
+        }else{
+            //设置考勤码
+            courseService.deleteAutoCode(courseID);
+            Integer flag2 = courseService.setAutoCode(courseID,code);
+            if(flag2!=1){
+                model.addAttribute("msg","此考勤码已被使用，请更换！");
+            }else{
+                //重置考勤状态为0
+                try {
+                    courseService.resetSignStatus(courseID);
+                }catch (Exception e){
+                    System.out.println(e);
+                }
+
+                model.addAttribute("msg","考勤码设置成功！");
+            }
+        }
+
+        //选课学生名单
+        List<CourseSelection> selectlist = courseService.getSelectList(courseID);
+        model.addAttribute("selectlist",selectlist);
+
+        return "studentlist";
+    }
+
+    //考勤码签到（学生）
+    @RequestMapping("/signin/{code}")
+    public String signin(@PathVariable(value = "code")Integer code,
+                         Model model,HttpServletRequest request){
+
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user",user);
 
-        model.addAttribute("courseID",courseID);
-        return "auto_absence";
+        Attendance attendance = courseService.checkAutoCode(code);
+        Integer courseID = attendance.getCourseID();
+        Integer studentID = user.getUserID();
+
+        if(code.equals("")){
+            model.addAttribute("msg","请输入考勤码！");
+            return "index_stu";
+        }
+
+        //判断学生是否选课
+        CourseSelection cs = courseService.checkChosen(studentID,courseID);
+        if(cs==null){
+            model.addAttribute("msg","您未选择此考勤码对应的课程，请重试！");
+            return "index_stu";
+        }
+
+        //判断是否重复签到
+        Integer status = courseService.getSignStatus(courseID,studentID);
+        if(status == 1){
+            model.addAttribute("msg","请勿重复签到！");
+            return "index_stu";
+        }
+
+
+        //考勤
+        CourseList course = courseService.findcourseByID(courseID);
+
+        Date t1 = attendance.getTime();    //开始时间
+        Date t2 = new Date();
+
+        long diff = t2.getTime()-t1.getTime();
+        long minutes = diff / (1000*60) ;//时间差:分钟
+
+        if(minutes<=10){
+            //在规定时间段内考勤
+            courseService.undoAbsence(courseID,studentID);
+            courseService.setSignStatus(courseID,studentID);
+            model.addAttribute("msg","『"+course.getCourseName()+"』签到成功！");
+        }else{
+            model.addAttribute("msg","考勤码已过期，考勤失败！");
+        }
+
+        return "index_stu";
     }
-
-
 
 
     boolean isInt(String str){

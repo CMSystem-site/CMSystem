@@ -57,7 +57,7 @@
     <!--判断userID是否选择courseID-->
     <select id="checkChosen" resultType="CourseSelection" parameterType="int" >
         select * from courseselection
-        where courseselection.studentID = #{userID} and courseselection.courseID = #{courseID}
+        where studentID = #{userID} and courseID = #{courseID}
     </select>
 
     <!--查找teacherID-->
@@ -87,6 +87,7 @@
         where courseselection.courseID = #{courseID} and courseselection.studentID = user.userID
         order by courseselection.studentID
     </select>
+
     <!--随机点名名单-->
     <select id="getSelectListRandomly" parameterType="int" resultType="CourseSelection">
         select courseselection.*,user.userName
@@ -109,5 +110,52 @@
         where courseID = #{courseID} and studentID = #{studentID} and absence > 0
     </update>
 
+    <!--全体缺勤+1-->
+    <update id="setAbsenceAll" parameterType="int">
+        update courseselection
+        set absence = absence + 1
+        where courseID = #{courseID}
+    </update>
 
+    <!--设置考勤码-->
+    <insert id="setAutoCode" parameterType="int">
+        insert into attendance(courseID,code)
+        values(#{courseID},#{code})
+    </insert>
+
+    <!--删除考勤记录-->
+    <delete id="deleteAutoCode">
+        delete from attendance
+        where courseID = #{courseID}
+    </delete>
+
+    <!--查找考勤表-->
+    <select id="checkAutoCode" resultType="Attendance">
+        select * from attendance
+        where code = #{code}
+    </select>
+    <select id="getAttendance" resultType="Attendance">
+        select * from attendance
+        where courseID = #{courseID}
+    </select>
+
+    <!--重置签到状态-->
+    <update id="resetSignStatus">
+        update courseselection
+        set status = 0
+        where courseID = #{courseID}
+    </update>
+
+    <!--获取签到状态-->
+    <select id="getSignStatus" resultType="int">
+        select status from courseselection
+        where courseID = #{courseID} and studentID = #{studentID}
+    </select>
+
+    <!--设置签到状态-->
+    <update id="setSignStatus">
+        update courseselection
+        set status = 1
+        where courseID = #{courseID} and studentID = #{studentID}
+    </update>
 </mapper>

@@ -1,15 +1,13 @@
 package cn.lightina.managebooks.service;
 
-import cn.lightina.managebooks.dao.BookMapper;
 import cn.lightina.managebooks.dao.CourseMapper;
+import cn.lightina.managebooks.pojo.Attendance;
 import cn.lightina.managebooks.pojo.CourseSelection;
 import cn.lightina.managebooks.pojo.CourseList;
-import cn.lightina.managebooks.pojo.CourseSelection;
-import cn.lightina.managebooks.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -84,6 +82,46 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Integer undoAbsence(Integer courseID, Integer studentID) {
         return courseMapper.undoAbsence(courseID,studentID);
+    }
+
+    @Override
+    public Integer setAbsenceAll(Integer courseID) {
+        return courseMapper.setAbsenceAll(courseID);
+    }
+
+    @Override
+    public Integer setAutoCode(Integer courseID, Integer code) {
+        return courseMapper.setAutoCode(courseID,code);
+    }
+
+    @Override
+    public Integer deleteAutoCode(Integer courseID) {
+        return courseMapper.deleteAutoCode(courseID);
+    }
+
+    @Override
+    public Attendance checkAutoCode(Integer code) {
+        return courseMapper.checkAutoCode(code);
+    }
+
+    @Override
+    public Attendance getAttendance(Integer courseID) {
+        return courseMapper.getAttendance(courseID);
+    }
+
+    @Override
+    public Integer resetSignStatus(Integer courseID) {
+        return courseMapper.resetSignStatus(courseID);
+    }
+
+    @Override
+    public Integer getSignStatus(Integer courseID, Integer studentID) {
+        return courseMapper.getSignStatus(courseID,studentID);
+    }
+
+    @Override
+    public Integer setSignStatus(Integer courseID, Integer studentID) {
+        return courseMapper.setSignStatus(courseID,studentID);
     }
 
 
