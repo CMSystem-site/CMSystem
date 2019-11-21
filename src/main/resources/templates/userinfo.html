@@ -42,7 +42,7 @@
 
                 <li><a href="/allCourses"><i class="ti-layout"></i> 课程列表 </a></li>
 
-                <li><a href="/myCourses"><i class="ti-heart"></i> 我的课程 </a></li>
+                <li th:if="${user.userType.equals('教师') || user.userType.equals('学生')}"><a href="/myCourses"><i class="ti-heart"></i> 我的课程 </a></li>
 
                 <li th:if="${user.userType.equals('教师')}"><a data-toggle="modal" data-target="#add"><i class="ti-view-list-alt"></i> 创建课程 </a></li>
 

@@ -36,7 +36,7 @@ public class ForumController {
         CourseList course = courseService.findcourseByID(courseID);
         model.addAttribute("course",course);
 
-        List<Topic> topicList = forumService.getTopicByCourseID(courseID);
+        List<Topic> topicList = forumService.getTopicByCourseID(courseID,"通过审核");
         model.addAttribute("topicList",topicList);
         return "forum";
     }
@@ -116,7 +116,7 @@ public class ForumController {
         }
 
         model.addAttribute("courseID",courseID);
-        List<Topic> topicList = forumService.getTopicByCourseID(courseID);
+        List<Topic> topicList = forumService.getTopicByCourseID(courseID,"通过审核");
         model.addAttribute("topicList",topicList);
         return "forum";
     }
@@ -139,7 +139,7 @@ public class ForumController {
         }
 
         model.addAttribute("courseID",courseID);
-        List<Topic> topicList = forumService.getTopicByCourseID(courseID);
+        List<Topic> topicList = forumService.getTopicByCourseID(courseID,"通过审核");
         model.addAttribute("topicList",topicList);
         return "forum";
     }
@@ -295,7 +295,7 @@ public class ForumController {
         return "forumShowTopic";
     }
 
-    //查找某课程讨论区的帖子
+    //查找某课程讨论区的话题
     @RequestMapping("/forum/{courseID}/searchTopic/{title}")
     public String searchTopic(@PathVariable(value = "courseID")Integer courseID,@PathVariable(value = "title")String title, Model model, HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
@@ -308,4 +308,34 @@ public class ForumController {
         model.addAttribute("topicList",topicList);
         return "forum";
     }
+
+    //管理员审核话题
+    @RequestMapping("/checkTopic")
+    public String checkTopic(Model model,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+
+        List<Topic> UncheckedTopicList = forumService.getTopicByCheckStatus("未审核");
+        model.addAttribute("topicList",UncheckedTopicList);
+        return "forumCheckTopic";
+    }
+
+    @RequestMapping("/checkOk/{topicID}")
+    public String checkOk(@PathVariable(value = "topicID")Integer topicID,Model model,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        model.addAttribute("user",user);
+
+        int flag = forumService.checkTopic(topicID);
+        if(flag==1){
+            model.addAttribute("msg","审核成功！");
+        }else{
+            model.addAttribute("msg","审核失败，请刷新重试！");
+        }
+
+
+        List<Topic> UncheckedTopicList = forumService.getTopicByCheckStatus("未审核");
+        model.addAttribute("topicList",UncheckedTopicList);
+        return "forumCheckTopic";
+    }
+
 }

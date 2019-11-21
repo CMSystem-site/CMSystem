@@ -30,8 +30,10 @@ public class UserController {
         model.addAttribute("user",user);
         if(user.getUserType().equals("教师"))
             return "index_tea";
-
-        return "index_stu";
+        else if(user.getUserType().equals("管理员"))
+            return "index_admin";
+        else
+            return "index_stu";
     }
 
     @GetMapping(value = "/table")

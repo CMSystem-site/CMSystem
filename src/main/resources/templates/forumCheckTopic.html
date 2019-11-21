@@ -39,40 +39,14 @@
     if(message)
         alert(message);
 
-    function info_func(e) {
-//        alert(e);
-        window.location.href = "/courseinfo/"+e;
+    function checkTopic_func(courseID,topicID) {
+        window.location.href="/forum/" + courseID + "/topic/" + topicID;
+    }
+    function checkOk_func(topicID) {
+        window.location.href="/checkOk/" + topicID;
     }
 
-    function select_func(e) {
-        var r = confirm("确认选择这门课程?");
-        if(r==true){
-            window.location.href="/chooseCourse/"+e;
-        }
-    }
 
-    function drop_func(e) {
-        var r = confirm("确认退选这门课程?");
-        if(r==true){
-            window.location.href="/dropCourse/"+e;
-        }
-    }
-
-    function delete_func(e) {
-        var r = confirm("确认删除此门课程？（请慎重）");
-        if(r==true){
-            window.location.href="/deleteCourse/"+e;
-        }
-    }
-
-    function stulist_func(e) {
-//        var courseID = document.getElementById("cid").value;
-        window.location.href="/studentlist/"+e;
-    }
-
-    function forum_func(e) {
-        window.location.href="/forum/"+e;
-    }
 
     $("#attendance").modal("hide");
     function values_func(e) {
@@ -90,17 +64,15 @@
         <div class="nano-content">
             <ul>
                 <li><a></a></li>
-                <li th:if="${user.userType.equals('教师')}"><a href="/index_tea"><i class="ti-home"></i> 主  页 </a></li>
-                <li th:if="${user.userType.equals('学生')}"><a href="/index_stu"><i class="ti-home"></i> 主  页 </a></li>
+                <li><a href="/index_tea"><i class="ti-home"></i> 主  页 </a></li>
+
 
                 <li><a href="/userinfo"><i class="ti-user"></i> 个人信息 </a></li>
                 <!--<li><a href="/allCourses"><i class="ti-layout-grid2-alt"></i>课程</a></li>-->
 
                 <li><a href="/allCourses"><i class="ti-layout"></i> 课程列表 </a></li>
 
-                <li><a href="/myCourses"><i class="ti-heart"></i> 我的课程 </a></li>
-
-                <li th:if="${user.userType.equals('教师')}"><a data-toggle="modal" data-target="#add"><i class="ti-view-list-alt"></i> 创建课程 </a></li>
+                <li><a href="/checkTopic"><i class="ti-view-list-alt"></i> 待审核话题 </a></li>
 
                 <li><a href="/login"><i class="ti-close"></i> 登 出 </a></li>
             </ul>
@@ -286,7 +258,7 @@
                 <div class="col-lg-8 p-0">
                     <div class="page-header">
                         <div class="page-title">
-                            <h1>我的课程</h1>
+                            <h1>待审核话题</h1>
                         </div>
                     </div>
                 </div><!-- /# column -->
@@ -313,27 +285,26 @@
 
                                     <thead>
                                     <tr>
-                                        <th>课程编号</th>
-                                        <th>课程名称</th>
-                                        <th>教师姓名</th>
-                                        <th> 操  作</th>
+                                        <th>话题ID</th>
+                                        <th>话题标题</th>
+                                        <th>话题摘要</th>
+                                        <th>话题作者(角色)</th>
+                                        <th>话题创建时间</th>
+                                        <th>操    作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="courselist: ${list}">
-                                        <td th:text="${courselist.courseID}" th:onclick="'forum_func('+${courselist.courseID}+');'"></td>
-                                        <td th:text="${courselist.courseName}" th:onclick="'forum_func('+${courselist.courseID}+');'"></td>
-                                        <td th:text="${courselist.teacherName}"></td>
-                                        <td th:if="${user.userType.equals('学生')}">
-                                            <a th:onclick="'forum_func('+${courselist.courseID}+');'" class="btn btn-primary">讨论区</a>
-                                            <a th:onclick="'drop_func('+${courselist.courseID}+');'" class="btn btn-danger">退课</a>
+                                    <tr th:each="topic: ${topicList}">
+                                        <td th:text="${topic.topicID}"></td>
+                                        <td th:text="${topic.title}"></td>
+                                        <td th:text="${topic.abstracts}"></td>
+                                        <td th:text="${topic.userName + '('+ topic.userType+ ')' }"></td>
+                                        <td th:text="${topic.date}"></td>
+                                        <td>
+                                            <a th:onclick="'checkTopic_func('+${topic.courseID}+','+${topic.topicID}+');'" class="btn btn-primary">预览话题</a>
+                                            <a th:onclick="'checkOk_func('+${topic.topicID}+');'" class="btn btn-info">审核通过</a>
                                         </td>
-                                        <td th:if="${user.userType.equals('教师')}">
-                                                <a th:onclick="'forum_func('+${courselist.courseID}+');'" class="btn btn-primary">讨论区</a>
-                                            <a th:onclick="'stulist_func('+${courselist.courseID}+');'" class="btn btn-info">考勤</a>
-                                            <!--<a data-toggle="modal" data-target="#attendance" th:onclick="'values_func('+${courselist.courseID}+');'" class="btn btn-info">考勤</a>-->
-                                            <a th:onclick="'delete_func('+${courselist.courseID}+');'" class="btn btn-danger">删除</a>
-                                        </td>
+
                                     </tr>
                                     </tbody>
                                 </table>
@@ -348,98 +319,6 @@
 
 
 
-
-<!--考勤窗口-->
-<div id="attendance" class="modal fade">
-    <div class="modal-dialog" style="width: 50%">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-title">
-                <h1 class="text-center">考勤方式</h1>
-                <input id="cid" type="hidden">
-            </div>
-            <div class="modal-body">
-                <form id="form-attendance">
-                    <div class="text-center">
-                        <button class="btn btn-success" onclick ="stulist_func()" type="button">手动考勤</button>
-                        <button class="btn btn-primary" onclick="rand_func()" type="button">随机考勤</button>
-                        <button class="btn btn-danger" type="button">验证码考勤</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-</div>
-
-
-<!--创建课程窗口-->
-<div id="add" class="modal fade">
-    <div class="modal-dialog" style="width: 50%">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-title">
-                <h1 class="text-center">创建课程</h1>
-            </div>
-            <div class="modal-body">
-                <form id="form-login" action="/addCourse">
-                    <div class="form-group has-feedback">
-                        <label for="coursename">课程名称</label>&nbsp;<h6 th:text="${msg}"></h6>
-                        <div class="input-group">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
-                            <input id="coursename" name="coursename" class="form-control" placeholder="请输入课程名称" maxlength="20">
-                        </div>
-
-                        <span style="color:red;display: none;" class="tips"></span>
-                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
-                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
-                    </div>
-
-                    <div class="form-group has-feedback">
-                        <label for="coursecode">邀请码</label>&nbsp;<h6 th:text="${msg}"></h6>
-                        <div class="input-group">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-barcode"></span></span>
-                            <input id="coursecode" name="coursecode" class="form-control" placeholder="请输入课程邀请码(10位以内数字)" maxlength="20">
-                        </div>
-
-                        <span style="color:red;display: none;" class="tips"></span>
-                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
-                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
-                    </div>
-
-                    <div class="form-group has-feedback">
-                        <label for="ad-writer">教师</label>
-                        <div class="input-group">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                            <input id="ad-writer" class="form-control" th:value="${user.userName}" readonly="readonly" maxlength="10">
-                        </div>
-                        <span style="color:red;display: none;" class="tips"></span>
-                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
-                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
-                    </div>
-
-                    <div class="text-right">
-                        <button class="btn btn-primary" type="submit" id="btn-add">创建</button>
-                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-</div>
 
 <script src="/static/lib/js/lib/jquery.min.js"></script><!-- jquery vendor -->
 <script src="/static/lib/js/lib/jquery.nanoscroller.min.js"></script><!-- nano scroller -->

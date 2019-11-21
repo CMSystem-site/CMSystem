@@ -22,16 +22,28 @@ public class ForumServiceimpl implements ForumService{
         return forumMapper.addTopic(topic);
     }
 
+    @Override
+    public Integer checkTopic(Integer topicID){
+        return forumMapper.checkTopic(topicID);
+    }
+
     //获取全部讨论主题
     @Override
-    public List<Topic> getTopicByCourseID(Integer courseID){
-        return forumMapper.getTopicByCourseID(courseID);
+    public List<Topic> getTopicByCourseID(Integer courseID,String checkStatus){
+        return forumMapper.getTopicByCourseID(courseID,checkStatus);
     }
 
     @Override
     public List<Topic> getTopicByTitle(Integer courseID, String title) {
         return forumMapper.getTopicByTitle(courseID,title);
     }
+
+
+    @Override
+    public List<Topic> getTopicByCheckStatus(String checkStatus){
+        return forumMapper.getTopicByCheckStatus(checkStatus);
+    }
+
 
 
     //获取单个讨论主题的内容

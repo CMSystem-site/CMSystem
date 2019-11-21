@@ -221,7 +221,7 @@ public class CourseController {
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user",user);
 
-        if(courseService.findteacherID(courseID)!=user.getUserID()){
+        if(courseService.findteacherID(courseID)!=user.getUserID() && user.getUserType().equals("教师")){
             model.addAttribute("这不是您的课程！");
             List<CourseList> list = courseService.findcourseByUserid(user.getUserID());
             model.addAttribute("list",list);
@@ -236,7 +236,10 @@ public class CourseController {
 
         List<CourseList> list = courseService.findcourseByUserid(user.getUserID());
         model.addAttribute("list",list);
-        return "myCourses";
+        if(user.getUserType().equals("管理员"))
+            return "showCourses";
+        else
+            return "myCourses";
 
     }
 

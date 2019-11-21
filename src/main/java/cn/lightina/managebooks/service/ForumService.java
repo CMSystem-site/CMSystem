@@ -12,10 +12,12 @@ public interface ForumService {
 
     //添加讨论主题
     Integer addTopic(Topic topic);
-
+    Integer checkTopic(Integer topicID);
     //获取某课程下的全部讨论主题
-    List<Topic> getTopicByCourseID(Integer CourseID);
+    List<Topic> getTopicByCourseID(Integer CourseID,String checkStatus);
     List<Topic> getTopicByTitle(Integer courseID,String title);
+    List<Topic> getTopicByCheckStatus(String checkStatus);
+
 
     //获取单个讨论主题的内容
     Topic getTopicByTopicID(Integer TopicID);

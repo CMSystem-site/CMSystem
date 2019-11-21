@@ -11,9 +11,11 @@ import java.util.List;
 public interface ForumMapper {
 
     Integer addTopic(@Param("topic") Topic topic);
-    List<Topic> getTopicByCourseID(@Param("courseID") Integer CourseID);
-    List<Topic> getTopicByTitle(@Param("courseID")Integer CourseID,@Param("title")String title);
+    Integer checkTopic(@Param("topicID") Integer topicID);
     Topic getTopicByTopicID(@Param("topicID") Integer TopicID);
+    List<Topic> getTopicByCourseID(@Param("courseID") Integer CourseID, @Param("checkStatus") String checkStatus);
+    List<Topic> getTopicByTitle(@Param("courseID")Integer CourseID, @Param("title")String title);
+    List<Topic> getTopicByCheckStatus(@Param("checkStatus") String checkStatus);
 
 
     Integer addComment(@Param("comment") Comment comment);
@@ -27,4 +29,6 @@ public interface ForumMapper {
 
     Integer deleteTopic(@Param("topicID")Integer topicID);
     Integer deleteComment(@Param("commentID")Integer commentID);
+
+
 }
