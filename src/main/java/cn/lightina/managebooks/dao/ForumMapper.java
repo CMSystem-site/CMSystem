@@ -30,5 +30,8 @@ public interface ForumMapper {
     Integer deleteTopic(@Param("topicID")Integer topicID);
     Integer deleteComment(@Param("commentID")Integer commentID);
 
-
+    //查询话题数量
+    Integer getTopicNum(@Param("userID")Integer userID);
+    //查询话题总数
+    Integer getAllTopicNum();
 }

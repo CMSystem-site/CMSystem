@@ -30,8 +30,6 @@
     </select>
 
 
-
-
     <!--改变话题的审核状态为“审核通过”-->
     <update id="checkTopic" parameterType="int">
         update topic
@@ -98,6 +96,14 @@
         where user.userID = #{userID}
     </select>
 
+    <!--查询话题总数-->
+    <select id="getAllTopicNum" resultType="int">
+        select count(*) from topic
+    </select>
 
-
+    <!--查询用户话题数-->
+    <select id="getTopicNum" resultType="int">
+        select count(*) from topic
+        where userID = #{userID}
+    </select>
 </mapper>

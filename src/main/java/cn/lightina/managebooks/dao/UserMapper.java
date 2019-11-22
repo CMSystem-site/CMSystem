@@ -23,4 +23,7 @@ public interface UserMapper {
 
     //通过手机号码查找用户
     User checkPhone(@Param("phone")String phone);
+
+    //查询用户数量
+    Integer getUserNum();
 }

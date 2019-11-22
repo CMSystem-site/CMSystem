@@ -74,6 +74,11 @@
         window.location.href="/forum/"+e;
     }
 
+    function auto2_func() {
+        var acode = document.getElementById("acode2").value;
+        window.location.href="/signin/"+acode;
+    }
+
     $("#attendance").modal("hide");
     function values_func(e) {
         console.log(e);
@@ -90,8 +95,7 @@
         <div class="nano-content">
             <ul>
                 <li><a></a></li>
-                <li th:if="${user.userType.equals('教师')}"><a href="/index_tea"><i class="ti-home"></i> 主  页 </a></li>
-                <li th:if="${user.userType.equals('学生')}"><a href="/index_stu"><i class="ti-home"></i> 主  页 </a></li>
+                <li><a href="/index"><i class="ti-home"></i> 主  页 </a></li>
 
                 <li><a href="/userinfo"><i class="ti-user"></i> 个人信息 </a></li>
                 <!--<li><a href="/allCourses"><i class="ti-layout-grid2-alt"></i>课程</a></li>-->
@@ -100,6 +104,7 @@
 
                 <li><a href="/myCourses"><i class="ti-heart"></i> 我的课程 </a></li>
 
+                <li th:if="${user.userType.equals('学生')}"><a data-toggle="modal" data-target="#autocode"><i class="ti-cloud"></i> 签 到 </a></li>
                 <li th:if="${user.userType.equals('教师')}"><a data-toggle="modal" data-target="#add"><i class="ti-view-list-alt"></i> 创建课程 </a></li>
 
                 <li><a href="/login"><i class="ti-close"></i> 登 出 </a></li>
@@ -151,133 +156,6 @@
     </div>
 </div>
 
-<div class="chat-sidebar">
-    <!-- BEGIN chat -->
-    <div id="mmc-chat" class="color-default">
-        <!-- BEGIN CHAT BOX -->
-        <div class="chat-box">
-            <!-- BEGIN CHAT BOXS -->
-            <ul class="boxs"></ul>
-            <!-- END CHAT BOXS -->
-            <div class="icons-set">
-                <div class="stickers">
-                    <div class="had-container">
-                        <div class="row">
-                            <div class="s12">
-                                <ul class="tabs" style="width: 100%;height: 60px;">
-                                    <li class="tab col s3">
-                                        <a href="#tab1" class="active">
-                                            <img src="/static/lib/images/avatar/1.jpg" alt="" />
-                                        </a>
-                                    </li>
-                                    <li class="tab col s3"><a href="#tab2">Test 2</a></li>
-                                </ul>
-                            </div>
-                            <div id="tab1" class="s12 tab-content">
-                                <ul>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                    <li> <img src="/static/lib/images/avatar/1.jpg" alt="" /></li>
-                                </ul>
-                            </div>
-                            <div id="tab2" class="s12 tab-content">Test 2</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END CHAT BOX -->
-        <!-- BEGIN SIDEBAR -->
-        <div id="sidebar" class="right scroll">
-            <div class="had-container">
-                <!-- BEGIN USERS -->
-                <div class="users">
-
-                    <ul class="user-list">
-                        <!-- BEGIN USER-->
-                        <li class="user-tooltip" data-id="1" data-status="online" data-username="Rufat Askerov" data-position="left" data-filter-item data-filter-name="rufat askerov">
-                            <!-- BEGIN USER IMAGE-->
-                            <div class="user-image">
-                                <img src="/static/lib/images/avatar/1.jpg" class="avatar" alt="Rufat Askerov" />
-                            </div>
-                            <!-- END USER IMAGE-->
-                            <!-- BEGIN USERNAME-->
-                            <span class="user-name">Rufat Askerov</span>
-                            <span class="user-show"></span>
-                            <!-- END USERNAME-->
-                        </li>
-                        <!-- END USER-->
-                        <!-- BEGIN USER-->
-                        <li class="user-tooltip" data-id="3" data-status="online" data-username="Alice" data-position="left" data-filter-item data-filter-name="alice">
-                            <div class="user-image">
-                                <img src="/static/lib/images/avatar/1.jpg" class="avatar" alt="Alice" />
-                            </div>
-                            <span class="user-name">Alice</span>
-                            <span class="user-show"></span>
-                        </li>
-
-                        <!-- BEGIN USER-->
-                        <li class="user-tooltip" data-id="7" data-status="offline" data-username="Michael Scofield" data-position="left" data-filter-item data-filter-name="michael scofield">
-                            <div class="user-image">
-                                <img src="/static/lib/images/avatar/1.jpg" class="avatar" alt="Michael Scofield" />
-                            </div>
-                            <span class="user-name">Michael Scofield</span>
-                            <span class="user-show"></span>
-                        </li>
-
-                        <!-- BEGIN USER-->
-                        <li class="user-tooltip" data-id="5" data-status="online" data-username="Irina Shayk" data-position="left" data-filter-item data-filter-name="irina shayk">
-                            <div class="user-image">
-                                <img src="/static/lib/images/avatar/1.jpg" class="avatar" alt="Irina Shayk" />
-                            </div>
-                            <span class="user-name">Irina Shayk</span>
-                            <span class="user-show"></span>
-                        </li>
-
-                        <!-- BEGIN USER-->
-                        <li class="user-tooltip" data-id="6" data-status="offline" data-username="Sara Tancredi" data-position="left" data-filter-item data-filter-name="sara tancredi">
-                            <div class="user-image">
-                                <img src="/static/lib/images/avatar/1.jpg" class="avatar" alt="Sara Tancredi" />
-                            </div>
-                            <span class="user-name">Sara Tancredi</span>
-                            <span class="user-show"></span>
-                        </li>
-
-                        <!-- BEGIN USER-->
-                        <li class="user-tooltip" data-id="7" data-status="offline" data-username="Jane" data-position="left" data-filter-item data-filter-name="Jane">
-                            <div class="user-image">
-                                <img src="/static/lib/images/avatar/1.jpg" class="avatar" alt="Jane" />
-                            </div>
-                            <span class="user-name">Jane</span>
-                            <span class="user-show"></span>
-                        </li>
-                    </ul>
-                    <div class="chat-user-search">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="ti-search"></i></span>
-                            <input type="text" class="form-control" placeholder="Search"  data-search />
-                        </div>
-                    </div>
-                </div>
-                <!-- END USERS -->
-
-            </div>
-        </div>
-        <!-- END SIDEBAR -->
-    </div>
-    <!-- END chat -->
-</div>
-<!-- END chat Sidebar-->
 
 <div class="content-wrap">
     <div class="main">
@@ -350,7 +228,7 @@
 
 
 <!--考勤窗口-->
-<div id="attendance" class="modal fade">
+<div id="autocode" class="modal fade">
     <div class="modal-dialog" style="width: 50%">
         <div class="modal-content">
             <div class="modal-body">
@@ -359,15 +237,24 @@
                 </button>
             </div>
             <div class="modal-title">
-                <h1 class="text-center">考勤方式</h1>
-                <input id="cid" type="hidden">
             </div>
             <div class="modal-body">
-                <form id="form-attendance">
-                    <div class="text-center">
-                        <button class="btn btn-success" onclick ="stulist_func()" type="button">手动考勤</button>
-                        <button class="btn btn-primary" onclick="rand_func()" type="button">随机考勤</button>
-                        <button class="btn btn-danger" type="button">验证码考勤</button>
+                <form>
+                    <div class="form-group has-feedback">
+                        <label for="acode2">考勤码</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-barcode"></span></span>
+                            <input type="number" id="acode2" name="acode2" class="form-control" placeholder="请输入考勤码" maxlength="20">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="text-right">
+                        <button class="btn btn-primary" type="button" onclick="auto2_func();">确认</button>
+                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
                     </div>
 
                 </form>
@@ -409,7 +296,7 @@
                         <label for="coursecode">邀请码</label>&nbsp;<h6 th:text="${msg}"></h6>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-barcode"></span></span>
-                            <input id="coursecode" name="coursecode" class="form-control" placeholder="请输入课程邀请码(10位以内数字)" maxlength="20">
+                            <input type="number" id="coursecode" name="coursecode" class="form-control" placeholder="请输入课程邀请码(10位以内数字)" maxlength="20">
                         </div>
 
                         <span style="color:red;display: none;" class="tips"></span>

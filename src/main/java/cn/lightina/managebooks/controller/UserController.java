@@ -1,7 +1,9 @@
 package cn.lightina.managebooks.controller;
 
+import cn.lightina.managebooks.pojo.CourseList;
 import cn.lightina.managebooks.pojo.User;
 import cn.lightina.managebooks.service.CourseService;
+import cn.lightina.managebooks.service.ForumService;
 import cn.lightina.managebooks.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -17,23 +20,32 @@ public class UserController {
     UserService userService;
     @Autowired
     CourseService courseService;
-
-    @GetMapping(value = "/index_stu")
-    public String index(){
-
-        return "index_stu";
-    }
+    @Autowired
+    ForumService forumService;
 
     @GetMapping(value = "/index")
     public String index1(Model model, HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user",user);
-        if(user.getUserType().equals("教师"))
-            return "index_tea";
-        else if(user.getUserType().equals("管理员"))
+        ///////////////////////////////////
+        initData(user.getUserID(),model);
+        ///////////////////////////////////
+        if(user.getUserType().equals("管理员"))
             return "index_admin";
-        else
+
+        List<CourseList> list = null;
+        Integer userid = user.getUserID();
+
+        list = courseService.findcourseByUserid(userid);
+
+        model.addAttribute("list",list);
+
+        if(user.getUserType().equals("教师")){
+            return "index_tea";
+        }else{
             return "index_stu";
+        }
+
     }
 
     @GetMapping(value = "/table")
@@ -79,17 +91,29 @@ public class UserController {
         // 成功之后更新model中的user信息
         model.addAttribute("user",u);
         request.getSession().setAttribute("user", u);
-        if(u.getUserType().equals("学生"))
-            return "index_stu";
-        else if(u.getUserType().equals("教师"))
-            return "index_tea";
-        else if(u.getUserType().equals("管理员"))
-            return "index_admin";
-        else{
-            model.addAttribute("msg","用户身份非法");
-            return "login";
-        }
 
+        ///////////////////////////////////
+        initData(u.getUserID(),model);
+        ///////////////////////////////////
+
+        if(u.getUserType().equals("管理员")) {
+            return "index_admin";
+        } else{
+            List<CourseList> list = null;
+            Integer userid = u.getUserID();
+            list = courseService.findcourseByUserid(userid);
+
+            model.addAttribute("list",list);
+
+            if(u.getUserType().equals("学生")){
+                return "index_stu";
+            }else if(u.getUserType().equals("教师")){
+                return "index_tea";
+            }else{
+                model.addAttribute("msg","用户身份非法");
+                return "login";
+            }
+        }
     }
 
     @GetMapping(value = "/register")
@@ -215,8 +239,31 @@ public class UserController {
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user",user);
         request.getSession().setAttribute("user", user);
+
         return "userinfo";
     }
 
 
+    public void initData(Integer userID,Model model){
+        //用户总数
+        Integer unum = userService.getUserNum();
+        //用户课程数、课程总数
+        Integer cnum_tea = courseService.getTeaCourseNum(userID);
+        Integer cnum_stu = courseService.getStuCourseNum(userID);
+        Integer cnum_all = courseService.getAllCourseNum();
+        //用户话题数、话题总数
+        Integer tnum = forumService.getTopicNum(userID);
+        Integer tnum_all = forumService.getAllTopicNum();
+
+        //课程
+        model.addAttribute("cnum_tea",cnum_tea);
+        model.addAttribute("cnum_stu",cnum_stu);
+        model.addAttribute("cnum_all",cnum_all);
+        //用户
+        model.addAttribute("unum",unum);
+        //话题
+        model.addAttribute("tnum",tnum);
+        model.addAttribute("tnum_all",tnum_all);
+
+    }
 }

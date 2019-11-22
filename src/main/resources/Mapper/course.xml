@@ -158,4 +158,19 @@
         set status = 1
         where courseID = #{courseID} and studentID = #{studentID}
     </update>
+
+    <!--查询课程总数-->
+    <select id="getAllCourseNum" resultType="int">
+        select count(*) from courselist
+    </select>
+    <!--查询教师课程数-->
+    <select id="getTeaCourseNum" resultType="int">
+         select count(*) from courselist
+         where teacherID = #{userID}
+    </select>
+    <!--查询学生课程数-->
+    <select id="getStuCourseNum" resultType="int">
+        select count(*) from courseselection
+        where studentID = #{userID}
+    </select>
 </mapper>

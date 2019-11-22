@@ -95,4 +95,15 @@ public class ForumServiceimpl implements ForumService{
     public Integer deleteComment(Integer commentID) {
         return forumMapper.deleteComment(commentID);
     }
+
+    @Override
+    public Integer getAllTopicNum() {
+        return forumMapper.getAllTopicNum();
+    }
+
+    @Override
+    public Integer getTopicNum(Integer userID) {
+        return forumMapper.getTopicNum(userID);
+    }
+
 }

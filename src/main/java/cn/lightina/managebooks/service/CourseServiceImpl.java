@@ -124,5 +124,20 @@ public class CourseServiceImpl implements CourseService {
         return courseMapper.setSignStatus(courseID,studentID);
     }
 
+    @Override
+    public Integer getTeaCourseNum(Integer userID) {
+        return courseMapper.getTeaCourseNum(userID);
+    }
+
+    @Override
+    public Integer getStuCourseNum(Integer userID) {
+        return courseMapper.getStuCourseNum(userID);
+    }
+
+    @Override
+    public Integer getAllCourseNum() {
+        return courseMapper.getAllCourseNum();
+    }
+
 
 }

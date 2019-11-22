@@ -17,4 +17,7 @@ public interface UserService {
     String findPwd(String phone);
 
     User checkPhone(String phone);
+
+    //查询用户数量
+    Integer getUserNum();
 }

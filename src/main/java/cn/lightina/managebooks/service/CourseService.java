@@ -68,4 +68,11 @@ public interface CourseService {
     Integer getSignStatus(Integer courseID,Integer studentID);
     //考勤状态置1
     Integer setSignStatus(Integer courseID,Integer studentID);
+
+    //查询教师课程数
+    Integer getTeaCourseNum(Integer userID);
+    //查询学生课程数
+    Integer getStuCourseNum(Integer userID);
+    //查询课程总数
+    Integer getAllCourseNum();
 }

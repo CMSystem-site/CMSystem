@@ -5,6 +5,8 @@ import cn.lightina.managebooks.pojo.CourseList;
 import cn.lightina.managebooks.pojo.CourseSelection;
 import cn.lightina.managebooks.pojo.User;
 import cn.lightina.managebooks.service.CourseService;
+import cn.lightina.managebooks.service.ForumService;
+import cn.lightina.managebooks.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,10 @@ public class CourseController {
 
     @Autowired
     CourseService courseService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    ForumService forumService;
 
     //全部课程列表
     @GetMapping(value = "/allCourses")
@@ -374,13 +380,24 @@ public class CourseController {
 
     //考勤码签到（学生）
     @RequestMapping("/signin/{code}")
-    public String signin(@PathVariable(value = "code")Integer code,
+    public String signin(@PathVariable(value = "code")String code_str,
                          Model model,HttpServletRequest request){
 
         User user = (User) request.getSession().getAttribute("user");
         model.addAttribute("user",user);
+        initData(user.getUserID(),model);
 
+        if(!isInt(code_str)){
+            model.addAttribute("msg","请输入数字！");
+            return "index_stu";
+        }
+        Integer code = Integer.valueOf(code_str);
         Attendance attendance = courseService.checkAutoCode(code);
+        if(attendance==null){
+            model.addAttribute("msg","考勤码不存在！");
+            return "index_stu";
+        }
+
         Integer courseID = attendance.getCourseID();
         Integer studentID = user.getUserID();
 
@@ -455,4 +472,30 @@ public class CourseController {
         return list;
     }
 
+    public void initData(Integer userID,Model model){
+        //用户总数
+        Integer unum = userService.getUserNum();
+        //用户课程数、课程总数
+        Integer cnum_tea = courseService.getTeaCourseNum(userID);
+        Integer cnum_stu = courseService.getStuCourseNum(userID);
+        Integer cnum_all = courseService.getAllCourseNum();
+        //用户话题数、话题总数
+        Integer tnum = forumService.getTopicNum(userID);
+        Integer tnum_all = forumService.getAllTopicNum();
+
+        //课程
+        model.addAttribute("cnum_tea",cnum_tea);
+        model.addAttribute("cnum_stu",cnum_stu);
+        model.addAttribute("cnum_all",cnum_all);
+        //用户
+        model.addAttribute("unum",unum);
+        //话题
+        model.addAttribute("tnum",tnum);
+        model.addAttribute("tnum_all",tnum_all);
+
+        //我的课程
+        List<CourseList> list = null;
+        list = courseService.findcourseByUserid(userID);
+        model.addAttribute("list",list);
+    }
 }

@@ -42,4 +42,9 @@ public interface ForumService {
     Integer deleteTopic(Integer topicID);
     //删除评论
     Integer deleteComment(Integer commentID);
+
+    //查询话题总数
+    Integer getAllTopicNum();
+    //查询用户话题数量
+    Integer getTopicNum(Integer userID);
 }

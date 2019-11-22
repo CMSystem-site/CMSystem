@@ -47,4 +47,9 @@ public class UserServiceimpl implements UserService {
         return userMapper.checkPhone(phone);
     }
 
+    @Override
+    public Integer getUserNum() {
+        return userMapper.getUserNum();
+    }
+
 }

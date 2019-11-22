@@ -67,4 +67,11 @@ public interface CourseMapper {
     Integer getSignStatus(@Param("courseID")Integer courseID,@Param("studentID")Integer studentID);
     //签到状态置1
     Integer setSignStatus(@Param("courseID")Integer courseID,@Param("studentID")Integer studentID);
+
+    //查询教师课程数量
+    Integer getTeaCourseNum(@Param("userID")Integer userID);
+    //查询学生课程数量
+    Integer getStuCourseNum(@Param("userID")Integer userID);
+    //查询课程总数
+    Integer getAllCourseNum();
 }
