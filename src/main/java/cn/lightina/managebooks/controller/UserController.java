@@ -161,7 +161,7 @@ public class UserController {
         if(u==null){
             Integer flag = userService.addUser(user);
             if(flag!=1){
-                model.addAttribute("msg","注册失败，请刷新重试！");
+                model.addAttribute("msg","此账号已被注册，请重试！");
                 return "register";
             }else{
                 model.addAttribute("msg","注册成功！");

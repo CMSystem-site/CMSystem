@@ -240,12 +240,19 @@ public class CourseController {
             model.addAttribute("msg","退课失败，请刷新重试！");
         }
 
-        List<CourseList> list = courseService.findcourseByUserid(user.getUserID());
-        model.addAttribute("list",list);
-        if(user.getUserType().equals("管理员"))
+
+        initData(user.getUserID(),model);
+
+        if(user.getUserType().equals("管理员")){
+            List<CourseList> list = courseService.getlist_all();
+            model.addAttribute("list",list);
             return "showCourses";
-        else
+        }
+        else{
+            List<CourseList> list = courseService.findcourseByUserid(user.getUserID());
+            model.addAttribute("list",list);
             return "myCourses";
+        }
 
     }
 
