@@ -16,7 +16,7 @@ public class ReComment {
     private String userName;
     private String userType;
 
-    public ReComment(Integer reCommentID, Long commentID, Integer userID,String text,Timestamp date,String email,String website,String userName,String userType){
+    public ReComment(Integer reCommentID, Long commentID, Integer userID,String text,Timestamp date,String userName,String userType){
         this.reCommentID = reCommentID;
         this.commentID = commentID.intValue();
         this.userID = userID;
@@ -30,7 +30,7 @@ public class ReComment {
         this.date = sdf.format(date);
     }
 
-    public ReComment(Integer commentID, Integer userID,String text,String email,String website,String userName,String userType){
+    public ReComment(Integer commentID, Integer userID,String text,String userName,String userType){
         this.commentID = commentID.intValue();
         this.userID = userID;
         this.text = text;

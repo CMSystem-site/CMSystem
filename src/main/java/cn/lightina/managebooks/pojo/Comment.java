@@ -25,7 +25,7 @@ public class Comment {
     private List<ReComment> reComments;
 
     public Comment(Long commentID, Integer userID, Integer topicID, Timestamp date, String text, Integer reCommentCount,
-                   String email, String website, String userName, String userType){
+                   String userName, String userType){
         this.commentID = commentID.intValue();
         this.userID = userID;
         this.topicID = topicID;
@@ -39,12 +39,10 @@ public class Comment {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.date = sdf.format(date);
     }
-    public Comment(Integer userID, Integer topicID,String text, String email,String website,String userName,String userType){
+    public Comment(Integer userID, Integer topicID,String text, String userName,String userType){
         this.userID = userID;
         this.topicID = topicID;
         this.text = text;
-        this.email = email;
-        this.website = website;
         this.userName = userName;
         this.userType = userType;
 

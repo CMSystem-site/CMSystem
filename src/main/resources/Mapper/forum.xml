@@ -52,8 +52,8 @@
 
     <!--在某个主题下面添加评论-->
     <insert id="addComment" parameterType="Comment">
-        insert into comment(userID,topicID,date,text,reCommentCount,email,website,userName,userType)
-        values (#{comment.userID},#{comment.topicID},#{comment.date},#{comment.text},#{comment.reCommentCount},#{comment.email},#{comment.website},#{comment.userName},#{comment.userType})
+        insert into comment(userID,topicID,date,text,reCommentCount,userName,userType)
+        values (#{comment.userID},#{comment.topicID},#{comment.date},#{comment.text},#{comment.reCommentCount},#{comment.userName},#{comment.userType})
     </insert>
 
     <!--在某个主题下面删除评论-->
@@ -64,15 +64,15 @@
 
     <!--查询某个主题下面的所有评论-->
     <select id="getCommentByTopicID" resultType="Comment">
-        select comment.*
+        select *
         from comment
-        where comment.topicID = #{topicID}
+        where topicID = #{topicID}
     </select>
 
     <!--在某个评论下添加回复-->
     <insert id="addReComment" parameterType="ReComment">
-        insert into recomment(commentID,userID,text,date,email,website,userName,userType)
-        values (#{reComment.commentID},#{reComment.userID},#{reComment.text},#{reComment.date},#{reComment.email},#{reComment.website},#{reComment.userName},#{reComment.userType})
+        insert into recomment(commentID,userID,text,date,userName,userType)
+        values (#{reComment.commentID},#{reComment.userID},#{reComment.text},#{reComment.date},#{reComment.userName},#{reComment.userType})
     </insert>
 
 

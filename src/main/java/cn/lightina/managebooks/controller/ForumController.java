@@ -159,12 +159,10 @@ public class ForumController {
         model.addAttribute("course",course);
 
         Integer userID = user.getUserID();
-        String email = request.getParameter("email");
-        String website = request.getParameter("website");
         String text = request.getParameter("text");
         User addCommentUser = forumService.getUserByUserID(userID);
-
-        Comment newComment = new Comment(userID,topicID,text,email,website,addCommentUser.getUserName(),addCommentUser.getUserType());
+/////////////////////////////
+        Comment newComment = new Comment(userID,topicID,text,addCommentUser.getUserName(),addCommentUser.getUserType());
         System.out.println(newComment.toString());
         int flag = forumService.addComment(newComment);
         if(flag!=1){
@@ -228,6 +226,7 @@ public class ForumController {
 
     }
 
+    //回复评论
     @RequestMapping("/forum/{courseID}/topic/{topicID}/comment/{commentID}/editReComment")
     public String editForumReComment(@PathVariable(value = "courseID")Integer courseID,
                                     @PathVariable(value = "topicID")Integer topicID,
@@ -262,12 +261,10 @@ public class ForumController {
 
 
         Integer userID = user.getUserID();
-        String email = request.getParameter("email");
-        String website = request.getParameter("website");
         String text = request.getParameter("text");
         User addReCommentUser = forumService.getUserByUserID(userID);
-
-        ReComment newReComment = new ReComment(commentID,userID,text,email,website,addReCommentUser.getUserName(),addReCommentUser.getUserType());
+        ///////
+        ReComment newReComment = new ReComment(commentID,userID,text,addReCommentUser.getUserName(),addReCommentUser.getUserType());
         System.out.println(newReComment.toString());
 
         int flag = forumService.addReComment(newReComment);

@@ -93,37 +93,6 @@
                 </div>
             </div>
 
-
-            <!-- Start of Main Navigation -->
-            <!--<nav class="main-nav">
-                    <div class="menu-top-menu-container">
-                            <ul id="menu-top-menu" class="clearfix">
-                                    <li><a href="index-2.html">Home</a></li>
-                                    <li><a href="home-categories-description.html">Home 2</a></li>
-                                    <li><a href="home-categories-articles.html">Home 3</a></li>
-                                    <li  class="current-menu-item"><a href="articles-list.html">Articles List</a></li>
-                                    <li><a href="faq.html">FAQs</a></li>
-                                    <li><a href="#">Skins</a>
-                                            <ul class="sub-menu">
-                                                    <li><a href="blue-skin.html">Blue Skin</a></li>
-                                                    <li><a href="green-skin.html">Green Skin</a></li>
-                                                    <li><a href="red-skin.html">Red Skin</a></li>
-                                                    <li><a href="index-2.html">Default Skin</a></li>
-                                            </ul>
-                                    </li>
-                                    <li><a href="#">More</a>
-                                            <ul class="sub-menu">
-                                                    <li><a href="full-width.html">Full Width</a></li>
-                                                    <li><a href="elements.html">Elements</a></li>
-                                                    <li><a href="page.html">Sample Page</a></li>
-                                            </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
-                            </ul>
-                    </div>
-            </nav>-->
-            <!-- End of Main Navigation -->
-
         </div>
     </header>
 </div>
@@ -239,7 +208,7 @@
 
                     <div id="respond">
 
-                        <h3>Leave a Reply</h3>
+                        <h3>评论</h3>
 
                         <div class="cancel-comment-reply">
                             <a rel="nofollow" id="cancel-comment-reply-link" href="#" style="display:none;">Click here to cancel reply.</a>
@@ -247,18 +216,6 @@
 
 
                         <form name="form_addcomment" th:action="'/forum/' + ${topic.courseID} + '/topic/' + ${topic.topicID} + '/addComment'">
-                            <p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
-                            <div>
-                                <label for="email">邮箱 *</label>
-                                <input class="span4" type="text" name="email" id="email" value="" size="22" >
-                            </div>
-
-                            <div>
-                                <label for="website">个人主页 *</label>
-                                <input class="span4" type="text" name="website" id="website" value="" size="22" >
-                            </div>
-
-
                             <div>
                                 <label for="text">评论内容</label>
                                 <textarea class="span8" name="text" id="text" cols="58" rows="10"></textarea>
