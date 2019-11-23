@@ -100,7 +100,7 @@
 
                 <li th:if="${user.userType.equals('学生')}"><a data-toggle="modal" data-target="#autocode"><i class="ti-cloud"></i> 签 到 </a></li>
                 <li th:if="${user.userType.equals('教师')}"><a data-toggle="modal" data-target="#add"><i class="ti-view-list-alt"></i> 创建课程 </a></li>
-
+                <li th:if="${user.userType.equals('管理员')}"><a href="/checkTopic"><i class="ti-view-list-alt"></i> 待审核话题 </a></li>
                 <li><a href="/login"><i class="ti-close"></i> 登 出 </a></li>
             </ul>
         </div>
